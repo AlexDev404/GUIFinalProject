@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/resources">
+        <file>assets/fonts/WorkSans-Light.ttf</file>
+        <file>assets/fonts/WorkSans-Black.ttf</file>
+        <file>assets/fonts/WorkSans-BlackItalic.ttf</file>
+        <file>assets/fonts/WorkSans-Bold.ttf</file>
+        <file>assets/fonts/WorkSans-BoldItalic.ttf</file>
+        <file>assets/fonts/WorkSans-ExtraBold.ttf</file>
+        <file>assets/fonts/WorkSans-ExtraBoldItalic.ttf</file>
+        <file>assets/fonts/WorkSans-ExtraLight.ttf</file>
+        <file>assets/fonts/WorkSans-ExtraLightItalic.ttf</file>
+        <file>assets/fonts/WorkSans-Italic.ttf</file>
+        <file>assets/fonts/WorkSans-LightItalic.ttf</file>
+        <file>assets/fonts/WorkSans-Medium.ttf</file>
+        <file>assets/fonts/WorkSans-MediumItalic.ttf</file>
+        <file>assets/fonts/WorkSans-Regular.ttf</file>
+        <file>assets/fonts/WorkSans-SemiBold.ttf</file>
+        <file>assets/fonts/WorkSans-SemiBoldItalic.ttf</file>
+        <file>assets/fonts/WorkSans-Thin.ttf</file>
+        <file>assets/fonts/WorkSans-ThinItalic.ttf</file>
+        <file>assets/fonts/variable/WorkSans-VariableFont_wght.ttf</file>
+    </qresource>
+</RCC>
