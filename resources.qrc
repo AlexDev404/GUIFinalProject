@@ -20,4 +20,17 @@
         <file>assets/fonts/WorkSans-ThinItalic.ttf</file>
         <file>assets/fonts/variable/WorkSans-VariableFont_wght.ttf</file>
     </qresource>
+    <qresource prefix="/">
+        <file>assets/css/finalproject.css</file>
+        <file>assets/images/backward.png</file>
+        <file>assets/images/circle.png</file>
+        <file>assets/images/disk.png</file>
+        <file>assets/images/forward.png</file>
+        <file>assets/images/headphones.png</file>
+        <file>assets/images/play.png</file>
+        <file>assets/images/playlist.jpg</file>
+        <file>assets/images/searchImg.png</file>
+        <file>assets/images/settings.png</file>
+        <file>assets/images/user.png</file>
+    </qresource>
 </RCC>
