@@ -1,64 +1,35 @@
-QMainWindow
-{
-    background-color: #0E1C2E;
+QMainWindow {
+   background: #0E1C2E;
+   color: #D2DBED;
 }
 
-QMenuBar
-{
-    background-color: #D2DBED;
-    color: #0E1C2E;
-}
-QPushButton
-{
-    color: #D2DBED;
-    border: none;
-    background-color: #18314F;
+QLabel {
+   color: #D2DBED;
+   font-family: "Work Sans", "Segoe UI", sans-serif;
 }
 
-QLineEdit
-{
-    color: #D2DBED;
-    background-color: #18314F;
-    border: none;
+QFrame#side_bar{
+    border-top: 1px solid #DBEAFE;
 }
 
-QLabel
-{
-    color: #D2DBED;
+QPushButton {
+   font-family: "Work Sans", "Segoe UI", sans-serif;
+   background: transparent;
+   border: 1px solid #18314F;
+   border-radius: 2px;
+   color: white;
 }
 
-QListView, QTabWidget QWidget
-{
-    background-color: #18314F;
-    color: #D2DBED;
-    border: none;
+QStackedWidget{
+    background: #18314F;
 }
 
-QPushButton#forwardButton, QPushButton#backwardButton, QPushButton#playButton
-{
-    background-color: #0E1C2E;
-    border: none;
+QListView#libraryListView{
+    background: #18314F;
 }
 
-/*Left align the buttons on the settings*/
-/* -------------------------- change the names of these buttons --------------------------*/
-QPushButton#pushButton_24, QPushButton#pushButton_25, QPushButton#pushButton_26, QPushButton#pushButton, QPushButton#pushButton_2
-{
-    text-align: left;
-    padding: 10px;
-    background-color: #0E1C2E;
+/* Responsive */
+QPushButton:hover {
+   background: #FFFFFF;
+   color: #000000;
 }
-
-QPushButton#playListButton_ss, QPushButton#userSettings_ss, QPushButton#musicLibraryButton_ss, QPushButton#reportButton_ss
-{
-    background-color: #0E1C2E;
-    text-align: left;
-    padding: 15px;
-}
-
-QLabel#bgRectangle_ss
-{
-    background-color: #18314F;
-    
-}
-

@@ -20,7 +20,7 @@
         <file>assets/fonts/WorkSans-ThinItalic.ttf</file>
         <file>assets/fonts/variable/WorkSans-VariableFont_wght.ttf</file>
     </qresource>
-    <qresource prefix="/">
+    <qresource prefix="/otherfiles">
         <file>assets/css/finalproject.css</file>
         <file>assets/images/backward.png</file>
         <file>assets/images/circle.png</file>

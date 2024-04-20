@@ -19,6 +19,29 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_settings_clicked();
+
+    void on_search_submit_clicked();
+
+    void on_reportButton_clicked();
+
+    void on_your_playlists_clicked();
+
+    void on_trackManagementButton_clicked();
+
+    void on_userManagementButton_clicked();
+
+    void on_all_tracks_clicked();
+
+    void on_all_albums_clicked();
+
+    void on_viewSongsButton_clicked();
+
+    void on_viewAlbumsButton_clicked();
+
+    void on_viewPlaylistButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1230</width>
-    <height>721</height>
+    <height>747</height>
    </rect>
   </property>
   <property name="font">
@@ -20,46 +20,15 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QMainWindow {
-   background: #0e1c2e;
-   color: #D2DBED;
-}
-
-QLabel {
-   color: #D2DBED;
-   font-family: &quot;Work Sans&quot;, &quot;Segoe UI&quot;, sans-serif;
-}
-
-QWidget {
-   color: #D2DBED;
-   font-family: &quot;Work Sans&quot;, &quot;Segoe UI&quot;, sans-serif;
-}
-
-QPushButton {
-   font-family: &quot;Work Sans&quot;, &quot;Segoe UI&quot;, sans-serif;
-   background: transparent;
-   border: 1px solid #18314f;
-   border-radius: 2px;
-   color: white;
-}
-
-QPushButton:hover {
-   background: #18314f;
-}
-
-QStackedWidget[objectName^=&quot;stackedWidget&quot;] {
-   background: #18314f;
-   /*border: 1px solid #295C4C;*/
-   border-radius: 4px;
-}</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QStackedWidget" name="stackedWidget">
+   <widget class="QStackedWidget" name="mainStackedWidget">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>100</y>
-      <width>851</width>
+      <x>350</x>
+      <y>130</y>
+      <width>841</width>
       <height>571</height>
      </rect>
     </property>
@@ -69,9 +38,9 @@ QStackedWidget[objectName^=&quot;stackedWidget&quot;] {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
-    <widget class="QWidget" name="page">
+    <widget class="QWidget" name="playlistDisplayPage">
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
@@ -192,84 +161,709 @@ QStackedWidget[objectName^=&quot;stackedWidget&quot;] {
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="page_2">
-     <widget class="QWidget" name="gridLayoutWidget_2">
+    <widget class="QWidget" name="formsPage">
+     <widget class="QTabWidget" name="managementTab_fp">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>90</y>
-        <width>701</width>
-        <height>211</height>
+        <x>20</x>
+        <y>70</y>
+        <width>811</width>
+        <height>481</height>
        </rect>
       </property>
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
-        <widget class="QFrame" name="frame">
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <widget class="QPushButton" name="reportButton">
+      <property name="tabPosition">
+       <enum>QTabWidget::North</enum>
+      </property>
+      <property name="tabShape">
+       <enum>QTabWidget::Triangular</enum>
+      </property>
+      <property name="currentIndex">
+       <number>3</number>
+      </property>
+      <widget class="QWidget" name="genres">
+       <attribute name="title">
+        <string>Genres</string>
+       </attribute>
+       <widget class="QListView" name="genresListView_fp">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>70</y>
+          <width>731</width>
+          <height>301</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_fp_4">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>20</y>
+          <width>731</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Work Sans</family>
+          <pointsize>18</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Genres</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QWidget" name="layoutWidget_4">
+        <property name="geometry">
+         <rect>
+          <x>480</x>
+          <y>390</y>
+          <width>295</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <widget class="QPushButton" name="AddGenres_fp">
+           <property name="text">
+            <string>Add</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="EditGenres_fp">
+           <property name="text">
+            <string>Edit</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="deleteGenres_fp">
+           <property name="text">
+            <string>Delete</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="artists">
+       <attribute name="title">
+        <string>Artists</string>
+       </attribute>
+       <widget class="QLabel" name="label_fp_3">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>20</y>
+          <width>731</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Work Sans</family>
+          <pointsize>18</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Artists</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QWidget" name="layoutWidget_5">
+        <property name="geometry">
+         <rect>
+          <x>480</x>
+          <y>390</y>
+          <width>295</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <widget class="QPushButton" name="addArtists_fp">
+           <property name="text">
+            <string>Add</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="editArtists_fp">
+           <property name="text">
+            <string>Edit</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="deleteArtists_fp">
+           <property name="text">
+            <string>Delete</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QListView" name="artistsListView_fp">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>70</y>
+          <width>731</width>
+          <height>301</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="albums">
+       <attribute name="title">
+        <string>Albums</string>
+       </attribute>
+       <widget class="QListView" name="albumsListView_fp">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>70</y>
+          <width>731</width>
+          <height>301</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QWidget" name="layoutWidget_6">
+        <property name="geometry">
+         <rect>
+          <x>480</x>
+          <y>390</y>
+          <width>295</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_9">
+         <item>
+          <widget class="QPushButton" name="addAlbum_fp">
+           <property name="text">
+            <string>Add</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="editAlbum_fp">
+           <property name="text">
+            <string>Edit</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="deleteAlbum_fp">
+           <property name="text">
+            <string>Delete</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QLabel" name="label_fp_2">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>20</y>
+          <width>731</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Work Sans</family>
+          <pointsize>18</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Albums</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tracks">
+       <attribute name="title">
+        <string>Tracks</string>
+       </attribute>
+       <widget class="QStackedWidget" name="trackManagementSub">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>120</y>
+          <width>731</width>
+          <height>291</height>
+         </rect>
+        </property>
+        <property name="currentIndex">
+         <number>1</number>
+        </property>
+        <widget class="QWidget" name="addtrack">
+         <widget class="QLabel" name="label_fp_14">
           <property name="geometry">
            <rect>
-            <x>-10</x>
-            <y>40</y>
-            <width>141</width>
+            <x>0</x>
+            <y>20</y>
+            <width>731</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>18</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Add Track</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="addTrackButton_fp">
+          <property name="geometry">
+           <rect>
+            <x>340</x>
+            <y>230</y>
+            <width>51</width>
             <height>20</height>
            </rect>
           </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
           <property name="text">
-           <string>Reports</string>
+           <string>Add</string>
           </property>
          </widget>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QFrame" name="frame_2">
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <widget class="QPushButton" name="userManagementButton">
+         <widget class="QWidget" name="formLayoutWidget_2">
           <property name="geometry">
            <rect>
-            <x>-250</x>
-            <y>40</y>
-            <width>699</width>
-            <height>18</height>
+            <x>160</x>
+            <y>80</y>
+            <width>183</width>
+            <height>131</height>
+           </rect>
+          </property>
+          <layout class="QFormLayout" name="formLayout_4">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_fp_10">
+             <property name="text">
+              <string>Title</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="addTrackTitle"/>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_fp_11">
+             <property name="text">
+              <string>Artist</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QComboBox" name="addTrackArtist"/>
+           </item>
+           <item row="2" column="1">
+            <widget class="QComboBox" name="AddTrackAlbum"/>
+           </item>
+           <item row="3" column="1">
+            <widget class="QComboBox" name="AddTrackGenre"/>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_fp_12">
+             <property name="text">
+              <string>Album</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_fp_13">
+             <property name="text">
+              <string>Genre</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="formLayoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>390</x>
+            <y>80</y>
+            <width>181</width>
+            <height>81</height>
+           </rect>
+          </property>
+          <layout class="QFormLayout" name="formLayout_3">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_fp_7">
+             <property name="text">
+              <string>Lyrics</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="addTrackLyrics">
+             <property name="text">
+              <string>Search</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QDoubleSpinBox" name="addTrackDuration"/>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_fp_9">
+             <property name="text">
+              <string>File</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QPushButton" name="addTrackFile">
+             <property name="text">
+              <string>Search</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_fp_8">
+             <property name="text">
+              <string>Duration</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="edittrack">
+         <widget class="QLabel" name="label_fp_23">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>20</y>
+            <width>731</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Work Sans</family>
+            <pointsize>18</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Edit Track</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+         <widget class="QWidget" name="formLayoutWidget_4">
+          <property name="geometry">
+           <rect>
+            <x>160</x>
+            <y>110</y>
+            <width>183</width>
+            <height>131</height>
+           </rect>
+          </property>
+          <layout class="QFormLayout" name="formLayout_8">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_fp_19">
+             <property name="text">
+              <string>Title</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="editTrackTitle"/>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_fp_20">
+             <property name="text">
+              <string>Artist</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QComboBox" name="editTrackArtist"/>
+           </item>
+           <item row="2" column="1">
+            <widget class="QComboBox" name="editTrackAlbum"/>
+           </item>
+           <item row="3" column="1">
+            <widget class="QComboBox" name="editTrackGenre"/>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_fp_21">
+             <property name="text">
+              <string>Album</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_fp_22">
+             <property name="text">
+              <string>Genre</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QPushButton" name="editButton_fp">
+          <property name="geometry">
+           <rect>
+            <x>340</x>
+            <y>260</y>
+            <width>51</width>
+            <height>20</height>
            </rect>
           </property>
           <property name="text">
-           <string>User Management</string>
+           <string>Edit</string>
+          </property>
+         </widget>
+         <widget class="QWidget" name="formLayoutWidget_3">
+          <property name="geometry">
+           <rect>
+            <x>390</x>
+            <y>110</y>
+            <width>181</width>
+            <height>81</height>
+           </rect>
+          </property>
+          <layout class="QFormLayout" name="formLayout_7">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_fp_16">
+             <property name="text">
+              <string>Lyrics</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="editTrackLyrics">
+             <property name="text">
+              <string>Search</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QDoubleSpinBox" name="editTrackDuration"/>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_fp_17">
+             <property name="text">
+              <string>File</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QPushButton" name="EditTrackFile">
+             <property name="text">
+              <string>Search</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_fp_18">
+             <property name="text">
+              <string>Duration</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="layoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>523</x>
+            <y>70</y>
+            <width>201</width>
+            <height>26</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QLineEdit" name="lineEdit_2"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton">
+             <property name="text">
+              <string>Search</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="deletetrack">
+         <widget class="QLabel" name="label_fp_15">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>20</y>
+            <width>731</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Work Sans</family>
+            <pointsize>18</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Delete Track</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="deleteTrack_fp">
+          <property name="geometry">
+           <rect>
+            <x>630</x>
+            <y>260</y>
+            <width>75</width>
+            <height>24</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Delete</string>
+          </property>
+         </widget>
+         <widget class="QListView" name="deleteTrackListView">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>70</y>
+            <width>671</width>
+            <height>181</height>
+           </rect>
           </property>
          </widget>
         </widget>
-       </item>
-      </layout>
+       </widget>
+       <widget class="QLabel" name="label_fp_5">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>70</y>
+          <width>151</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Select a managment action </string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="trackManagementcomboBox">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>70</y>
+          <width>80</width>
+          <height>26</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>Add</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Edit</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Delete</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QLabel" name="label_fp_6">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>20</y>
+          <width>731</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Work Sans</family>
+          <pointsize>18</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Tracks</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </widget>
      </widget>
+     <widget class="QLabel" name="label_fp_1">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>851</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Work Sans</family>
+        <pointsize>18</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Track Management</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="settingsPage">
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>30</x>
         <y>20</y>
-        <width>701</width>
+        <width>781</width>
         <height>56</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QVBoxLayout" name="heading_sp">
        <item>
-        <widget class="QLabel" name="libraryLabel_3">
+        <widget class="QLabel" name="label_sp_2">
          <property name="font">
           <font>
            <family>Work Sans</family>
-           <pointsize>12</pointsize>
+           <pointsize>16</pointsize>
+           <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
@@ -281,7 +875,7 @@ QStackedWidget[objectName^=&quot;stackedWidget&quot;] {
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_27">
+        <widget class="QLabel" name="label_sp_1">
          <property name="text">
           <string>View or Edit Settings</string>
          </property>
@@ -289,13 +883,13 @@ QStackedWidget[objectName^=&quot;stackedWidget&quot;] {
        </item>
       </layout>
      </widget>
-     <widget class="QFrame" name="frame_3">
+     <widget class="QFrame" name="buttonFrame_sp">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>240</y>
-        <width>120</width>
-        <height>80</height>
+        <x>30</x>
+        <y>90</y>
+        <width>781</width>
+        <height>441</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -304,33 +898,535 @@ QStackedWidget[objectName^=&quot;stackedWidget&quot;] {
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
+      <widget class="QPushButton" name="userManagementButton">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>240</y>
+         <width>181</width>
+         <height>161</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>User Management</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="reportButton">
+       <property name="geometry">
+        <rect>
+         <x>540</x>
+         <y>240</y>
+         <width>181</width>
+         <height>161</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Reports</string>
+       </property>
+      </widget>
       <widget class="QPushButton" name="trackManagementButton">
        <property name="geometry">
         <rect>
-         <x>-70</x>
-         <y>40</y>
+         <x>300</x>
+         <y>240</y>
          <width>181</width>
-         <height>18</height>
+         <height>161</height>
         </rect>
        </property>
        <property name="text">
         <string>Track Management</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="viewPlaylistButton">
+       <property name="geometry">
+        <rect>
+         <x>540</x>
+         <y>40</y>
+         <width>181</width>
+         <height>161</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>View Playlist</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="viewSongsButton">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>40</y>
+         <width>181</width>
+         <height>161</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>View Songs</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="viewAlbumsButton">
+       <property name="geometry">
+        <rect>
+         <x>300</x>
+         <y>40</y>
+         <width>181</width>
+         <height>161</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>View Albums</string>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="allAlbumsPage">
+     <widget class="QLabel" name="label_aap_1">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>851</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>18</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>All Albums</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QListView" name="allAlbumListView">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>70</y>
+        <width>771</width>
+        <height>331</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>535</x>
+        <y>420</y>
+        <width>271</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QPushButton" name="playButton_aap">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>Play</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="addToLibraryButton_aap">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>Add to Library</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="allSongsPage">
+     <widget class="QLabel" name="label_asp_1">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>851</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Work Sans</family>
+        <pointsize>18</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>All Songs</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QListView" name="allSongsListView">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>70</y>
+        <width>771</width>
+        <height>331</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_3">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>420</y>
+        <width>271</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QPushButton" name="addButton_asp">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>Add</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="playButton_asp">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>Play</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="editUsersPage">
+     <widget class="QWidget" name="layoutWidget_7">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>490</y>
+        <width>295</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QPushButton" name="deleteButton_eup">
+         <property name="text">
+          <string>Delete</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="blockButton_eup">
+         <property name="text">
+          <string>Block</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="unblockButton_eup">
+         <property name="text">
+          <string>Unblock</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QListView" name="userListView">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>70</y>
+        <width>801</width>
+        <height>401</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_eup_1">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>801</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>18</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Current Users</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="libraryDisplayPage">
+     <widget class="QLabel" name="label_ldp_1">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>801</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Work Sans</family>
+        <pointsize>18</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Library</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_9">
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>490</y>
+        <width>506</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QPushButton" name="playButton_ldp">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>Play</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="editButton_ldp">
+         <property name="text">
+          <string>Edit</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="deleteButton_ldp">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>Delete</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QListView" name="libraryDisplayListView">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>70</y>
+        <width>801</width>
+        <height>401</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="reportPage">
+     <widget class="QLabel" name="label_rp_1">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>80</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Top Listened to</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="reportTypeComboBox">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>80</y>
+        <width>131</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <item>
+       <property name="text">
+        <string>Tracks</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Artists</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Albums</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="label_rp_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>801</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Work Sans</family>
+        <pointsize>18</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Reports</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="reportTableDisplay">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>130</y>
+        <width>811</width>
+        <height>261</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="clearButton_rp">
+      <property name="geometry">
+       <rect>
+        <x>750</x>
+        <y>410</y>
+        <width>83</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Clear</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="searchResultPage">
+     <widget class="QLabel" name="label_srp_1">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>801</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Work Sans</family>
+        <pointsize>18</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Search Result...</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QListView" name="searchResultListView">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>70</y>
+        <width>801</width>
+        <height>401</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_8">
+      <property name="geometry">
+       <rect>
+        <x>545</x>
+        <y>490</y>
+        <width>281</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="buttonFrame_srp">
+       <item>
+        <widget class="QPushButton" name="playButton_srp">
+         <property name="text">
+          <string>Play</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="addToLibraryButton_srp">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>Add to Library</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
    </widget>
    <widget class="QFrame" name="side_bar">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>100</y>
+      <x>30</x>
+      <y>130</y>
       <width>291</width>
       <height>301</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-top: 1px solid #DBEAFE;</string>
+     <string notr="true"/>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -338,12 +1434,46 @@ QStackedWidget[objectName^=&quot;stackedWidget&quot;] {
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
+    <widget class="QLabel" name="libraryLabel">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>63</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>Library</string>
+     </property>
+    </widget>
+    <widget class="QListView" name="libraryListView">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>41</y>
+       <width>261</width>
+       <height>251</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+    </widget>
    </widget>
    <widget class="QFrame" name="whats_playing">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>410</y>
+      <x>30</x>
+      <y>450</y>
       <width>291</width>
       <height>261</height>
      </rect>
@@ -475,10 +1605,10 @@ QStackedWidget[objectName^=&quot;stackedWidget&quot;] {
    <widget class="QFrame" name="header">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>1181</width>
-      <height>80</height>
+      <x>30</x>
+      <y>20</y>
+      <width>1161</width>
+      <height>91</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -490,8 +1620,8 @@ QStackedWidget[objectName^=&quot;stackedWidget&quot;] {
     <widget class="QPushButton" name="settings">
      <property name="geometry">
       <rect>
-       <x>970</x>
-       <y>3</y>
+       <x>940</x>
+       <y>0</y>
        <width>101</width>
        <height>31</height>
       </rect>
@@ -506,8 +1636,8 @@ QStackedWidget[objectName^=&quot;stackedWidget&quot;] {
     <widget class="QPushButton" name="local_user">
      <property name="geometry">
       <rect>
-       <x>1080</x>
-       <y>3</y>
+       <x>1050</x>
+       <y>0</y>
        <width>101</width>
        <height>31</height>
       </rect>
@@ -523,7 +1653,7 @@ QStackedWidget[objectName^=&quot;stackedWidget&quot;] {
      <property name="geometry">
       <rect>
        <x>230</x>
-       <y>40</y>
+       <y>51</y>
        <width>101</width>
        <height>31</height>
       </rect>
@@ -539,15 +1669,16 @@ QStackedWidget[objectName^=&quot;stackedWidget&quot;] {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>10</y>
+       <y>0</y>
        <width>321</width>
-       <height>16</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Work Sans</family>
-       <pointsize>14</pointsize>
+       <family>Segoe UI</family>
+       <pointsize>24</pointsize>
+       <bold>true</bold>
       </font>
      </property>
      <property name="styleSheet">
@@ -561,7 +1692,7 @@ QStackedWidget[objectName^=&quot;stackedWidget&quot;] {
      <property name="geometry">
       <rect>
        <x>11</x>
-       <y>39</y>
+       <y>50</y>
        <width>101</width>
        <height>31</height>
       </rect>
@@ -577,7 +1708,7 @@ QStackedWidget[objectName^=&quot;stackedWidget&quot;] {
      <property name="geometry">
       <rect>
        <x>121</x>
-       <y>39</y>
+       <y>50</y>
        <width>101</width>
        <height>31</height>
       </rect>
@@ -592,8 +1723,8 @@ QStackedWidget[objectName^=&quot;stackedWidget&quot;] {
     <widget class="QFrame" name="search_widget_frame">
      <property name="geometry">
       <rect>
-       <x>860</x>
-       <y>40</y>
+       <x>830</x>
+       <y>51</y>
        <width>321</width>
        <height>31</height>
       </rect>
@@ -653,7 +1784,7 @@ border-bottom-left-radius: 0;</string>
     </widget>
    </widget>
    <zorder>header</zorder>
-   <zorder>stackedWidget</zorder>
+   <zorder>mainStackedWidget</zorder>
    <zorder>side_bar</zorder>
    <zorder>whats_playing</zorder>
   </widget>
@@ -663,7 +1794,7 @@ border-bottom-left-radius: 0;</string>
      <x>0</x>
      <y>0</y>
      <width>1230</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
