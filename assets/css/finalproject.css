@@ -28,8 +28,16 @@ QListView#libraryListView{
     background: #18314F;
 }
 
+QPushButton#forward_pa, QPushButton#back_pa, QPushButton#play_pause_pa
+{
+    background: transparent;
+    border: none;
+}
+
 /* Responsive */
-QPushButton:hover {
+
+QPushButton:hover,QPushButton#forward_pa:hover, QPushButton#back_pa:hover, QPushButton#play_pause_pa:hover
+{
    background: #FFFFFF;
    color: #000000;
 }

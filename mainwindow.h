@@ -42,6 +42,8 @@ private slots:
 
     void on_viewPlaylistButton_clicked();
 
+    void on_languageButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

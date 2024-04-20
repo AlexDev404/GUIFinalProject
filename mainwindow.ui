@@ -38,7 +38,7 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="playlistDisplayPage">
      <widget class="QLabel" name="label_5">
@@ -407,7 +407,7 @@
          </rect>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="addtrack">
          <widget class="QLabel" name="label_fp_14">
@@ -698,12 +698,12 @@
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
-            <widget class="QLineEdit" name="lineEdit_2"/>
+            <widget class="QLineEdit" name="editTrackSearch"/>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="editSearchButton">
              <property name="text">
-              <string>Search</string>
+              <string/>
              </property>
             </widget>
            </item>
@@ -764,7 +764,7 @@
          <rect>
           <x>40</x>
           <y>70</y>
-          <width>151</width>
+          <width>161</width>
           <height>20</height>
          </rect>
         </property>
@@ -775,7 +775,7 @@
        <widget class="QComboBox" name="trackManagementcomboBox">
         <property name="geometry">
          <rect>
-          <x>200</x>
+          <x>210</x>
           <y>70</y>
           <width>80</width>
           <height>26</height>
@@ -850,9 +850,9 @@
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>20</x>
         <y>20</y>
-        <width>781</width>
+        <width>791</width>
         <height>56</height>
        </rect>
       </property>
@@ -870,7 +870,7 @@
           <string notr="true"/>
          </property>
          <property name="text">
-          <string>Admin Settings</string>
+          <string>[Local User] Settings</string>
          </property>
         </widget>
        </item>
@@ -886,9 +886,9 @@
      <widget class="QFrame" name="buttonFrame_sp">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>20</x>
         <y>90</y>
-        <width>781</width>
+        <width>791</width>
         <height>441</height>
        </rect>
       </property>
@@ -901,39 +901,23 @@
       <widget class="QPushButton" name="userManagementButton">
        <property name="geometry">
         <rect>
-         <x>60</x>
-         <y>240</y>
-         <width>181</width>
-         <height>161</height>
+         <x>30</x>
+         <y>230</y>
+         <width>161</width>
+         <height>141</height>
         </rect>
        </property>
        <property name="text">
         <string>User Management</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="reportButton">
-       <property name="geometry">
-        <rect>
-         <x>540</x>
-         <y>240</y>
-         <width>181</width>
-         <height>161</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-       <property name="text">
-        <string>Reports</string>
-       </property>
-      </widget>
       <widget class="QPushButton" name="trackManagementButton">
        <property name="geometry">
         <rect>
-         <x>300</x>
-         <y>240</y>
-         <width>181</width>
-         <height>161</height>
+         <x>220</x>
+         <y>230</y>
+         <width>161</width>
+         <height>141</height>
         </rect>
        </property>
        <property name="text">
@@ -943,10 +927,10 @@
       <widget class="QPushButton" name="viewPlaylistButton">
        <property name="geometry">
         <rect>
-         <x>540</x>
-         <y>40</y>
-         <width>181</width>
-         <height>161</height>
+         <x>410</x>
+         <y>60</y>
+         <width>161</width>
+         <height>141</height>
         </rect>
        </property>
        <property name="text">
@@ -956,27 +940,56 @@
       <widget class="QPushButton" name="viewSongsButton">
        <property name="geometry">
         <rect>
-         <x>60</x>
-         <y>40</y>
-         <width>181</width>
-         <height>161</height>
+         <x>30</x>
+         <y>60</y>
+         <width>161</width>
+         <height>141</height>
         </rect>
        </property>
        <property name="text">
-        <string>View Songs</string>
+        <string>View Tracks</string>
        </property>
       </widget>
       <widget class="QPushButton" name="viewAlbumsButton">
        <property name="geometry">
         <rect>
-         <x>300</x>
-         <y>40</y>
-         <width>181</width>
-         <height>161</height>
+         <x>220</x>
+         <y>60</y>
+         <width>161</width>
+         <height>141</height>
         </rect>
        </property>
        <property name="text">
         <string>View Albums</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="languageButton">
+       <property name="geometry">
+        <rect>
+         <x>600</x>
+         <y>60</y>
+         <width>161</width>
+         <height>141</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Language</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="reportButton">
+       <property name="geometry">
+        <rect>
+         <x>410</x>
+         <y>230</y>
+         <width>161</width>
+         <height>141</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Reports</string>
        </property>
       </widget>
      </widget>
@@ -1007,18 +1020,18 @@
      <widget class="QListView" name="allAlbumListView">
       <property name="geometry">
        <rect>
-        <x>40</x>
+        <x>20</x>
         <y>70</y>
-        <width>771</width>
-        <height>331</height>
+        <width>801</width>
+        <height>411</height>
        </rect>
       </property>
      </widget>
      <widget class="QWidget" name="layoutWidget_2">
       <property name="geometry">
        <rect>
-        <x>535</x>
-        <y>420</y>
+        <x>540</x>
+        <y>500</y>
         <width>271</width>
         <height>31</height>
        </rect>
@@ -1047,8 +1060,8 @@
       </layout>
      </widget>
     </widget>
-    <widget class="QWidget" name="allSongsPage">
-     <widget class="QLabel" name="label_asp_1">
+    <widget class="QWidget" name="allTracksPage">
+     <widget class="QLabel" name="label_atp_1">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -1065,19 +1078,19 @@
        </font>
       </property>
       <property name="text">
-       <string>All Songs</string>
+       <string>All Tracks</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QListView" name="allSongsListView">
+     <widget class="QListView" name="allTracksListView">
       <property name="geometry">
        <rect>
         <x>40</x>
         <y>70</y>
         <width>771</width>
-        <height>331</height>
+        <height>411</height>
        </rect>
       </property>
      </widget>
@@ -1085,14 +1098,14 @@
       <property name="geometry">
        <rect>
         <x>540</x>
-        <y>420</y>
+        <y>500</y>
         <width>271</width>
         <height>31</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
-        <widget class="QPushButton" name="addButton_asp">
+        <widget class="QPushButton" name="addButton_atp">
          <property name="styleSheet">
           <string notr="true"/>
          </property>
@@ -1102,7 +1115,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="playButton_asp">
+        <widget class="QPushButton" name="playButton_atp">
          <property name="styleSheet">
           <string notr="true"/>
          </property>
@@ -1119,7 +1132,7 @@
       <property name="geometry">
        <rect>
         <x>530</x>
-        <y>490</y>
+        <y>500</y>
         <width>295</width>
         <height>31</height>
        </rect>
@@ -1154,7 +1167,7 @@
         <x>20</x>
         <y>70</y>
         <width>801</width>
-        <height>401</height>
+        <height>411</height>
        </rect>
       </property>
      </widget>
@@ -1209,7 +1222,7 @@
       <property name="geometry">
        <rect>
         <x>320</x>
-        <y>490</y>
+        <y>500</y>
         <width>506</width>
         <height>31</height>
        </rect>
@@ -1250,7 +1263,7 @@
         <x>20</x>
         <y>70</y>
         <width>801</width>
-        <height>401</height>
+        <height>411</height>
        </rect>
       </property>
      </widget>
@@ -1333,7 +1346,7 @@
         <x>20</x>
         <y>130</y>
         <width>811</width>
-        <height>261</height>
+        <height>351</height>
        </rect>
       </property>
      </widget>
@@ -1341,7 +1354,7 @@
       <property name="geometry">
        <rect>
         <x>750</x>
-        <y>410</y>
+        <y>500</y>
         <width>83</width>
         <height>29</height>
        </rect>
@@ -1415,6 +1428,57 @@
       </layout>
      </widget>
     </widget>
+    <widget class="QWidget" name="languagePage">
+     <widget class="QLabel" name="label_lp_1">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>851</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Work Sans</family>
+        <pointsize>18</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Language</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="englishButton">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>140</y>
+        <width>291</width>
+        <height>141</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>    English</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="spanishButton">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>340</y>
+        <width>291</width>
+        <height>141</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>    Spansih</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
    <widget class="QFrame" name="side_bar">
     <property name="geometry">
@@ -1445,6 +1509,7 @@
      </property>
      <property name="font">
       <font>
+       <family>Work Sans</family>
        <pointsize>12</pointsize>
       </font>
      </property>
@@ -1469,7 +1534,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QFrame" name="whats_playing">
+   <widget class="QFrame" name="play_area">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -1487,7 +1552,7 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="track_name_pa">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -1512,7 +1577,7 @@
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="track_image_pa">
      <property name="geometry">
       <rect>
        <x>64</x>
@@ -1528,7 +1593,7 @@
       <string>TextLabel</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_4">
+    <widget class="QLabel" name="mia_pa">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -1553,7 +1618,7 @@
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_7">
+    <widget class="QPushButton" name="play_pause_pa">
      <property name="geometry">
       <rect>
        <x>100</x>
@@ -1566,10 +1631,10 @@
       <string notr="true"/>
      </property>
      <property name="text">
-      <string>Play/Pause</string>
+      <string/>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_8">
+    <widget class="QPushButton" name="back_pa">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -1582,10 +1647,10 @@
       <string notr="true"/>
      </property>
      <property name="text">
-      <string>Back</string>
+      <string/>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_9">
+    <widget class="QPushButton" name="forward_pa">
      <property name="geometry">
       <rect>
        <x>200</x>
@@ -1598,7 +1663,7 @@
       <string notr="true"/>
      </property>
      <property name="text">
-      <string>Forward</string>
+      <string/>
      </property>
     </widget>
    </widget>
@@ -1630,10 +1695,10 @@
       <string notr="true"/>
      </property>
      <property name="text">
-      <string>Settings</string>
+      <string>    Settings</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="local_user">
+    <widget class="QPushButton" name="user_loggedin">
      <property name="geometry">
       <rect>
        <x>1050</x>
@@ -1646,7 +1711,7 @@
       <string notr="true"/>
      </property>
      <property name="text">
-      <string>[LOCAL USER]</string>
+      <string>    [LOCAL USER]</string>
      </property>
     </widget>
     <widget class="QPushButton" name="your_playlists">
@@ -1778,7 +1843,7 @@ background: transparent;</string>
 border-bottom-left-radius: 0;</string>
       </property>
       <property name="text">
-       <string>Go</string>
+       <string/>
       </property>
      </widget>
     </widget>
@@ -1786,7 +1851,7 @@ border-bottom-left-radius: 0;</string>
    <zorder>header</zorder>
    <zorder>mainStackedWidget</zorder>
    <zorder>side_bar</zorder>
-   <zorder>whats_playing</zorder>
+   <zorder>play_area</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -1794,7 +1859,7 @@ border-bottom-left-radius: 0;</string>
      <x>0</x>
      <y>0</y>
      <width>1230</width>
-     <height>22</height>
+     <height>17</height>
     </rect>
    </property>
   </widget>
