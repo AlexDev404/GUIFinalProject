@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowIcon(QIcon(headphonesIcon));
 
     // Setting initial windows
-    ui->mainStackedWidget->setCurrentIndex(2);
+    ui->mainStackedWidget->setCurrentIndex(4);
     ui->managementTab_fp->setCurrentIndex(0);
     ui->trackManagementSub->setCurrentIndex(0);
 
