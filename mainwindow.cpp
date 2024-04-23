@@ -1,14 +1,44 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "database.hpp"
 #include <QFontDatabase>
 #include <QFile>
+// The database
+database db; // Format: SQLite
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    LoadResources();
     ui->setupUi(this);
+    LoadResources();
+    qMain();
+}
+
+void MainWindow::LoadResources(){
+    // ------------------------------------ Load resources, fonts, etc. ------------------------------------
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-Black.ttf");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-BlackItalic.ttf");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-Bold.ttf");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-BoldItalic.ttf");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-ExtraBold.ttf");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-ExtraBoldItalic.ttf");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-ExtraLight.ttf");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-ExtraLightItalic.ttf");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-Italic.ttf");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-Light.ttf");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-LightItalic.ttf");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-Medium.ttf");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-MediumItalic.ttf");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-Regular.ttf");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-SemiBold.ttf");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-SemiBoldItalic.ttf");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-Thin.ttf");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-ThinItalic.ttf");
+    // Variable fonts (needed?)
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/variable/WorkSans-VariableFont_wght.ttf");
+
+
 
     // ------------------------------------ Load the external CSS file ------------------------------------
     QFile styleFile(":/otherfiles/assets/css/finalproject.css");
@@ -16,7 +46,8 @@ MainWindow::MainWindow(QWidget *parent)
         QString styleSheet = QLatin1String(styleFile.readAll());
         qApp->setStyleSheet(styleSheet);
         styleFile.close();
-    } else {
+    }
+    else {
         qDebug() << "Failed to open CSS file:" << styleFile.errorString();
     }
 
@@ -40,7 +71,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     QIcon englishIcon(":/otherfiles/assets/images/englishflag.png");
     QIcon spanishIcon(":/otherfiles/assets/images/spanishflag.png");
-
 
     // -------------------------------------------- Apply icons --------------------------------------------
 
@@ -69,7 +99,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     int h = ui->track_image_pa->height();    // Get the height & width of the QLabel
     int w = ui->track_image_pa->width();
-    ui->track_image_pa->setPixmap(playlistImage.scaled(w,h));
+    ui->track_image_pa->setPixmap(playlistImage.scaled(w, h));
 
     // Settings window buttons
     ui->viewSongsButton->setIcon(QIcon(trackIcon));
@@ -102,30 +132,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->spanishButton->setIcon(QIcon(spanishIcon));
     ui->spanishButton->setIconSize(QSize(125, 125));
-}
-
-void MainWindow::LoadResources(){
-    // ------------------------------------ Load resources, fonts, etc. ------------------------------------
-    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-Black.ttf");
-    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-BlackItalic.ttf");
-    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-Bold.ttf");
-    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-BoldItalic.ttf");
-    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-ExtraBold.ttf");
-    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-ExtraBoldItalic.ttf");
-    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-ExtraLight.ttf");
-    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-ExtraLightItalic.ttf");
-    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-Italic.ttf");
-    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-Light.ttf");
-    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-LightItalic.ttf");
-    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-Medium.ttf");
-    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-MediumItalic.ttf");
-    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-Regular.ttf");
-    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-SemiBold.ttf");
-    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-SemiBoldItalic.ttf");
-    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-Thin.ttf");
-    QFontDatabase::addApplicationFont(":/resources/assets/fonts/WorkSans-ThinItalic.ttf");
-    // Variable fonts (needed?)
-    QFontDatabase::addApplicationFont(":/resources/assets/fonts/variable/WorkSans-VariableFont_wght.ttf");
 
 }
 
@@ -136,6 +142,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::qMain(){
     // Main entry point
+    // Setup database
+    // --------------------------------- DEBUG ----------------------------------------------------------------------------------------------
+    db = *new database();
+    db.setDatabase("userdata");
+    odb::sqlite::database database_context = db.getDatabase();
+
+    odb::transaction t(database_context.begin());
+    // Execute SQL commands to create the table
+    database_context.execute("CREATE TABLE IF NOT EXISTS Person (id INTEGER PRIMARY KEY, first TEXT, last TEXT, age INTEGER)");
+    t.commit();
+    // -------------------------------- END_DEBUG --------------------------------------------------------------------------------------------
 }
 
 void MainWindow::on_settings_clicked()
