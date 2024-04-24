@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "database.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -44,7 +45,11 @@ private slots:
 
     void on_languageButton_clicked();
 
+    void on_addButton_atp_clicked();
+
 private:
     Ui::MainWindow *ui;
+    // The database
+    database db; // Format: SQLite
 };
 #endif // MAINWINDOW_H

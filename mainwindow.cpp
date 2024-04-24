@@ -1,10 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "database.hpp"
 #include <QFontDatabase>
 #include <QFile>
-// The database
-database db; // Format: SQLite
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -140,21 +137,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::qMain(){
-    // Main entry point
-    // Setup database
-    // --------------------------------- DEBUG ----------------------------------------------------------------------------------------------
-    db = *new database();
-    db.setDatabase("userdata");
-    odb::sqlite::database database_context = db.getDatabase();
-
-    odb::transaction t(database_context.begin());
-    // Execute SQL commands to create the table
-    database_context.execute("CREATE TABLE IF NOT EXISTS Person (id INTEGER PRIMARY KEY, first TEXT, last TEXT, age INTEGER)");
-    t.commit();
-    // -------------------------------- END_DEBUG --------------------------------------------------------------------------------------------
-}
-
 void MainWindow::on_settings_clicked()
 {
     ui->mainStackedWidget->setCurrentIndex(2);
@@ -225,4 +207,3 @@ void MainWindow::on_languageButton_clicked()
 {
     ui->mainStackedWidget->setCurrentIndex(9);
 }
-

@@ -43,5 +43,5 @@ QPushButton:hover,QPushButton#forward_pa:hover, QPushButton#back_pa:hover, QPush
 }
 
 QListView {
-    background-color: #D2DBED;
+   background: #18314f;
 }

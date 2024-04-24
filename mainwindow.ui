@@ -38,7 +38,7 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>9</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="playlistDisplayPage">
      <widget class="QLabel" name="label_5">
@@ -1093,6 +1093,9 @@
         <height>411</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
      </widget>
      <widget class="QWidget" name="layoutWidget_3">
       <property name="geometry">
@@ -1859,7 +1862,7 @@ border-bottom-left-radius: 0;</string>
      <x>0</x>
      <y>0</y>
      <width>1230</width>
-     <height>17</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
