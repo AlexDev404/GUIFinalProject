@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Pages">
+      <UniqueIdentifier>{d5be6769-7d7d-4977-b816-6550633ecbd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Schemas">
+      <UniqueIdentifier>{4a6783c5-d40f-4969-aa9c-413ff4d658b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Schemas\Track">
+      <UniqueIdentifier>{e040b937-4c0f-4494-87af-f85df51e37f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Schemas\Windows">
+      <UniqueIdentifier>{acc574c0-873e-43bd-b97c-d38785941ab6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Schemas\Artists">
+      <UniqueIdentifier>{d2ade260-fd0e-4276-b7f3-cbad2843bb15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other Files">
+      <UniqueIdentifier>{aa0ed69d-62e5-4455-ab36-c9c9cd0ce35b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mainwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="database.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AllTracksPage.cpp">
+      <Filter>Source Files\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="qMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Track.cpp">
+      <Filter>Header Files\Schemas\Track</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowsAccount.cpp">
+      <Filter>Header Files\Schemas\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Artists.cpp">
+      <Filter>Header Files\Schemas\Artists</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="mainwindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="debug\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="release\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="mainwindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\fonts\WorkSans-Black.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-BlackItalic.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-Bold.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-BoldItalic.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-ExtraBold.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-ExtraBoldItalic.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-ExtraLight.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-ExtraLightItalic.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-Italic.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-Light.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-LightItalic.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-Medium.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-MediumItalic.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-Regular.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-SemiBold.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-SemiBoldItalic.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-Thin.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-ThinItalic.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\variable\WorkSans-VariableFont_wght.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <QtRcc Include="resources.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <None Include="README.md">
+      <Filter>Other Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="database.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Track.hpp">
+      <Filter>Header Files\Schemas\Track</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsAccount.hpp">
+      <Filter>Header Files\Schemas\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Artists.hpp">
+      <Filter>Header Files\Schemas\Artists</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

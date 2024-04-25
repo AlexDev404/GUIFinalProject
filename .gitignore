@@ -13,8 +13,8 @@
 *.so
 *.so.*
 *_pch.h.cpp
-*_resource.rc
-*.qm
+# *_resource.rc
+# *.qm
 .#*
 *.*#
 core
@@ -23,21 +23,21 @@ tags
 .DS_Store
 .directory
 *.debug
-Makefile*
+# Makefile*
 *.prl
 *.app
-moc_*.cpp
-ui_*.h
+# moc_*.cpp
+# ui_*.h
 qrc_*.cpp
 Thumbs.db
-*.res
-*.rc
+# *.res
+# *.rc
 /.qmake.cache
-/.qmake.stash
+# /.qmake.stash
 
 # qtcreator generated files
-*.pro.user*
-CMakeLists.txt.user*
+# *.pro.user*
+# CMakeLists.txt.user*
 
 # xemacs temporary files
 *.flc
@@ -48,17 +48,17 @@ CMakeLists.txt.user*
 # Visual Studio generated files
 *.ib_pdb_index
 *.idb
-*.ilk
-*.pdb
-*.sln
-*.suo
-*.vcproj
-*vcproj.*.*.user
-*.ncb
-*.sdf
-*.opensdf
-*.vcxproj
-*vcxproj.*
+# *.ilk
+# *.pdb
+# *.sln
+# *.suo
+# *.vcproj
+# *vcproj.*.*.user
+# *.ncb
+# *.sdf
+# *.opensdf
+# *.vcxproj
+# *vcxproj.*
 
 # MinGW generated files
 *.Debug
@@ -89,22 +89,22 @@ CMakeLists.txt.user*
 object_script.*.Release
 object_script.*.Debug
 *_plugin_import.cpp
-/.qmake.cache
-/.qmake.stash
+# /.qmake.cache
+# /.qmake.stash
 *.pro.user
 *.pro.user.*
 *.qbs.user
 *.qbs.user.*
-*.moc
+# *.moc
 moc_*.cpp
 moc_*.h
 qrc_*.cpp
 ui_*.h
 *.qmlc
 *.jsc
-Makefile*
+# Makefile*
 *build-*
-*.qm
+# *.qm
 *.prl
 
 # Qt unit tests
@@ -118,10 +118,10 @@ target_wrapper.*
 *.qmlproject.user.*
 
 # QtCreator CMake
-CMakeLists.txt.user*
+# CMakeLists.txt.user*
 
 # QtCreator 4.8< compilation database
-compile_commands.json
+# compile_commands.json
 
 # QtCreator local machine specific files for imported projects
 *creator.user*
@@ -135,7 +135,7 @@ compile_commands.json
 
 # User-specific files
 *.rsuser
-*.suo
+# *.suo
 *.user
 *.userosscache
 *.sln.docstates
@@ -202,7 +202,7 @@ StyleCopReport.xml
 *_i.c
 *_p.c
 *_h.h
-*.ilk
+# *.ilk
 *.meta
 *.obj
 *.iobj
