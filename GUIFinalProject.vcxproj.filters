@@ -107,6 +107,24 @@
     <ClCompile Include="Track_Playlist.cpp">
       <Filter>Header Files\Schemas\Track_Playlist</Filter>
     </ClCompile>
+    <ClCompile Include="Roles-odb.ixx">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowsAccount-odb.cxx">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowsAccount-odb.ixx">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Artists-odb.cxx">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Artists-odb.ixx">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Roles-odb.cxx">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mainwindow.h">
@@ -212,6 +230,15 @@
     </ClInclude>
     <ClInclude Include="Track_Playlist.hpp">
       <Filter>Header Files\Schemas\Track_Playlist</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsAccount-odb.hxx">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Artists-odb.hxx">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Roles-odb.hxx">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

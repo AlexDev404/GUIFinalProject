@@ -204,15 +204,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AllTracksPage.cpp" />
+    <ClCompile Include="Artists-odb.cxx" />
+    <ClCompile Include="Artists-odb.ixx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Artists.cpp" />
     <ClCompile Include="database.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="Playlist.cpp" />
     <ClCompile Include="qMain.cpp" />
+    <ClCompile Include="Roles-odb.cxx" />
+    <ClCompile Include="Roles-odb.ixx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Roles.cpp" />
     <ClCompile Include="Track.cpp" />
     <ClCompile Include="Track_Playlist.cpp" />
+    <ClCompile Include="WindowsAccount-odb.cxx" />
+    <ClCompile Include="WindowsAccount-odb.ixx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="WindowsAccount.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -263,12 +275,15 @@
     <QtRcc Include="resources.qrc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Artists-odb.hxx" />
     <ClInclude Include="Artists.hpp" />
     <ClInclude Include="database.hpp" />
     <ClInclude Include="Playlist.hpp" />
+    <ClInclude Include="Roles-odb.hxx" />
     <ClInclude Include="Roles.hpp" />
     <ClInclude Include="Track.hpp" />
     <ClInclude Include="Track_Playlist.hpp" />
+    <ClInclude Include="WindowsAccount-odb.hxx" />
     <ClInclude Include="WindowsAccount.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

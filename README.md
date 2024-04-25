@@ -11,7 +11,7 @@ After creating a schema, ensure to run:
 
 OR (shorthand)
 
-> odb -d sqlite -q -a *.hpp
+> odb -d sqlite -q -s *.hpp
 ```
 
 And include the generated files (excluding any `*.ixx` files) in the VS solution for compilation.
