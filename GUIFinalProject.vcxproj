@@ -208,8 +208,11 @@
     <ClCompile Include="database.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
+    <ClCompile Include="Playlist.cpp" />
     <ClCompile Include="qMain.cpp" />
+    <ClCompile Include="Roles.cpp" />
     <ClCompile Include="Track.cpp" />
+    <ClCompile Include="Track_Playlist.cpp" />
     <ClCompile Include="WindowsAccount.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -262,7 +265,10 @@
   <ItemGroup>
     <ClInclude Include="Artists.hpp" />
     <ClInclude Include="database.hpp" />
+    <ClInclude Include="Playlist.hpp" />
+    <ClInclude Include="Roles.hpp" />
     <ClInclude Include="Track.hpp" />
+    <ClInclude Include="Track_Playlist.hpp" />
     <ClInclude Include="WindowsAccount.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

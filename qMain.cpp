@@ -39,8 +39,8 @@ void MainWindow::qMain() {
     Track track2("Let It Be", &the_beatles, &let_it_be_remastered, "1970", "C://Users//Downloads//The_Beatles__Let_It_Be.mp3");
 
     // Add the tracks to the playlist
-    playlist.addTrack(&track); // Track_Playlist.map(playlist, track);
-    playlist.addTrack(&track2); // Track_Playlist.map(playlist, track2);
+    playlist.AddTrack(&track); // Track_Playlist.map(playlist, track);
+    playlist.AddTrack(&track2); // Track_Playlist.map(playlist, track2);
 
     // Save the artist and track
     unsigned long the_beatles_id, track_1_id, track_2_id;
