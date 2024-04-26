@@ -78,6 +78,9 @@
     <Filter Include="Header Files\Schemas\Genres">
       <UniqueIdentifier>{4c0e1e3f-e186-4a53-a03f-bf00f0672d9f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Schemas\Track_Playcount">
+      <UniqueIdentifier>{93e2854e-23c6-466f-925b-4cabc44690dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -136,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="Genres.cpp">
       <Filter>Header Files\Schemas\Genres</Filter>
+    </ClCompile>
+    <ClCompile Include="Track_Playcount.cpp">
+      <Filter>Header Files\Schemas\Track_Playcount</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -257,6 +263,9 @@
     </ClInclude>
     <ClInclude Include="Genres.hpp">
       <Filter>Header Files\Schemas\Genres</Filter>
+    </ClInclude>
+    <ClInclude Include="Track_Playcount.hpp">
+      <Filter>Header Files\Schemas\Track_Playcount</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
