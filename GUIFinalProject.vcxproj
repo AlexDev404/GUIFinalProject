@@ -203,6 +203,7 @@
     </QtUic>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Albums.cpp" />
     <ClCompile Include="AllTracksPage.cpp" />
     <ClCompile Include="Artists-odb.cxx" />
     <ClCompile Include="Artists-odb.ixx">
@@ -210,6 +211,7 @@
     </ClCompile>
     <ClCompile Include="Artists.cpp" />
     <ClCompile Include="database.cpp" />
+    <ClCompile Include="Genres.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="Playlist.cpp" />
@@ -220,6 +222,7 @@
     </ClCompile>
     <ClCompile Include="Roles.cpp" />
     <ClCompile Include="Track.cpp" />
+    <ClCompile Include="Track_Playcount.cpp" />
     <ClCompile Include="Track_Playlist.cpp" />
     <ClCompile Include="WindowsAccount-odb.cxx" />
     <ClCompile Include="WindowsAccount-odb.ixx">
@@ -275,13 +278,16 @@
     <QtRcc Include="resources.qrc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Albums.hpp" />
     <ClInclude Include="Artists-odb.hxx" />
     <ClInclude Include="Artists.hpp" />
     <ClInclude Include="database.hpp" />
+    <ClInclude Include="Genres.hpp" />
     <ClInclude Include="Playlist.hpp" />
     <ClInclude Include="Roles-odb.hxx" />
     <ClInclude Include="Roles.hpp" />
     <ClInclude Include="Track.hpp" />
+    <ClInclude Include="Track_Playcount.hpp" />
     <ClInclude Include="Track_Playlist.hpp" />
     <ClInclude Include="WindowsAccount-odb.hxx" />
     <ClInclude Include="WindowsAccount.hpp" />

@@ -86,7 +86,7 @@ void MainWindow::LoadResources(){
 
     // Search Buttons
     ui->search_submit->setIcon(QIcon(searchIcon));
-    ui->editSearchButton->setIcon(QIcon(searchIcon));
+    ui->SearchEditTrackButton_fp->setIcon(QIcon(searchIcon));
 
     // Play Area Icons
     ui->back_pa->setIcon(QIcon(backIcon));

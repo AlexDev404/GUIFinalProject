@@ -72,6 +72,15 @@
     <Filter Include="Header Files\Schemas\Track_Playlist">
       <UniqueIdentifier>{23728149-8b78-4c57-8bd5-784195a05fd3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Schemas\Albums">
+      <UniqueIdentifier>{a8062051-a619-43d6-b065-264d57087dd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Schemas\Genres">
+      <UniqueIdentifier>{4c0e1e3f-e186-4a53-a03f-bf00f0672d9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Schemas\Track_Playcount">
+      <UniqueIdentifier>{93e2854e-23c6-466f-925b-4cabc44690dd}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Generated Files\Compiled Schemas">
       <UniqueIdentifier>{1b745572-e9eb-4194-a250-50df61dd652c}</UniqueIdentifier>
     </Filter>
@@ -242,6 +251,15 @@
     </ClInclude>
     <ClInclude Include="WindowsAccount-odb.hxx">
       <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClInclude>
+    <ClInclude Include="Albums.hpp">
+      <Filter>Header Files\Schemas\Albums</Filter>
+    </ClInclude>
+    <ClInclude Include="Genres.hpp">
+      <Filter>Header Files\Schemas\Genres</Filter>
+    </ClInclude>
+    <ClInclude Include="Track_Playcount.hpp">
+      <Filter>Header Files\Schemas\Track_Playcount</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

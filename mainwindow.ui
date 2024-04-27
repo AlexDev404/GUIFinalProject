@@ -38,7 +38,7 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="playlistDisplayPage">
      <widget class="QLabel" name="label_5">
@@ -178,7 +178,7 @@
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="genres">
        <attribute name="title">
@@ -245,6 +245,28 @@
           <widget class="QPushButton" name="deleteGenres_fp">
            <property name="text">
             <string>Delete</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="layoutWidget_10">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>390</y>
+          <width>201</width>
+          <height>26</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLineEdit" name="SearchGenreInput_fp"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="SearchGenreButton_fp">
+           <property name="text">
+            <string/>
            </property>
           </widget>
          </item>
@@ -321,6 +343,28 @@
          </rect>
         </property>
        </widget>
+       <widget class="QWidget" name="layoutWidget_11">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>390</y>
+          <width>201</width>
+          <height>26</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_10">
+         <item>
+          <widget class="QLineEdit" name="SearchArtistsInput_fp"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="SearchArtistsButton_fp">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
       <widget class="QWidget" name="albums">
        <attribute name="title">
@@ -392,6 +436,28 @@
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
+       <widget class="QWidget" name="layoutWidget_12">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>390</y>
+          <width>201</width>
+          <height>26</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_11">
+         <item>
+          <widget class="QLineEdit" name="SearchAlbumsInput"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="SearchAlbumsButton_fp">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
       <widget class="QWidget" name="tracks">
        <attribute name="title">
@@ -407,7 +473,7 @@
          </rect>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="addtrack">
          <widget class="QLabel" name="label_fp_14">
@@ -698,10 +764,10 @@
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
-            <widget class="QLineEdit" name="editTrackSearch"/>
+            <widget class="QLineEdit" name="SearchEditTrackInput_fp"/>
            </item>
            <item>
-            <widget class="QPushButton" name="editSearchButton">
+            <widget class="QPushButton" name="SearchEditTrackButton_fp">
              <property name="text">
               <string/>
              </property>
@@ -757,6 +823,28 @@
            </rect>
           </property>
          </widget>
+         <widget class="QWidget" name="layoutWidget_13">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>260</y>
+            <width>201</width>
+            <height>26</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_12">
+           <item>
+            <widget class="QLineEdit" name="SearchDeleteTrackInput_fp"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="SearchDeleteTrackButton_fp">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </widget>
        <widget class="QLabel" name="label_fp_5">
@@ -775,7 +863,7 @@
        <widget class="QComboBox" name="trackManagementcomboBox">
         <property name="geometry">
          <rect>
-          <x>210</x>
+          <x>240</x>
           <y>70</y>
           <width>80</width>
           <height>26</height>
@@ -1862,7 +1950,7 @@ border-bottom-left-radius: 0;</string>
      <x>0</x>
      <y>0</y>
      <width>1230</width>
-     <height>21</height>
+     <height>17</height>
     </rect>
    </property>
   </widget>
