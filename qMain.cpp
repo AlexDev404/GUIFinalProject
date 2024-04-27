@@ -12,6 +12,9 @@
 #include "Albums-odb.hxx"
 #include "Playlist-odb.hxx"
 
+// Include command-line output
+#include <qDebug>
+
 void MainWindow::qMain() {
     // Main entry point
     // Setup database
@@ -44,10 +47,13 @@ void MainWindow::qMain() {
 
     // Save the artist and track
     unsigned long the_beatles_id, track_1_id, track_2_id;
-    the_beatles_id = database_context.persist(the_beatles);
-    track_1_id = database_context.persist(track);
-    track_2_id = database_context.persist(track2);
-
+    try {
+        the_beatles_id = database_context.persist(the_beatles);
+        track_1_id = database_context.persist(track);
+        track_2_id = database_context.persist(track2);
+    } catch(const odb::exception& e) {
+        qDebug() << e.what();
+	}
     // Execute SQL commands to create the table
     //database_context.execute("CREATE TABLE IF NOT EXISTS Person (id INTEGER PRIMARY KEY, first TEXT, last TEXT, age INTEGER)");
     t.commit();
