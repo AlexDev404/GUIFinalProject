@@ -32,7 +32,7 @@ public:
 	/// Returns the album releae date.
 	/// </summary>
 	/// <returns></returns>
-	string Release_Date();
+	string ReleaseDate();
 
 	// Setters
 

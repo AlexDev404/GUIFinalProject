@@ -9,7 +9,7 @@ string Albums::Title() {
 	return this->title;
 }
 
-string Albums::Release_Date() {
+string Albums::ReleaseDate() {
 	return this->release_date;
 }
 // Setters

@@ -137,6 +137,51 @@
     <ClCompile Include="WindowsAccount-odb.ixx">
       <Filter>Generated Files\Compiled Schemas</Filter>
     </ClCompile>
+    <ClCompile Include="Albums.cpp">
+      <Filter>Header Files\Schemas\Albums</Filter>
+    </ClCompile>
+    <ClCompile Include="Genres.cpp">
+      <Filter>Header Files\Schemas\Genres</Filter>
+    </ClCompile>
+    <ClCompile Include="Track_Playcount.cpp">
+      <Filter>Header Files\Schemas\Track_Playcount</Filter>
+    </ClCompile>
+    <ClCompile Include="Track_Playcount-odb.cxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Track_Playcount-odb.ixx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Track_Playlist-odb.cxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Track_Playlist-odb.ixx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Playlist-odb.cxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Playlist-odb.ixx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Track-odb.cxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Track-odb.ixx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Albums-odb.cxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Albums-odb.ixx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Genres-odb.cxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Genres-odb.ixx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mainwindow.h">
@@ -260,6 +305,24 @@
     </ClInclude>
     <ClInclude Include="Track_Playcount.hpp">
       <Filter>Header Files\Schemas\Track_Playcount</Filter>
+    </ClInclude>
+    <ClInclude Include="Track_Playcount-odb.hxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClInclude>
+    <ClInclude Include="Track_Playlist-odb.hxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClInclude>
+    <ClInclude Include="Playlist-odb.hxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClInclude>
+    <ClInclude Include="Track-odb.hxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClInclude>
+    <ClInclude Include="Genres-odb.hxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClInclude>
+    <ClInclude Include="Albums-odb.hxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
