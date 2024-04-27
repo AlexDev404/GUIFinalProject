@@ -72,6 +72,9 @@
     <Filter Include="Header Files\Schemas\Track_Playlist">
       <UniqueIdentifier>{23728149-8b78-4c57-8bd5-784195a05fd3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Generated Files\Compiled Schemas">
+      <UniqueIdentifier>{1b745572-e9eb-4194-a250-50df61dd652c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -107,23 +110,23 @@
     <ClCompile Include="Track_Playlist.cpp">
       <Filter>Header Files\Schemas\Track_Playlist</Filter>
     </ClCompile>
-    <ClCompile Include="Roles-odb.ixx">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowsAccount-odb.cxx">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowsAccount-odb.ixx">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="Artists-odb.cxx">
-      <Filter>Generated Files</Filter>
+      <Filter>Generated Files\Compiled Schemas</Filter>
     </ClCompile>
     <ClCompile Include="Artists-odb.ixx">
-      <Filter>Generated Files</Filter>
+      <Filter>Generated Files\Compiled Schemas</Filter>
     </ClCompile>
     <ClCompile Include="Roles-odb.cxx">
-      <Filter>Generated Files</Filter>
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Roles-odb.ixx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowsAccount-odb.cxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowsAccount-odb.ixx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -231,14 +234,14 @@
     <ClInclude Include="Track_Playlist.hpp">
       <Filter>Header Files\Schemas\Track_Playlist</Filter>
     </ClInclude>
-    <ClInclude Include="WindowsAccount-odb.hxx">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="Artists-odb.hxx">
-      <Filter>Generated Files</Filter>
+      <Filter>Generated Files\Compiled Schemas</Filter>
     </ClInclude>
     <ClInclude Include="Roles-odb.hxx">
-      <Filter>Generated Files</Filter>
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsAccount-odb.hxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
