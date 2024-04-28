@@ -19,18 +19,6 @@ const double Playlist::Duration() {
 	return duration_;
 }
 
-// Hate these
-void* Playlist::AddTrack(Track* track) {
-	// Add track to playlist and increment duration
-	this->duration_ = this->duration_ + track->Duration();
-	// Create new playlist mapping
-	Track_Playlist tp(track, this);
-
-	// Return this so that we can save it to the database
-	return &tp; // Happy now???
-
-}
-
 void Playlist::SetName(string name) {
 	name_ = name;
 }

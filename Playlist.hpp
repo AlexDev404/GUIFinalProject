@@ -34,9 +34,7 @@ public:
 	/// <returns></returns>
 	const double Duration();
 
-	
-	// Methods
-	void* AddTrack(Track* track); // A fucking generic pointer since including Track_Playlist causes a circular dependency
+
 	// Setters
 
 	/// <summary>

@@ -9,7 +9,10 @@ using std::string;
 class Track_Playlist {
 public:
 	Track_Playlist(Track* track, Playlist* playlist) : track_id_(track),
-		playlist_id_(playlist) {}
+		playlist_id_(playlist) {
+		// Update the duration of the playlist
+		playlist->SetDuration(playlist->Duration() + track->Duration());
+	}
 
 	// Getters
 
