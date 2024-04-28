@@ -15,19 +15,6 @@ public:
 	/// <param name="title"></param>
 	/// <param name="artist_id"></param>
 	/// <param name="album_id"></param>
-	/// <param name="year"></param>
-	/// <param name="file_location"></param>
-	Track(string title, Artists* artist_id, Albums* album_id, string year, double duration, string file_location) : title_(title), artist_id_(artist_id), album_id_(album_id),
-		year_(year), duration_(duration), file_location_(file_location) {
-		this->genre_id_ = NULL;
-	}
-
-	/// <summary>
-	/// Create a Track. This constructor is used when creating a new Track.
-	/// </summary>
-	/// <param name="title"></param>
-	/// <param name="artist_id"></param>
-	/// <param name="album_id"></param>
 	/// <param name="genre_id"></param>
 	/// <param name="lyrics"></param>
 	/// <param name="duration"></param>
@@ -37,6 +24,19 @@ public:
 	string year, double duration, string file_location): title_(title), artist_id_(artist_id),
 	album_id_(album_id), genre_id_(genre_id), lyrics_(lyrics), duration_(duration), year_(year),
 		file_location_(file_location) {
+	}
+
+	/// <summary>
+	/// Create a Track. This constructor is used when creating a new Track.
+	/// </summary>
+	/// <param name="title"></param>
+	/// <param name="artist_id"></param>
+	/// <param name="album_id"></param>
+	/// <param name="year"></param>
+	/// <param name="file_location"></param>
+	Track(string title, Artists* artist_id, Albums* album_id, string year, double duration, string file_location) : title_(title), artist_id_(artist_id), album_id_(album_id),
+		year_(year), duration_(duration), file_location_(file_location) {
+		this->genre_id_ = NULL;
 	}
 
 	// Getters
