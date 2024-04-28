@@ -17,7 +17,7 @@ public:
 	/// <param name="album_id"></param>
 	/// <param name="year"></param>
 	/// <param name="file_location"></param>
-	Track(string title, Artists* artist_id, Albums* album_id, string year, string file_location) : title_(title), artist_id_(artist_id),
+	Track(string title, Artists* artist_id, Albums* album_id, string year, string file_location) : title_(title), artist_id_(artist_id), album_id_(album_id),
 		year_(year), file_location_(file_location) {
 	}
 
