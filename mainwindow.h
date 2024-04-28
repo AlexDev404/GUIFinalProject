@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include "database.hpp"
+#include <QStandardItemModel>
+#include <QListView>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -17,6 +19,7 @@ class MainWindow : public QMainWindow
 public:
     void LoadResources();
     void qMain();
+    void StateHasChanged(QListView* listView);
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 

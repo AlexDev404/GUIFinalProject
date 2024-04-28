@@ -7,22 +7,13 @@
 
 // For populating the default playlist
 #include "database.hpp"
+#include "TrackManagement.hpp"
 
 // Schemas
-#include "Track.hpp"
-#include "Albums.hpp""
-#include "Artists.hpp"
-#include "Genres.hpp"
 #include "Playlist.hpp"
-#include "Track_Playlist.hpp"
 
 // Mappings
-#include "Track-odb.hxx"
-#include "Albums-odb.hxx"
-#include "Artists-odb.hxx"
-#include "Genres-odb.hxx"
 #include "Playlist-odb.hxx"
-#include "Track_Playlist-odb.hxx"
 
 // ID3 Tagging
 #include "taglib/tag.h"
@@ -246,8 +237,15 @@ void MainWindow::on_actionOpen_Folder_triggered()
     db.setDatabase("userdata");
     odb::sqlite::database database_context = db.getDatabase();
     odb::transaction t(database_context.begin());
+
+    // Query for the default playlist
     odb::result<Playlist> playlists = database_context.query<Playlist>(odb::query<Playlist>::name == "DEFAULT");
 
+    // The default playlist
+    // What it is: A playlist that contains all the tracks in the folder
+    // Basically, this is the user's library. 
+    // It is the default playlist that is created when the user opens the application for the first time
+    // (but of course, the user doesn't know this)
     Playlist defaultPlaylist("DEFAULT", "2022");
     if(playlists.begin() == playlists.end()){
         database_context.persist(defaultPlaylist);
@@ -266,69 +264,64 @@ void MainWindow::on_actionOpen_Folder_triggered()
         std::string filename = it.filePath().toStdString();
         TagLib::FileRef f(filename.c_str());
         if (!f.tag()) {
-			//qDebug() << "No ID3 tag found";
-			continue;
-		}
-
-        // Query to see if the album already exists
-        odb::result<Albums> albums = database_context.query<Albums>(odb::query<Albums>::title == f.tag()->album().toCString());
-        Albums album(f.tag()->album().toCString(), std::to_string(f.tag()->year()));
-        if(albums.begin() == albums.end()){
-            database_context.persist(album);
+            //qDebug() << "No ID3 tag found";
+            continue; // Skip the file if there is no ID3 tag
         }
-        else {
-            album = *albums.begin();
-        }
-
-        // Query to see if the artist already exists
-        odb::result<Artists> artists = database_context.query<Artists>(odb::query<Artists>::name == f.tag()->artist().toCString());
-        Artists artist(f.tag()->artist().toCString());
-        if(artists.begin() == artists.end()){
-            database_context.persist(artist);
-		}
-		else {
-            artist = *artists.begin();
-		}
-
-        // Query to see if the genre already exists
-        odb::result<Genres> genres = database_context.query<Genres>(odb::query<Genres>::title == f.tag()->genre().toCString());
-        Genres genre(f.tag()->genre().toCString());
-        if(genres.begin() == genres.end()){
-            database_context.persist(genre);
-        }
-        else {
-            genre = *genres.begin();
-		}
-
-        // Get the duration
-        int duration = f.audioProperties()->lengthInMilliseconds() / 1000;
 
         // Get the file location
         std::string fileLocation = it.filePath().toStdString();
 
-        // Query to see if the genre already exists
-        odb::result<Track> tracks = database_context.query<Track>(odb::query<Track>::file_location == fileLocation);
-        // Create a new track object
-        Track track(f.tag()->title().toCString(), &artist, &album, &genre, "", std::to_string(f.tag()->year()), duration, fileLocation);
-        if (tracks.begin() == tracks.end()) {
-            database_context.persist(track);
-
-
-
-            // Add the track to the default playlist
-            Track_Playlist playlist_map(&track, &defaultPlaylist);
-            try {
-                database_context.persist(playlist_map);
-            }
-            catch (odb::exception& e) {
-                qDebug() << e.what();
-            }
-
-        }
-
+        // Add the track to the default playlist
+        TrackManagement::addTrack(f, defaultPlaylist, database_context, fileLocation);
     }
+
+    // Update the default playlist and commit the transaction
     database_context.update(defaultPlaylist);
 	t.commit();
 
+    // Update the UI
+    StateHasChanged(ui->allTracksListView);
 }
 
+void MainWindow::StateHasChanged(QListView* listView) {
+    // Update the UI
+    db = *new database();
+    db.setDatabase("userdata");
+    odb::sqlite::database database_context = db.getDatabase();
+    odb::transaction t(database_context.begin());
+
+    auto model = new QStandardItemModel(this);
+    listView->setModel(model);
+
+
+    // Query for the default playlist
+    odb::result<Playlist> playlists = database_context.query<Playlist>(odb::query<Playlist>::name == "DEFAULT");
+
+    // The default playlist
+    // What it is: A playlist that contains all the tracks in the folder
+    // Basically, this is the user's library. 
+    // It is the default playlist that is created when the user opens the application for the first time
+    // (but of course, the user doesn't know this)
+    Playlist defaultPlaylist("DEFAULT", "2022");
+    if (playlists.begin() == playlists.end()) {
+        database_context.persist(defaultPlaylist);
+    }
+    else {
+        defaultPlaylist = *playlists.begin();
+    }
+
+    // Get all the tracks in the default playlist
+    odb::result<Track_Playlist> track_map = database_context.query<Track_Playlist>(odb::query<Track_Playlist>::playlist_id == defaultPlaylist.Id());
+
+    // Add the tracks to the list
+    for (odb::result<Track_Playlist>::iterator it = track_map.begin(); it != track_map.end(); it++) {
+        // Get the track
+        Track track = *(it->TrackId());
+
+        model->appendRow(new QStandardItem(QIcon(":/assets/images/album.png"), QString::fromLatin1(track.Title())));
+        //ui->track_list_fp->addItem(QString::fromStdString(it->getTitle()));
+    }
+
+    // Commit the transaction
+    t.commit();
+}
