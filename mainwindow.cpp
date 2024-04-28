@@ -320,9 +320,6 @@ void MainWindow::on_actionOpen_Folder_triggered()
         
         // Add the track to the default playlist
         Track_Playlist playlist_map(&track, &defaultPlaylist);
-        
-        // Start committing the playlist to the database
-        database_context.persist(track);
         try {
             database_context.persist(playlist_map);
         }
