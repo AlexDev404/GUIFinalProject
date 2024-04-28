@@ -17,8 +17,9 @@ public:
 	/// <param name="album_id"></param>
 	/// <param name="year"></param>
 	/// <param name="file_location"></param>
-	Track(string title, Artists* artist_id, Albums* album_id, string year, string file_location) : title_(title), artist_id_(artist_id), album_id_(album_id),
-		year_(year), file_location_(file_location) {
+	Track(string title, Artists* artist_id, Albums* album_id, string year, double duration, string file_location) : title_(title), artist_id_(artist_id), album_id_(album_id),
+		year_(year), duration_(duration), file_location_(file_location) {
+		this->genre_id_ = NULL;
 	}
 
 	/// <summary>
@@ -33,7 +34,7 @@ public:
 	/// <param name="year"></param>
 	/// <param name="file_location"></param>
 	Track(string title, Artists* artist_id, Albums* album_id, Genres* genre_id, string lyrics,
-	double duration, string year, string file_location): title_(title), artist_id_(artist_id),
+	string year, double duration, string file_location): title_(title), artist_id_(artist_id),
 	album_id_(album_id), genre_id_(genre_id), lyrics_(lyrics), duration_(duration), year_(year),
 		file_location_(file_location) {
 	}

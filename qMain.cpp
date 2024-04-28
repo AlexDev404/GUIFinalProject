@@ -49,8 +49,8 @@ void createTables(odb::sqlite::database &database_context) {
 
     // Create the Track table
     database_context.execute(std::string("CREATE TABLE IF NOT EXISTS Track (id INTEGER PRIMARY KEY, title TEXT, artist_id INTEGER, album_id INTEGER, year TEXT, genre_id INTEGER,") +
-        std::string("lyrics TEXT, duration REAL, file_location TEXT, FOREIGN KEY(artist_id) REFERENCES Artists(id), FOREIGN KEY(album_id) REFERENCES ") +
-        std::string("Artists(id), FOREIGN KEY(genre_id) REFERENCES Genres(id))"));
+        std::string("lyrics TEXT, duration REAL, file_location TEXT, ") + 
+        std::string("FOREIGN KEY(artist_id) REFERENCES Artists(id), FOREIGN KEY(album_id) REFERENCES Albums(id), FOREIGN KEY(genre_id) REFERENCES Genres(id))"));
 
     // Create the Track_Playlist table
     database_context.execute(std::string("CREATE TABLE IF NOT EXISTS Track_Playlist (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, track_id INTEGER, playlist_id INTEGER, ") +
@@ -61,9 +61,6 @@ void createTables(odb::sqlite::database &database_context) {
                              std::string("track_id INTEGER, count INTEGER, FOREIGN KEY(track_id) REFERENCES Track(id), FOREIGN KEY(user_id) REFERENCES Windows_Account(id))"));
     }
     catch (const odb::exception& e) {
-        qDebug() << e.what();
-    }
-    catch (const odb::database_exception& e) {
         qDebug() << e.what();
     }
     catch (const std::exception& e) {
@@ -93,23 +90,33 @@ void MainWindow::qMain() {
     // Create the two albums (name, year)
     Albums one_remastered("1 (Remastered)", "2015");
     Albums let_it_be_remastered("Let It Be (Remastered)", "2015");
+    Genres rock("Rock");
 
     // string title, int* artist_id, string year, string file_location
 
     // Create a new track
-    Track track("Hey, Jude", &the_beatles, &one_remastered, "1968", "C://Users//Downloads//The_Beatles__Hey_Jude.mp3");
-    Track track2("Let It Be", &the_beatles, &let_it_be_remastered, "1970", "C://Users//Downloads//The_Beatles__Let_It_Be.mp3");
+    Track track("Hey, Jude", &the_beatles, &one_remastered, "1968", 3.50, "C://Users//Downloads//The_Beatles__Hey_Jude.mp3");
+    Track track2("Let It Be", &the_beatles, &let_it_be_remastered, "1970", 4.00, "C://Users//Downloads//The_Beatles__Let_It_Be.mp3");
+    
+    // Rock and roll song using the full track constructor
+    Track rock_and_roll("Rock and Roll Music", &the_beatles, &one_remastered, &rock, "x", "1964", 1.25, "C://Users//Downloads//The_Beatles__Rock_and_Roll_Music.mp3");
 
     // Add the tracks to the playlist
     playlist.AddTrack(&track); // Track_Playlist.map(playlist, track);
     playlist.AddTrack(&track2); // Track_Playlist.map(playlist, track2);
 
     // Save the artist and track
-    unsigned long the_beatles_id, track_1_id, track_2_id;
+    unsigned long album_0_id, album_1_id, genre_0_id, the_beatles_id, track_0_id, track_1_id, track_2_id, playlist_0_id;
     try {
+        playlist_0_id = database_context.persist(playlist);
         the_beatles_id = database_context.persist(the_beatles);
+        album_0_id = database_context.persist(one_remastered);
+        album_1_id = database_context.persist(let_it_be_remastered);
+        genre_0_id = database_context.persist(rock);
+        track_0_id = database_context.persist(rock_and_roll);
         track_1_id = database_context.persist(track);
         track_2_id = database_context.persist(track2);
+        
     } catch(const odb::exception& e) {
         qDebug() << e.what();
 	}
