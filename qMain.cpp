@@ -107,7 +107,7 @@ void MainWindow::qMain() {
     Track_Playlist playlist_map_0(&track, &playlist); // Track_Playlist.map(playlist, track);
     Track_Playlist playlist_map_1(&track2, &playlist); // Track_Playlist.map(playlist, track2);
 
-    // Save the artist and track
+    // Save everything
     unsigned long album_0_id, album_1_id, genre_0_id, the_beatles_id, track_0_id, track_1_id, track_2_id, playlist_map_0_id, playlist_map_1_id, playlist_0_id;
     try {
         the_beatles_id = database_context.persist(the_beatles);
