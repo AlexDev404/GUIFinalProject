@@ -3,6 +3,7 @@
 #include "Playlist.hpp"
 #include <string>
 #include <odb/core.hxx>
+#include <qdebug.h>
 using std::string;
 
 #pragma db object
@@ -12,6 +13,8 @@ public:
 		playlist_id_(playlist) {
 		// Update the duration of the playlist
 		playlist->SetDuration(playlist->Duration() + track->Duration());
+		qDebug() << "Track_Playlist mapping created\n";
+		qDebug() << "Playlist duration: " << playlist->Duration();
 	}
 
 	// Getters

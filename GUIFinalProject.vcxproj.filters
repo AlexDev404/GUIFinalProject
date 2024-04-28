@@ -325,4 +325,12 @@
       <Filter>Generated Files\Compiled Schemas</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="include\bin\tag.dll">
+      <Filter>Generated Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="include\bin\tag_c.dll">
+      <Filter>Generated Files</Filter>
+    </CopyFileToFolders>
+  </ItemGroup>
 </Project>

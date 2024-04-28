@@ -4,6 +4,7 @@
 #include <odb/schema-catalog.hxx>
 #include <odb/sqlite/exceptions.hxx>
 #include <odb/transaction.hxx>
+#include <odb/result.hxx>
 #include <string>
 using std::string;
 

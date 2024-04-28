@@ -73,7 +73,6 @@ void createTables(odb::sqlite::database &database_context) {
 void MainWindow::qMain() {
     // Main entry point
     // Setup database
-    // --------------------------------- DEBUG ----------------------------------------------------------------------------------------------
     db = *new database();
     db.setDatabase("userdata");
     odb::sqlite::database database_context = db.getDatabase();
@@ -82,52 +81,60 @@ void MainWindow::qMain() {
 
     // Create the tables
     createTables(database_context);
-
-    // .. Create a new playlist
-    Playlist playlist("My Playlist", "2015");
-
-    // Create a new artist
-    Artists the_beatles("The Beatles");
-
-    // Create the two albums (name, year)
-    Albums one_remastered("1 (Remastered)", "2015");
-    Albums let_it_be_remastered("Let It Be (Remastered)", "2015");
-    Genres rock("Rock");
-
-    // string title, int* artist_id, string year, string file_location
-
-    // Create a new track
-    Track track("Hey, Jude", &the_beatles, &one_remastered, "1968", 3.50, "C://Users//Downloads//The_Beatles__Hey_Jude.mp3");
-    Track track2("Let It Be", &the_beatles, &let_it_be_remastered, "1970", 4.00, "C://Users//Downloads//The_Beatles__Let_It_Be.mp3");
     
-    // Rock and roll song using the full track constructor
-    Track rock_and_roll("Rock and Roll Music", &the_beatles, &one_remastered, &rock, "x", "1964", 1.25, "C://Users//Downloads//The_Beatles__Rock_and_Roll_Music.mp3");
-
-    // Add the tracks to the playlist
-    Track_Playlist playlist_map_0(&track, &playlist); // Track_Playlist.map(playlist, track);
-    Track_Playlist playlist_map_1(&track2, &playlist); // Track_Playlist.map(playlist, track2);
-
-    // Save everything
-    unsigned long album_0_id, album_1_id, genre_0_id, the_beatles_id, track_0_id, track_1_id, track_2_id, playlist_map_0_id, playlist_map_1_id, playlist_0_id;
-    try {
-        the_beatles_id = database_context.persist(the_beatles);
-        album_0_id = database_context.persist(one_remastered);
-        album_1_id = database_context.persist(let_it_be_remastered);
-        genre_0_id = database_context.persist(rock);
-        track_0_id = database_context.persist(rock_and_roll);
-        track_1_id = database_context.persist(track);
-        track_2_id = database_context.persist(track2);
-
-        // Playlist and its mappings
-        playlist_0_id = database_context.persist(playlist);
-        playlist_map_0_id = database_context.persist(playlist_map_0);
-        playlist_map_1_id = database_context.persist(playlist_map_1);
-        
-    } catch(const odb::exception& e) {
-        qDebug() << e.what();
-	}
-    // Execute SQL commands to create the table
-    //database_context.execute("CREATE TABLE IF NOT EXISTS Person (id INTEGER PRIMARY KEY, first TEXT, last TEXT, age INTEGER)");
+    // Commit the transaction
     t.commit();
+
+ // -------------------------------- BEGIN_DEBUG --------------------------------------------------------------------------------------------
+ // The following code displays usage of the database classes and their mappings
+ // It shows how to create playlists, artists, albums, genres, and tracks
+ // Please note that this code is for debugging purposes only
+ // 
+ //   // .. Create a new playlist
+ //   Playlist playlist("My Playlist", "2015");
+
+ //   // Create a new artist
+ //   Artists the_beatles("The Beatles");
+
+ //   // Create the two albums (name, year)
+ //   Albums one_remastered("1 (Remastered)", "2015");
+ //   Albums let_it_be_remastered("Let It Be (Remastered)", "2015");
+ //   Genres rock("Rock");
+
+ //   // string title, int* artist_id, string year, string file_location
+
+ //   // Create a new track
+ //   Track track("Hey, Jude", &the_beatles, &one_remastered, "1968", 3.50, "C://Users//Downloads//The_Beatles__Hey_Jude.mp3");
+ //   Track track2("Let It Be", &the_beatles, &let_it_be_remastered, "1970", 4.00, "C://Users//Downloads//The_Beatles__Let_It_Be.mp3");
+ //   
+ //   // Rock and roll song using the full track constructor
+ //   Track rock_and_roll("Rock and Roll Music", &the_beatles, &one_remastered, &rock, "x", "1964", 1.25, "C://Users//Downloads//The_Beatles__Rock_and_Roll_Music.mp3");
+
+ //   // Add the tracks to the playlist
+ //   Track_Playlist playlist_map_0(&track, &playlist); // Track_Playlist.map(playlist, track);
+ //   Track_Playlist playlist_map_1(&track2, &playlist); // Track_Playlist.map(playlist, track2);
+
+ //   // Save everything
+ //   unsigned long album_0_id, album_1_id, genre_0_id, the_beatles_id, track_0_id, track_1_id, track_2_id, playlist_map_0_id, playlist_map_1_id, playlist_0_id;
+ //   try {
+ //       the_beatles_id = database_context.persist(the_beatles);
+ //       album_0_id = database_context.persist(one_remastered);
+ //       album_1_id = database_context.persist(let_it_be_remastered);
+ //       genre_0_id = database_context.persist(rock);
+ //       track_0_id = database_context.persist(rock_and_roll);
+ //       track_1_id = database_context.persist(track);
+ //       track_2_id = database_context.persist(track2);
+
+ //       // Playlist and its mappings
+ //       playlist_0_id = database_context.persist(playlist);
+ //       playlist_map_0_id = database_context.persist(playlist_map_0);
+ //       playlist_map_1_id = database_context.persist(playlist_map_1);
+ //       
+ //   } catch(const odb::exception& e) {
+ //       qDebug() << e.what();
+	//}
+ //   // Execute SQL commands to create the table
+ //   //database_context.execute("CREATE TABLE IF NOT EXISTS Person (id INTEGER PRIMARY KEY, first TEXT, last TEXT, age INTEGER)");
+ //   t.commit();
     // -------------------------------- END_DEBUG --------------------------------------------------------------------------------------------
 }

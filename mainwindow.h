@@ -47,6 +47,8 @@ private slots:
 
     void on_addButton_atp_clicked();
 
+    void on_actionOpen_Folder_triggered();
+
 private:
     Ui::MainWindow *ui;
     // The database
