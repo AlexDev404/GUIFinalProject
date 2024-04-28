@@ -20,6 +20,7 @@
 #include "Albums-odb.hxx"
 #include "Artists-odb.hxx"
 #include "Genres-odb.hxx"
+#include "Roles-odb.hxx"
 #include "Track-odb.hxx"
 #include "WindowsAccount-odb.hxx"
 

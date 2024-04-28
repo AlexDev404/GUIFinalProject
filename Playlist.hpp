@@ -7,7 +7,9 @@ using std::string;
 #pragma db object
 class Playlist {
 public:
-	Playlist(string name, string year) : name_(name), year_(year) {}
+	Playlist(string name, string year) : name_(name), year_(year) {
+		this->duration_ = 0.00; // Initialize duration to 0.00 (playlist is empty)
+	}
 
 	// Getters
 

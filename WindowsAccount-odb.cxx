@@ -29,6 +29,11 @@ namespace odb
   // Windows_Account
   //
 
+  const char alias_traits<  ::Roles,
+    id_sqlite,
+    access::object_traits_impl< ::Windows_Account, id_sqlite >::access_level_tag>::
+  table_name[] = "\"access_level\"";
+
   struct access::object_traits_impl< ::Windows_Account, id_sqlite >::extra_statement_cache_type
   {
     extra_statement_cache_type (
@@ -104,11 +109,7 @@ namespace odb
 
     // access_level_
     //
-    if (t[2UL])
-    {
-      i.access_level_value.capacity (i.access_level_size);
-      grew = true;
-    }
+    t[2UL] = false;
 
     return grew;
   }
@@ -147,12 +148,8 @@ namespace odb
 
     // access_level_
     //
-    b[n].type = sqlite::image_traits<
-      ::std::string,
-      sqlite::id_text>::bind_value;
-    b[n].buffer = i.access_level_value.data ();
-    b[n].size = &i.access_level_size;
-    b[n].capacity = i.access_level_value.capacity ();
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.access_level_value;
     b[n].is_null = &i.access_level_null;
     n++;
   }
@@ -218,20 +215,28 @@ namespace odb
     // access_level_
     //
     {
-      ::std::string const& v =
+      ::Roles* const& v =
         o.access_level_;
 
-      bool is_null (false);
-      std::size_t cap (i.access_level_value.capacity ());
-      sqlite::value_traits<
-          ::std::string,
-          sqlite::id_text >::set_image (
-        i.access_level_value,
-        i.access_level_size,
-        is_null,
-        v);
-      i.access_level_null = is_null;
-      grew = grew || (cap != i.access_level_value.capacity ());
+      typedef object_traits< ::Roles > obj_traits;
+      typedef odb::pointer_traits< ::Roles* > ptr_traits;
+
+      bool is_null (ptr_traits::null_ptr (v));
+      if (!is_null)
+      {
+        const obj_traits::id_type& ptr_id (
+          obj_traits::id (ptr_traits::get_ref (v)));
+
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_image (
+          i.access_level_value,
+          is_null,
+          ptr_id);
+        i.access_level_null = is_null;
+      }
+      else
+        i.access_level_null = true;
     }
 
     return grew;
@@ -278,16 +283,32 @@ namespace odb
     // access_level_
     //
     {
-      ::std::string& v =
+      ::Roles*& v =
         o.access_level_;
 
-      sqlite::value_traits<
-          ::std::string,
-          sqlite::id_text >::set_value (
-        v,
-        i.access_level_value,
-        i.access_level_size,
-        i.access_level_null);
+      typedef object_traits< ::Roles > obj_traits;
+      typedef odb::pointer_traits< ::Roles* > ptr_traits;
+
+      if (i.access_level_null)
+        v = ptr_traits::pointer_type ();
+      else
+      {
+        obj_traits::id_type ptr_id;
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_value (
+          ptr_id,
+          i.access_level_value,
+          i.access_level_null);
+
+        // If a compiler error points to the line below, then
+        // it most likely means that a pointer used in a member
+        // cannot be initialized from an object pointer.
+        //
+        v = ptr_traits::pointer_type (
+          static_cast<sqlite::database*> (db)->load<
+            obj_traits::object_type > (ptr_id));
+      }
     }
   }
 
@@ -334,11 +355,12 @@ namespace odb
   "WHERE \"id\"=?";
 
   const char access::object_traits_impl< ::Windows_Account, id_sqlite >::query_statement[] =
-  "SELECT "
-  "\"Windows_Account\".\"id\", "
-  "\"Windows_Account\".\"name\", "
-  "\"Windows_Account\".\"access_level\" "
-  "FROM \"Windows_Account\"";
+  "SELECT\n"
+  "\"Windows_Account\".\"id\",\n"
+  "\"Windows_Account\".\"name\",\n"
+  "\"Windows_Account\".\"access_level\"\n"
+  "FROM \"Windows_Account\"\n"
+  "LEFT JOIN \"Roles\" AS \"access_level\" ON \"access_level\".\"id\"=\"Windows_Account\".\"access_level\"";
 
   const char access::object_traits_impl< ::Windows_Account, id_sqlite >::erase_query_statement[] =
   "DELETE FROM \"Windows_Account\"";
@@ -682,7 +704,7 @@ namespace odb
     std::string text (query_statement);
     if (!q.empty ())
     {
-      text += " ";
+      text += "\n";
       text += q.clause ();
     }
 
@@ -691,7 +713,7 @@ namespace odb
       new (shared) select_statement (
         conn,
         text,
-        false,
+        true,
         true,
         q.parameters_binding (),
         imb));
@@ -763,7 +785,11 @@ namespace odb
           db.execute ("CREATE TABLE \"Windows_Account\" (\n"
                       "  \"id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
                       "  \"name\" TEXT NOT NULL,\n"
-                      "  \"access_level\" TEXT NOT NULL)");
+                      "  \"access_level\" INTEGER NULL,\n"
+                      "  CONSTRAINT \"access_level_fk\"\n"
+                      "    FOREIGN KEY (\"access_level\")\n"
+                      "    REFERENCES \"Roles\" (\"id\")\n"
+                      "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
       }

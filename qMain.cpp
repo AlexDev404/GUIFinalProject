@@ -15,6 +15,62 @@
 // Include command-line output
 #include <qDebug>
 
+void createTables(odb::sqlite::database &database_context) {
+    try {
+	// Create the tables
+    // PLEASE NOTE: The tables are created in a specific order to avoid errors
+    // Please only edit if needed + if you know what you are doing, because the order is important
+    // Otherwise, please ask for help or assistance
+
+
+    // Left-hand side (Artists, Albums, Genres) -- Autonoumous tables/classes
+
+    // Create the Artists table
+    database_context.execute("CREATE TABLE IF NOT EXISTS Artists (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT)");
+    // Create the Albums table
+    database_context.execute("CREATE TABLE IF NOT EXISTS Albums (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title TEXT, release_date TEXT)");
+    // Create the Genres table
+    database_context.execute("CREATE TABLE IF NOT EXISTS Genres (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title TEXT)");
+
+    // Right-hand side (Track, Playlist, Track_Playlist, Track_Playcount, Windows_Account) -- Autonomous tables/classes
+
+    // Create the Playlist table
+    database_context.execute("CREATE TABLE IF NOT EXISTS Playlist (id INTEGER PRIMARY KEY, name TEXT, year TEXT, duration REAL)");
+    // Create the Roles table
+    database_context.execute("CREATE TABLE IF NOT EXISTS Roles (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT)");
+
+
+    // Center-Down (Track_Playcount, Track_Playlist) -- Mix of Autonomous + Dependent tables/classes
+    
+    // Create the Windows_Account table (independent)
+    database_context.execute("CREATE TABLE IF NOT EXISTS Windows_Account (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username TEXT, role_id TEXT)");
+
+    // Dependent tables
+
+    // Create the Track table
+    database_context.execute(std::string("CREATE TABLE IF NOT EXISTS Track (id INTEGER PRIMARY KEY, title TEXT, artist_id INTEGER, album_id INTEGER, year TEXT, genre_id INTEGER,") +
+        std::string("lyrics TEXT, duration REAL, file_location TEXT, FOREIGN KEY(artist_id) REFERENCES Artists(id), FOREIGN KEY(album_id) REFERENCES ") +
+        std::string("Artists(id), FOREIGN KEY(genre_id) REFERENCES Genres(id))"));
+
+    // Create the Track_Playlist table
+    database_context.execute(std::string("CREATE TABLE IF NOT EXISTS Track_Playlist (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, track_id INTEGER, playlist_id INTEGER, ") +
+        std::string("FOREIGN KEY(track_id) REFERENCES Track(id), FOREIGN KEY(playlist_id) REFERENCES Playlist(id))"));
+
+    // Create the Track_Playcount table
+    database_context.execute(std::string("CREATE TABLE IF NOT EXISTS Track_Playcount (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, user_id INTEGER, ") +
+                             std::string("track_id INTEGER, count INTEGER, FOREIGN KEY(track_id) REFERENCES Track(id), FOREIGN KEY(user_id) REFERENCES Windows_Account(id))"));
+    }
+    catch (const odb::exception& e) {
+        qDebug() << e.what();
+    }
+    catch (const odb::database_exception& e) {
+        qDebug() << e.what();
+    }
+    catch (const std::exception& e) {
+        qDebug() << e.what();
+    }
+}
+
 void MainWindow::qMain() {
     // Main entry point
     // Setup database
@@ -24,6 +80,9 @@ void MainWindow::qMain() {
     odb::sqlite::database database_context = db.getDatabase();
 
     odb::transaction t(database_context.begin());
+
+    // Create the tables
+    createTables(database_context);
 
     // .. Create a new playlist
     Playlist playlist("My Playlist", "2015");

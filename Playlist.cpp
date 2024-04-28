@@ -25,6 +25,9 @@ const double Playlist::Duration() {
 }
 
 void Playlist::AddTrack(Track* track) {
+	// Add track to playlist and increment duration
+	this->duration_ = this->duration_ + track->Duration();
+	// Create a new track_playlist object to map the track to the playlist
 	Track_Playlist tp(track, this);
 }
 

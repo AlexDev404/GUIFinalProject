@@ -1,4 +1,5 @@
 #pragma once
+#include "Roles.hpp"
 #include <string>
 #include <odb/core.hxx>
 using std::string;
@@ -6,7 +7,7 @@ using std::string;
 #pragma db object
 class Windows_Account {
 public:
-	Windows_Account(string name, string access_level) : 
+	Windows_Account(string name, Roles* access_level) : 
 		name_(name), access_level_(access_level) {}
 
 	// Getters
@@ -25,7 +26,7 @@ public:
 	/// The access level of the account.
 	/// </summary>
 	/// <returns></returns>
-	const string AccessLevel();
+	const Roles* AccessLevel();
 
 	// Setters
 
@@ -38,7 +39,7 @@ public:
 	/// Sets the access level of the account.
 	/// </summary>
 	/// <param name="access_level"></param>
-	void SetAccessLevel(string access_level);
+	void SetAccessLevel(Roles* access_level);
 
 private:
 	friend class odb::access;
@@ -48,5 +49,5 @@ private:
 	#pragma db id auto
 	int _id;
 	string name_;
-	string access_level_;
+	Roles* access_level_;
 };
