@@ -2,18 +2,20 @@
 
 // Include the database class-schemas
 #include "Track.hpp"
+#include "Track_Playlist.hpp"
 #include "Artists.hpp"
 #include "Albums.hpp"
 #include "Playlist.hpp"
 
 // Include the database mappings
 #include "Track-odb.hxx"
+#include "Track_Playlist-odb.hxx"
 #include "Artists-odb.hxx"
 #include "Albums-odb.hxx"
 #include "Playlist-odb.hxx"
 
 // Include command-line output
-#include <qDebug>
+#include <QDebug>
 
 void createTables(odb::sqlite::database &database_context) {
     try {
@@ -102,12 +104,14 @@ void MainWindow::qMain() {
     Track rock_and_roll("Rock and Roll Music", &the_beatles, &one_remastered, &rock, "x", "1964", 1.25, "C://Users//Downloads//The_Beatles__Rock_and_Roll_Music.mp3");
 
     // Add the tracks to the playlist
-    playlist.AddTrack(&track); // Track_Playlist.map(playlist, track);
-    playlist.AddTrack(&track2); // Track_Playlist.map(playlist, track2);
+    Track_Playlist* playlist_map_0 = (Track_Playlist*)playlist.AddTrack(&track); // Track_Playlist.map(playlist, track);
+    Track_Playlist* playlist_map_1 = (Track_Playlist*)playlist.AddTrack(&track2); // Track_Playlist.map(playlist, track2);
 
     // Save the artist and track
-    unsigned long album_0_id, album_1_id, genre_0_id, the_beatles_id, track_0_id, track_1_id, track_2_id, playlist_0_id;
+    unsigned long album_0_id, album_1_id, genre_0_id, the_beatles_id, track_0_id, track_1_id, track_2_id, playlist_map_0_id, playlist_map_1_id, playlist_0_id;
     try {
+        playlist_map_0_id = database_context.persist(playlist_map_0);
+        playlist_map_1_id = database_context.persist(playlist_map_1);
         playlist_0_id = database_context.persist(playlist);
         the_beatles_id = database_context.persist(the_beatles);
         album_0_id = database_context.persist(one_remastered);
