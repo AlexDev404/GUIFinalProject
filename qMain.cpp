@@ -55,8 +55,8 @@ void createTables(odb::sqlite::database &database_context) {
         std::string("FOREIGN KEY(artist_id) REFERENCES Artists(id), FOREIGN KEY(album_id) REFERENCES Albums(id), FOREIGN KEY(genre_id) REFERENCES Genres(id))"));
 
     // Create the Track_Playlist table
-    database_context.execute(std::string("CREATE TABLE IF NOT EXISTS Track_Playlist (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, track_id INTEGER, playlist_id INTEGER) ")); //+
-    //    std::string("FOREIGN KEY(track_id) REFERENCES Track(id), FOREIGN KEY(playlist_id) REFERENCES Playlist(id))"));
+    database_context.execute(std::string("CREATE TABLE IF NOT EXISTS Track_Playlist (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, track_id INTEGER, playlist_id INTEGER, ") +
+                             std::string("FOREIGN KEY(track_id) REFERENCES Track(id), FOREIGN KEY(playlist_id) REFERENCES Playlist(id))"));
 
     // Create the Track_Playcount table
     database_context.execute(std::string("CREATE TABLE IF NOT EXISTS Track_Playcount (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, user_id INTEGER, ") +
@@ -118,9 +118,8 @@ void MainWindow::qMain() {
         track_1_id = database_context.persist(track);
         track_2_id = database_context.persist(track2);
 
-        // Playlist comes after?
+        // Playlist and its mappings
         playlist_0_id = database_context.persist(playlist);
-        // Mappings comes after?
         playlist_map_0_id = database_context.persist(playlist_map_0);
         playlist_map_1_id = database_context.persist(playlist_map_1);
         
