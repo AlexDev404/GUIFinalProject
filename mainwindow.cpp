@@ -248,9 +248,8 @@ void MainWindow::on_actionOpen_Folder_triggered()
     odb::transaction t(database_context.begin());
     odb::result<Playlist> playlists = database_context.query<Playlist>(odb::query<Playlist>::name == "DEFAULT");
 
-    Playlist defaultPlaylist("NULL", "NULL");
+    Playlist defaultPlaylist("DEFAULT", "2022");
     if(playlists.begin() == playlists.end()){
-		defaultPlaylist = Playlist("DEFAULT", "2022");
         database_context.persist(defaultPlaylist);
 	}
 	else{
@@ -273,9 +272,8 @@ void MainWindow::on_actionOpen_Folder_triggered()
 
         // Query to see if the album already exists
         odb::result<Albums> albums = database_context.query<Albums>(odb::query<Albums>::title == f.tag()->album().toCString());
-        Albums album("NULL", "NULL");
+        Albums album(f.tag()->album().toCString(), std::to_string(f.tag()->year()));
         if(albums.begin() == albums.end()){
-            album = Albums(f.tag()->album().toCString(), std::to_string(f.tag()->year()));
             database_context.persist(album);
         }
         else {
@@ -284,9 +282,8 @@ void MainWindow::on_actionOpen_Folder_triggered()
 
         // Query to see if the artist already exists
         odb::result<Artists> artists = database_context.query<Artists>(odb::query<Artists>::name == f.tag()->artist().toCString());
-        Artists artist("NULL");
+        Artists artist(f.tag()->artist().toCString());
         if(artists.begin() == artists.end()){
-            artist = Artists(f.tag()->artist().toCString());
             database_context.persist(artist);
 		}
 		else {
@@ -295,9 +292,8 @@ void MainWindow::on_actionOpen_Folder_triggered()
 
         // Query to see if the genre already exists
         odb::result<Genres> genres = database_context.query<Genres>(odb::query<Genres>::title == f.tag()->genre().toCString());
-        Genres genre("NULL");
+        Genres genre(f.tag()->genre().toCString());
         if(genres.begin() == genres.end()){
-            genre = Genres(f.tag()->genre().toCString());
             database_context.persist(genre);
         }
         else {
@@ -310,14 +306,21 @@ void MainWindow::on_actionOpen_Folder_triggered()
         // Get the file location
         std::string fileLocation = it.filePath().toStdString();
 
+        // Query to see if the genre already exists
+        odb::result<Track> tracks = database_context.query<Track>(odb::query<Track>::file_location == fileLocation);
         // Create a new track object
         Track track(f.tag()->title().toCString(), &artist, &album, &genre, "", std::to_string(f.tag()->year()), duration, fileLocation);
+        if (tracks.begin() == tracks.end()) {
+            database_context.persist(track);
+        }
+        else {
+            track = *tracks.begin();
+        }
+
         
         // Add the track to the default playlist
         Track_Playlist playlist_map(&track, &defaultPlaylist);
         
-
-
         // Start committing the playlist to the database
         database_context.persist(track);
         try {
@@ -328,7 +331,7 @@ void MainWindow::on_actionOpen_Folder_triggered()
 		}
 
     }
-    //database_context.update(defaultPlaylist);
+    database_context.update(defaultPlaylist);
 	t.commit();
 
 }
