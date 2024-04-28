@@ -312,20 +312,19 @@ void MainWindow::on_actionOpen_Folder_triggered()
         Track track(f.tag()->title().toCString(), &artist, &album, &genre, "", std::to_string(f.tag()->year()), duration, fileLocation);
         if (tracks.begin() == tracks.end()) {
             database_context.persist(track);
-        }
-        else {
-            track = *tracks.begin();
-        }
 
-        
-        // Add the track to the default playlist
-        Track_Playlist playlist_map(&track, &defaultPlaylist);
-        try {
-            database_context.persist(playlist_map);
+
+
+            // Add the track to the default playlist
+            Track_Playlist playlist_map(&track, &defaultPlaylist);
+            try {
+                database_context.persist(playlist_map);
+            }
+            catch (odb::exception& e) {
+                qDebug() << e.what();
+            }
+
         }
-		catch(odb::exception &e){
-			qDebug() << e.what();
-		}
 
     }
     database_context.update(defaultPlaylist);
