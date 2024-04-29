@@ -4,8 +4,11 @@
 #include "Genres.hpp"
 #include "TrackImage.hpp"
 #include <string>
+#include <vector>
+#include <cstring> // for strlen
 #include <odb/core.hxx>
 using std::string;
+using std::vector;
 
 #pragma db object
 class Track {
@@ -26,7 +29,9 @@ public:
 	string year, double duration, string file_location, TrackImage cover_art): title_(title), artist_id_(artist_id),
 	album_id_(album_id), genre_id_(genre_id), lyrics_(lyrics), duration_(duration), year_(year),
 		file_location_(file_location) {
-		this->cover_art_ = cover_art.Data();
+		if (cover_art.Data()) {
+			this->cover_art_ = charArrayToVector(cover_art.Data(), cover_art.Size()); // Set the image data
+		}
 	}
 
 	/// <summary>
@@ -94,8 +99,9 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	const TrackImage Image() {
-		return TrackImage(cover_art_, sizeof(cover_art_)/sizeof(char)); // Return the image object
-		// We calculate the size of the image by dividing the size of the image by the size of a char
+		unsigned long length = sizeof(cover_art_) / sizeof(char);
+		return TrackImage(vectorToCharArray(cover_art_), length); // Set the image data
+		
 	}
 
 	// Setters
@@ -145,13 +151,45 @@ public:
 	/// </summary>
 	/// <param name="image"></param>
 	void SetImage(TrackImage image) {
-		this->cover_art_ = image.Data(); // Set the image data
+		this->cover_art_ = charArrayToVector(image.Data(), image.Size()); // Set the image data
 	}
 
 
 private:
 	friend class odb::access;
 	Track(){}
+
+	// Utility functions
+
+	/// <summary>
+	/// This function converts a char array to a vector of chars.
+	/// </summary>
+	/// <param name="charArray"></param>
+	/// <param name="length"></param>
+	/// <returns></returns>
+	std::vector<char> charArrayToVector(const char* charArray, size_t length) {
+		return std::vector<char>(charArray, charArray + length);
+		// Thanks ChatGPT (haha)
+	}
+
+	/// <summary>
+	/// This function converts a vector of chars to a char pointer.
+	/// </summary>
+	/// <param name="vec"></param>
+	/// <returns></returns>
+	char* vectorToCharArray(const std::vector<char>& vec) {
+		// Ensure vector is not empty to avoid accessing invalid memory
+		if (vec.empty()) {
+			return NULL;
+		}
+		// Create a copy of the vector's data on the heap
+		char* charArray = new char[vec.size() + 1]; // +1 for null-terminator
+		std::copy(vec.begin(), vec.end(), charArray);
+		// Add null-terminator to make it a valid C-style string
+		charArray[vec.size()] = '\0';
+		return charArray;
+		// Ummm... thanks again ChatGPT
+	}
 
 	#pragma db id auto
 	int id_;
@@ -163,6 +201,7 @@ private:
 	double duration_;
 	string year_;
 	string file_location_;
-	char* cover_art_;
+#pragma db type("BLOB")
+	vector<char> cover_art_; // If you change these names, please change the names in the SQL query in qMain.cpp as well!
 
 };

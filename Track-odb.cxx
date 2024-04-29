@@ -157,6 +157,14 @@ namespace odb
       grew = true;
     }
 
+    // cover_art_
+    //
+    if (t[9UL])
+    {
+      i.cover_art_value.capacity (i.cover_art_size);
+      grew = true;
+    }
+
     return grew;
   }
 
@@ -251,6 +259,15 @@ namespace odb
     b[n].size = &i.file_location_size;
     b[n].capacity = i.file_location_value.capacity ();
     b[n].is_null = &i.file_location_null;
+    n++;
+
+    // cover_art_
+    //
+    b[n].type = sqlite::bind::blob;
+    b[n].buffer = i.cover_art_value.data ();
+    b[n].size = &i.cover_art_size;
+    b[n].capacity = i.cover_art_value.capacity ();
+    b[n].is_null = &i.cover_art_null;
     n++;
   }
 
@@ -466,6 +483,25 @@ namespace odb
       grew = grew || (cap != i.file_location_value.capacity ());
     }
 
+    // cover_art_
+    //
+    {
+      ::std::vector< char > const& v =
+        o.cover_art_;
+
+      bool is_null (false);
+      std::size_t cap (i.cover_art_value.capacity ());
+      sqlite::value_traits<
+          ::std::vector< char >,
+          sqlite::id_blob >::set_image (
+        i.cover_art_value,
+        i.cover_art_size,
+        is_null,
+        v);
+      i.cover_art_null = is_null;
+      grew = grew || (cap != i.cover_art_value.capacity ());
+    }
+
     return grew;
   }
 
@@ -658,6 +694,21 @@ namespace odb
         i.file_location_size,
         i.file_location_null);
     }
+
+    // cover_art_
+    //
+    {
+      ::std::vector< char >& v =
+        o.cover_art_;
+
+      sqlite::value_traits<
+          ::std::vector< char >,
+          sqlite::id_blob >::set_value (
+        v,
+        i.cover_art_value,
+        i.cover_art_size,
+        i.cover_art_null);
+    }
   }
 
   void access::object_traits_impl< ::Track, id_sqlite >::
@@ -685,9 +736,10 @@ namespace odb
   "\"lyrics\", "
   "\"duration\", "
   "\"year\", "
-  "\"file_location\") "
+  "\"file_location\", "
+  "\"cover_art\") "
   "VALUES "
-  "(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
   const char access::object_traits_impl< ::Track, id_sqlite >::find_statement[] =
   "SELECT "
@@ -699,7 +751,8 @@ namespace odb
   "\"Track\".\"lyrics\", "
   "\"Track\".\"duration\", "
   "\"Track\".\"year\", "
-  "\"Track\".\"file_location\" "
+  "\"Track\".\"file_location\", "
+  "\"Track\".\"cover_art\" "
   "FROM \"Track\" "
   "WHERE \"Track\".\"id\"=?";
 
@@ -713,7 +766,8 @@ namespace odb
   "\"lyrics\"=?, "
   "\"duration\"=?, "
   "\"year\"=?, "
-  "\"file_location\"=? "
+  "\"file_location\"=?, "
+  "\"cover_art\"=? "
   "WHERE \"id\"=?";
 
   const char access::object_traits_impl< ::Track, id_sqlite >::erase_statement[] =
@@ -730,7 +784,8 @@ namespace odb
   "\"Track\".\"lyrics\",\n"
   "\"Track\".\"duration\",\n"
   "\"Track\".\"year\",\n"
-  "\"Track\".\"file_location\"\n"
+  "\"Track\".\"file_location\",\n"
+  "\"Track\".\"cover_art\"\n"
   "FROM \"Track\"\n"
   "LEFT JOIN \"Artists\" AS \"artist_id\" ON \"artist_id\".\"id\"=\"Track\".\"artist_id\"\n"
   "LEFT JOIN \"Albums\" AS \"album_id\" ON \"album_id\".\"id\"=\"Track\".\"album_id\"\n"
@@ -1166,6 +1221,7 @@ namespace odb
                       "  \"duration\" REAL NULL,\n"
                       "  \"year\" TEXT NOT NULL,\n"
                       "  \"file_location\" TEXT NOT NULL,\n"
+                      "  \"cover_art\" BLOB NOT NULL,\n"
                       "  CONSTRAINT \"artist_id_fk\"\n"
                       "    FOREIGN KEY (\"artist_id\")\n"
                       "    REFERENCES \"Artists\" (\"id\")\n"

@@ -63,11 +63,17 @@ int TrackManagement::addTrack(std::string& fileLocation, Playlist& defaultPlayli
                 if (coverArt->type() == TagLib::ID3v2::AttachedPictureFrame::FrontCover) {
 					// Begin writing the image to a file
                     //std::ofstream file("F:\\Music\\albumArt.jpg", std::ios::binary);
-                    image = TrackImage(coverArt->picture().data(), coverArt->picture().size()); // Set the image object to the album art
-                    /*file.write(image.Data(), image.Size());
-                    file.flush();
-                    file.close();*/
-
+                    void* source_image = malloc(coverArt->picture().size());
+                    if (source_image) {
+                        memcpy(source_image, coverArt->picture().data(), coverArt->picture().size());
+                        image = TrackImage((char*)source_image, coverArt->picture().size()); // Set the image object to the album art
+                        /*file.write(image.Data(), image.Size());
+                        file.flush();
+                        file.close();*/
+                    }
+                    else {
+						qDebug() << "Failed to allocate memory for the image";
+                    }
 					break;
 			}
         }
@@ -79,13 +85,12 @@ int TrackManagement::addTrack(std::string& fileLocation, Playlist& defaultPlayli
     // Create a new track object
     Track track(id3v2tag->title().toCString(), &artist, &album, &genre, "", std::to_string(id3v2tag->year()), duration, fileLocation, image);
     if (tracks.begin() == tracks.end()) {
-        database_context.persist(track);
+            database_context.persist(track);
 
-
-
-        // Add the track to the default playlist
-        Track_Playlist playlist_map(&track, &defaultPlaylist);
         try {
+            // Add the track to the default playlist
+            Track_Playlist playlist_map(&track, &defaultPlaylist);
+
             database_context.persist(playlist_map);
         }
         catch (odb::exception& e) {

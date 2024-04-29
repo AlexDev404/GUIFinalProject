@@ -51,7 +51,7 @@ void createTables(odb::sqlite::database &database_context) {
 
     // Create the Track table
     database_context.execute(std::string("CREATE TABLE IF NOT EXISTS Track (id INTEGER PRIMARY KEY, title TEXT, artist_id INTEGER, album_id INTEGER, year TEXT, genre_id INTEGER,") +
-        std::string("lyrics TEXT, duration REAL, file_location TEXT, ") + 
+        std::string("lyrics TEXT, duration REAL, file_location TEXT, cover_art BLOB, ") + 
         std::string("FOREIGN KEY(artist_id) REFERENCES Artists(id), FOREIGN KEY(album_id) REFERENCES Albums(id), FOREIGN KEY(genre_id) REFERENCES Genres(id))"));
 
     // Create the Track_Playlist table

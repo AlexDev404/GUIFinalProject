@@ -204,6 +204,18 @@ namespace odb
     file_location_type_;
 
     static const file_location_type_ file_location;
+
+    // cover_art
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        ::std::vector< char >,
+        sqlite::id_blob >::query_type,
+      sqlite::id_blob >
+    cover_art_type_;
+
+    static const cover_art_type_ cover_art;
   };
 
   template <typename A>
@@ -250,6 +262,11 @@ namespace odb
   const typename pointer_query_columns< ::Track, id_sqlite, A >::file_location_type_
   pointer_query_columns< ::Track, id_sqlite, A >::
   file_location (A::table_name, "\"file_location\"", 0);
+
+  template <typename A>
+  const typename pointer_query_columns< ::Track, id_sqlite, A >::cover_art_type_
+  pointer_query_columns< ::Track, id_sqlite, A >::
+  cover_art (A::table_name, "\"cover_art\"", 0);
 
   template <>
   class access::object_traits_impl< ::Track, id_sqlite >:
@@ -315,6 +332,12 @@ namespace odb
       std::size_t file_location_size;
       bool file_location_null;
 
+      // cover_art_
+      //
+      details::buffer cover_art_value;
+      std::size_t cover_art_size;
+      bool cover_art_null;
+
       std::size_t version;
     };
 
@@ -361,7 +384,7 @@ namespace odb
 
     typedef sqlite::query_base query_base_type;
 
-    static const std::size_t column_count = 9UL;
+    static const std::size_t column_count = 10UL;
     static const std::size_t id_column_count = 1UL;
     static const std::size_t inverse_column_count = 0UL;
     static const std::size_t readonly_column_count = 0UL;
@@ -644,6 +667,18 @@ namespace odb
     file_location_type_;
 
     static const file_location_type_ file_location;
+
+    // cover_art
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        ::std::vector< char >,
+        sqlite::id_blob >::query_type,
+      sqlite::id_blob >
+    cover_art_type_;
+
+    static const cover_art_type_ cover_art;
   };
 
   template <typename A>
@@ -690,6 +725,11 @@ namespace odb
   const typename query_columns< ::Track, id_sqlite, A >::file_location_type_
   query_columns< ::Track, id_sqlite, A >::
   file_location (A::table_name, "\"file_location\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::Track, id_sqlite, A >::cover_art_type_
+  query_columns< ::Track, id_sqlite, A >::
+  cover_art (A::table_name, "\"cover_art\"", 0);
 }
 
 #include "Track-odb.ixx"

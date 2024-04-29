@@ -1,3 +1,5 @@
+#pragma once
+
 /// <summary>
 /// This class is used to store the cover art of a track.
 /// </summary>
