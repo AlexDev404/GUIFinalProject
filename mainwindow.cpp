@@ -332,6 +332,9 @@ void MainWindow::StateHasChanged(QListView* listView) {
     for (odb::result<Track_Playlist>::iterator it = track_map.begin(); it != track_map.end(); it++) {
         // Get the track
         Track track = *(it->TrackId());
+        Albums track_album = *(track.AlbumId());
+        Artists track_artist = *(track.ArtistId());
+
         TrackImage track_image = track.Image();
         QImage image;
         // Check to see if it's 16 bytes long. If it is, it's an empty image (probably a bug)
@@ -341,15 +344,24 @@ void MainWindow::StateHasChanged(QListView* listView) {
         else {
             image.loadFromData(QByteArray::fromRawData(track_image.Data(), track_image.Size() == 16 ? 0 : track_image.Size()), "JPG"); // Pretty much all of the images are JPGs
         }
+        
+        // Information about the track
         QPixmap pixmap = QPixmap::fromImage(image);
-        QStandardItem* trackView = new QStandardItem(QIcon(pixmap), QString::fromLatin1(track.Title()));
+        QStandardItem* trackView = new QStandardItem(QIcon(pixmap), QString::fromLatin1(track.Title() + "\n"));
+        QString albumRow = QString::fromStdString(track_album.Title());
+        QString artistRow = QString::fromStdString(track_artist.Name());
+        
+        
         // We can add more information to the trackView if we want
         // For example, we can add the artist, album, etc.
         trackView->setEditable(false);
-        // Set the album and artist below the title
-        trackView->appendRow(new QStandardItem(QString::fromLatin1("test")));
-        // Resize the trackView to around 500 pixels
+
+        // Append the album and artist below the title
+        trackView->setText(trackView->text() + albumRow + "\n" + artistRow);
+
+        // Resize the trackView to 175 pixels
         trackView->setSizeHint(QSize(125, 175));
+
         // Have the image fit the trackView
         listView->setIconSize(QSize(100, 100));
 

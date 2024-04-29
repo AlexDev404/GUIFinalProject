@@ -1,3 +1,9 @@
+QFrame, QListView {
+   border: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
 QMainWindow {
    background: #0E1C2E;
    color: #D2DBED;
