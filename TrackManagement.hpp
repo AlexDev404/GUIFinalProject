@@ -3,7 +3,7 @@
 
 // Schemas
 #include "Track.hpp"
-#include "Albums.hpp""
+#include "Albums.hpp"
 #include "Artists.hpp"
 #include "Genres.hpp"
 #include "Playlist.hpp"
@@ -35,10 +35,10 @@ public:
     /// Adds a track to the database. 
     /// Takes into account that if the album, artist, or genre do not exist, they need to be added to the database.
     /// </summary>
-    /// <param name="f"></param>
+    /// <param name="fileLocation"></param>
     /// <param name="defaultPlaylist"></param>
     /// <param name="database_context"></param>
-    /// <param name="fileLocation"></param>
-	static void addTrack(TagLib::FileRef f, Playlist defaultPlaylist, odb::sqlite::database& database_context, std::string fileLocation);
+    static int addTrack(std::string& fileLocation, Playlist& defaultPlaylist, odb::sqlite::database& database_context); // Accepts only references 
+                                                                                                                       // because we don't want to create copies
 
 };

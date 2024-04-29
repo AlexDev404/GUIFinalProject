@@ -262,17 +262,20 @@ void MainWindow::on_actionOpen_Folder_triggered()
 
         // Parse the ID3 tags
         std::string filename = it.filePath().toStdString();
-        TagLib::FileRef f(filename.c_str());
-        if (!f.tag()) {
+        //TagLib::FileRef f(filename.c_str());
+        //if (!f.tag()) {
             //qDebug() << "No ID3 tag found";
-            continue; // Skip the file if there is no ID3 tag
-        }
+          //  continue; // Skip the file if there is no ID3 tag
+        //}
 
         // Get the file location
         std::string fileLocation = it.filePath().toStdString();
 
         // Add the track to the default playlist
-        TrackManagement::addTrack(f, defaultPlaylist, database_context, fileLocation);
+        int exists = TrackManagement::addTrack(fileLocation, defaultPlaylist, database_context);
+        if (exists == 1) {
+            continue;
+		}
     }
 
     // Update the default playlist and commit the transaction
@@ -318,7 +321,7 @@ void MainWindow::StateHasChanged(QListView* listView) {
         // Get the track
         Track track = *(it->TrackId());
 
-        model->appendRow(new QStandardItem(QIcon(":/assets/images/album.png"), QString::fromLatin1(track.Title())));
+        model->appendRow(new QStandardItem(QIcon(":/otherfiles/assets/images/album.png"), QString::fromLatin1(track.Title())));
         //ui->track_list_fp->addItem(QString::fromStdString(it->getTitle()));
     }
 
