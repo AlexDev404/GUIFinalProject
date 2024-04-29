@@ -165,6 +165,10 @@ namespace odb
       grew = true;
     }
 
+    // cover_art_size_
+    //
+    t[10UL] = false;
+
     return grew;
   }
 
@@ -268,6 +272,13 @@ namespace odb
     b[n].size = &i.cover_art_size;
     b[n].capacity = i.cover_art_value.capacity ();
     b[n].is_null = &i.cover_art_null;
+    n++;
+
+    // cover_art_size_
+    //
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.cover_art_size_value;
+    b[n].is_null = &i.cover_art_size_null;
     n++;
   }
 
@@ -502,6 +513,22 @@ namespace odb
       grew = grew || (cap != i.cover_art_value.capacity ());
     }
 
+    // cover_art_size_
+    //
+    {
+      int const& v =
+        o.cover_art_size_;
+
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.cover_art_size_value,
+        is_null,
+        v);
+      i.cover_art_size_null = is_null;
+    }
+
     return grew;
   }
 
@@ -709,6 +736,20 @@ namespace odb
         i.cover_art_size,
         i.cover_art_null);
     }
+
+    // cover_art_size_
+    //
+    {
+      int& v =
+        o.cover_art_size_;
+
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.cover_art_size_value,
+        i.cover_art_size_null);
+    }
   }
 
   void access::object_traits_impl< ::Track, id_sqlite >::
@@ -737,9 +778,10 @@ namespace odb
   "\"duration\", "
   "\"year\", "
   "\"file_location\", "
-  "\"cover_art\") "
+  "\"cover_art\", "
+  "\"cover_art_size\") "
   "VALUES "
-  "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
   const char access::object_traits_impl< ::Track, id_sqlite >::find_statement[] =
   "SELECT "
@@ -752,7 +794,8 @@ namespace odb
   "\"Track\".\"duration\", "
   "\"Track\".\"year\", "
   "\"Track\".\"file_location\", "
-  "\"Track\".\"cover_art\" "
+  "\"Track\".\"cover_art\", "
+  "\"Track\".\"cover_art_size\" "
   "FROM \"Track\" "
   "WHERE \"Track\".\"id\"=?";
 
@@ -767,7 +810,8 @@ namespace odb
   "\"duration\"=?, "
   "\"year\"=?, "
   "\"file_location\"=?, "
-  "\"cover_art\"=? "
+  "\"cover_art\"=?, "
+  "\"cover_art_size\"=? "
   "WHERE \"id\"=?";
 
   const char access::object_traits_impl< ::Track, id_sqlite >::erase_statement[] =
@@ -785,7 +829,8 @@ namespace odb
   "\"Track\".\"duration\",\n"
   "\"Track\".\"year\",\n"
   "\"Track\".\"file_location\",\n"
-  "\"Track\".\"cover_art\"\n"
+  "\"Track\".\"cover_art\",\n"
+  "\"Track\".\"cover_art_size\"\n"
   "FROM \"Track\"\n"
   "LEFT JOIN \"Artists\" AS \"artist_id\" ON \"artist_id\".\"id\"=\"Track\".\"artist_id\"\n"
   "LEFT JOIN \"Albums\" AS \"album_id\" ON \"album_id\".\"id\"=\"Track\".\"album_id\"\n"
@@ -1222,6 +1267,7 @@ namespace odb
                       "  \"year\" TEXT NOT NULL,\n"
                       "  \"file_location\" TEXT NOT NULL,\n"
                       "  \"cover_art\" BLOB NOT NULL,\n"
+                      "  \"cover_art_size\" INTEGER NOT NULL,\n"
                       "  CONSTRAINT \"artist_id_fk\"\n"
                       "    FOREIGN KEY (\"artist_id\")\n"
                       "    REFERENCES \"Artists\" (\"id\")\n"

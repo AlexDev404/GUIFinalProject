@@ -322,7 +322,7 @@ void MainWindow::StateHasChanged(QListView* listView) {
         Track track = *(it->TrackId());
         TrackImage track_image = track.Image();
         QImage image;
-        image.loadFromData(QByteArray::fromRawData(track_image.Data(), track_image.Size()), "JPG"); // Pretty much all of the images are JPGs
+        image.loadFromData(QByteArray::fromRawData(track_image.Data(), track_image.Size() == 16? 0 : track_image.Size()), "JPG"); // Pretty much all of the images are JPGs
 
         QPixmap pixmap = QPixmap::fromImage(image);
 
