@@ -229,6 +229,10 @@ void MainWindow::on_actionOpen_Folder_triggered()
 	// Open a file dialog to select a folder
     QString folderPath = QFileDialog::getExistingDirectory(this, tr("Open Folder"), "C:\\", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 	if(folderPath.isEmpty()){
+        // Clean up (This actually does something)
+        folderPath.clear();
+        folderPath.~QString();
+        folderPath = nullptr;
 		return;
 	}
 
@@ -282,6 +286,14 @@ void MainWindow::on_actionOpen_Folder_triggered()
     database_context.update(defaultPlaylist);
 	t.commit();
 
+    // Destroy all our objects
+    // Clean up (to be safe)
+    folderPath.clear();
+    folderPath.~QString();
+    folderPath = nullptr;
+    // Last time, the memory was spiking up to nearly ~800MB
+    // This time, it's just a mere ~43MB
+
     // Update the UI
     StateHasChanged(ui->allTracksListView);
 }
@@ -322,11 +334,27 @@ void MainWindow::StateHasChanged(QListView* listView) {
         Track track = *(it->TrackId());
         TrackImage track_image = track.Image();
         QImage image;
-        image.loadFromData(QByteArray::fromRawData(track_image.Data(), track_image.Size() == 16? 0 : track_image.Size()), "JPG"); // Pretty much all of the images are JPGs
-
+        // Check to see if it's 16 bytes long. If it is, it's an empty image (probably a bug)
+        if (!track_image.Data() || track_image.Size() == 16) {
+			image.load(":/otherfiles/assets/images/album.png");
+		}
+        else {
+            image.loadFromData(QByteArray::fromRawData(track_image.Data(), track_image.Size() == 16 ? 0 : track_image.Size()), "JPG"); // Pretty much all of the images are JPGs
+        }
         QPixmap pixmap = QPixmap::fromImage(image);
+        QStandardItem* trackView = new QStandardItem(QIcon(pixmap), QString::fromLatin1(track.Title()));
+        // We can add more information to the trackView if we want
+        // For example, we can add the artist, album, etc.
+        trackView->setEditable(false);
+        // Set the album and artist below the title
+        trackView->appendRow(new QStandardItem(QString::fromLatin1("test")));
+        // Resize the trackView to around 500 pixels
+        trackView->setSizeHint(QSize(125, 175));
+        // Have the image fit the trackView
+        listView->setIconSize(QSize(100, 100));
 
-        model->appendRow(new QStandardItem(QIcon(pixmap), QString::fromLatin1(track.Title())));
+
+        model->appendRow(trackView);
         //ui->track_list_fp->addItem(QString::fromStdString(it->getTitle()));
     }
 

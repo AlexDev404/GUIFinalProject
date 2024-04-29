@@ -38,6 +38,7 @@ int TrackManagement::addTrack(std::string& fileLocation, Playlist& defaultPlayli
     else {
         artist = *artists.begin();
     }
+    
 
     // Query to see if the genre already exists
     odb::result<Genres> genres = database_context.query<Genres>(odb::query<Genres>::title == id3v2tag->genre().toCString());
@@ -49,9 +50,17 @@ int TrackManagement::addTrack(std::string& fileLocation, Playlist& defaultPlayli
         genre = *genres.begin();
     }
 
+
+    // Query to see if the genre already exists
+    odb::result<Track> tracks = database_context.query<Track>(odb::query<Track>::file_location == fileLocation);
+    if (tracks.begin() != tracks.end()) {
+        return 1; // Exists
+	}
+
     // Get the duration
     int duration = mpegFile.audioProperties()->lengthInMilliseconds() / 1000;
     TrackImage image(0x0, 0); // Initialize the image object
+
 
     // Extract the album art
         // Picture frame                              // 0x03 is the ID for the front cover image (APIC = "Attached PICture Frame")
@@ -61,13 +70,14 @@ int TrackManagement::addTrack(std::string& fileLocation, Playlist& defaultPlayli
             for (TagLib::ID3v2::FrameList::ConstIterator it = frame.begin(); it != frame.end(); ++it) {
 				coverArt = static_cast<TagLib::ID3v2::AttachedPictureFrame *>(*it);
                 if (coverArt->type() == TagLib::ID3v2::AttachedPictureFrame::FrontCover) {
-					// Begin writing the image to a file
+					// Begin writing the image to memory
                     void* source_image = malloc(coverArt->picture().size());
                     if (source_image) {
                         // Copy the image data to the source_image buffer
                         memcpy(source_image, coverArt->picture().data(), coverArt->picture().size());
                         // Set the image object to the album art
                         image = TrackImage((char*)source_image, coverArt->picture().size()); // Cast the void* to a char* to match the constructor
+                        //free(source_image); // Free the memory allocated for the image
                     }
                     else {
 						qDebug() << "Failed to allocate memory for the image";
@@ -77,9 +87,6 @@ int TrackManagement::addTrack(std::string& fileLocation, Playlist& defaultPlayli
         }
 	}
 
-
-    // Query to see if the genre already exists
-    odb::result<Track> tracks = database_context.query<Track>(odb::query<Track>::file_location == fileLocation);
     // Create a new track object
     Track track(id3v2tag->title().toCString(), &artist, &album, &genre, "", std::to_string(id3v2tag->year()), duration, fileLocation, image);
     if (tracks.begin() == tracks.end()) {
@@ -88,8 +95,8 @@ int TrackManagement::addTrack(std::string& fileLocation, Playlist& defaultPlayli
         try {
             // Add the track to the default playlist
             Track_Playlist playlist_map(&track, &defaultPlaylist);
-
             database_context.persist(playlist_map);
+
         }
         catch (odb::exception& e) {
             qDebug() << e.what();
@@ -97,8 +104,9 @@ int TrackManagement::addTrack(std::string& fileLocation, Playlist& defaultPlayli
 
     }
 
-    //// Cleanup
-    //f.tag()->~Tag();
-    //f.~FileRef();
+    // Cleanup (to avoid another memory leak)
+    frame.clear();
+    frame.~List();
+    id3v2tag->~Tag();
     return 0;
 }

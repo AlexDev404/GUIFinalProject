@@ -1187,11 +1187,20 @@
       <property name="movement">
        <enum>QListView::Static</enum>
       </property>
+      <property name="resizeMode">
+       <enum>QListView::Adjust</enum>
+      </property>
       <property name="viewMode">
        <enum>QListView::IconMode</enum>
       </property>
+      <property name="uniformItemSizes">
+       <bool>true</bool>
+      </property>
       <property name="wordWrap">
        <bool>true</bool>
+      </property>
+      <property name="itemAlignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
      <widget class="QWidget" name="layoutWidget_3">
