@@ -320,8 +320,13 @@ void MainWindow::StateHasChanged(QListView* listView) {
     for (odb::result<Track_Playlist>::iterator it = track_map.begin(); it != track_map.end(); it++) {
         // Get the track
         Track track = *(it->TrackId());
+        TrackImage track_image = track.Image();
+        QImage image;
+        image.loadFromData(QByteArray::fromRawData(track_image.Data(), track_image.Size()), "JPG"); // Pretty much all of the images are JPGs
 
-        model->appendRow(new QStandardItem(QIcon(":/otherfiles/assets/images/album.png"), QString::fromLatin1(track.Title())));
+        QPixmap pixmap = QPixmap::fromImage(image);
+
+        model->appendRow(new QStandardItem(QIcon(pixmap), QString::fromLatin1(track.Title())));
         //ui->track_list_fp->addItem(QString::fromStdString(it->getTitle()));
     }
 

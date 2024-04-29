@@ -62,15 +62,12 @@ int TrackManagement::addTrack(std::string& fileLocation, Playlist& defaultPlayli
 				coverArt = static_cast<TagLib::ID3v2::AttachedPictureFrame *>(*it);
                 if (coverArt->type() == TagLib::ID3v2::AttachedPictureFrame::FrontCover) {
 					// Begin writing the image to a file
-                    //std::ofstream file("F:\\Music\\albumArt.jpg", std::ios::binary);
                     void* source_image = malloc(coverArt->picture().size());
                     if (source_image) {
-                        // Randomly works now
+                        // Copy the image data to the source_image buffer
                         memcpy(source_image, coverArt->picture().data(), coverArt->picture().size());
-                        image = TrackImage((char*)source_image, coverArt->picture().size()); // Set the image object to the album art
-                        /*file.write(image.Data(), image.Size());
-                        file.flush();
-                        file.close();*/
+                        // Set the image object to the album art
+                        image = TrackImage((char*)source_image, coverArt->picture().size()); // Cast the void* to a char* to match the constructor
                     }
                     else {
 						qDebug() << "Failed to allocate memory for the image";

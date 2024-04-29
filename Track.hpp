@@ -31,6 +31,7 @@ public:
 		file_location_(file_location) {
 		if (cover_art.Data()) {
 			this->cover_art_ = charArrayToVector(cover_art.Data(), cover_art.Size()); // Set the image data
+			this->cover_art_size_ = cover_art.Size(); // Set the image size
 		}
 	}
 
@@ -99,8 +100,7 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	const TrackImage Image() {
-		unsigned long length = sizeof(cover_art_) / sizeof(char);
-		return TrackImage(vectorToCharArray(cover_art_), length); // Set the image data
+		return TrackImage(vectorToCharArray(cover_art_), cover_art_size_); // Set the image data
 		
 	}
 
@@ -152,6 +152,7 @@ public:
 	/// <param name="image"></param>
 	void SetImage(TrackImage image) {
 		this->cover_art_ = charArrayToVector(image.Data(), image.Size()); // Set the image data
+		this->cover_art_size_ = image.Size(); // Set the image size
 	}
 
 
@@ -203,5 +204,6 @@ private:
 	string file_location_;
 #pragma db type("BLOB")
 	vector<char> cover_art_; // If you change these names, please change the names in the SQL query in qMain.cpp as well!
+	int cover_art_size_;
 
 };
