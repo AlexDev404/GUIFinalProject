@@ -238,6 +238,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Track.cpp" />
+    <ClCompile Include="TrackImage.cpp" />
     <ClCompile Include="TrackManagement.cpp" />
     <ClCompile Include="Track_Playcount-odb.cxx" />
     <ClCompile Include="Track_Playcount-odb.ixx">
@@ -327,6 +328,7 @@
     <ClInclude Include="Roles.hpp" />
     <ClInclude Include="Track-odb.hxx" />
     <ClInclude Include="Track.hpp" />
+    <ClInclude Include="TrackImage.hpp" />
     <ClInclude Include="TrackManagement.hpp" />
     <ClInclude Include="Track_Playcount-odb.hxx" />
     <ClInclude Include="Track_Playcount.hpp" />

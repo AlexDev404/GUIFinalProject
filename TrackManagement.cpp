@@ -1,4 +1,5 @@
 #include "TrackManagement.hpp"
+#include "TrackImage.hpp"
 #include "taglib/id3v2tag.h"
 #include "taglib/id3v2frame.h"
 #include "taglib/mpegfile.h"
@@ -50,6 +51,7 @@ int TrackManagement::addTrack(std::string& fileLocation, Playlist& defaultPlayli
 
     // Get the duration
     int duration = mpegFile.audioProperties()->lengthInMilliseconds() / 1000;
+    TrackImage image(0x0, 0); // Initialize the image object
 
     // Extract the album art
         // Picture frame                              // 0x03 is the ID for the front cover image (APIC = "Attached PICture Frame")
@@ -60,10 +62,11 @@ int TrackManagement::addTrack(std::string& fileLocation, Playlist& defaultPlayli
 				coverArt = static_cast<TagLib::ID3v2::AttachedPictureFrame *>(*it);
                 if (coverArt->type() == TagLib::ID3v2::AttachedPictureFrame::FrontCover) {
 					// Begin writing the image to a file
-                    std::ofstream file("F:\\Music\\albumArt.jpg", std::ios::binary);
-                    file.write(coverArt->picture().data(), coverArt->picture().size());
+                    //std::ofstream file("F:\\Music\\albumArt.jpg", std::ios::binary);
+                    image = TrackImage(coverArt->picture().data(), coverArt->picture().size()); // Set the image object to the album art
+                    /*file.write(image.Data(), image.Size());
                     file.flush();
-                    file.close();
+                    file.close();*/
 
 					break;
 			}
@@ -74,7 +77,7 @@ int TrackManagement::addTrack(std::string& fileLocation, Playlist& defaultPlayli
     // Query to see if the genre already exists
     odb::result<Track> tracks = database_context.query<Track>(odb::query<Track>::file_location == fileLocation);
     // Create a new track object
-    Track track(id3v2tag->title().toCString(), &artist, &album, &genre, "", std::to_string(id3v2tag->year()), duration, fileLocation);
+    Track track(id3v2tag->title().toCString(), &artist, &album, &genre, "", std::to_string(id3v2tag->year()), duration, fileLocation, image);
     if (tracks.begin() == tracks.end()) {
         database_context.persist(track);
 

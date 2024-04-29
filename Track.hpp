@@ -2,6 +2,7 @@
 #include "Artists.hpp"
 #include "Albums.hpp"
 #include "Genres.hpp"
+#include "TrackImage.hpp"
 #include <string>
 #include <odb/core.hxx>
 using std::string;
@@ -20,10 +21,12 @@ public:
 	/// <param name="duration"></param>
 	/// <param name="year"></param>
 	/// <param name="file_location"></param>
+	/// <param name="cover_art"></param>
 	Track(string title, Artists* artist_id, Albums* album_id, Genres* genre_id, string lyrics,
-	string year, double duration, string file_location): title_(title), artist_id_(artist_id),
+	string year, double duration, string file_location, TrackImage cover_art): title_(title), artist_id_(artist_id),
 	album_id_(album_id), genre_id_(genre_id), lyrics_(lyrics), duration_(duration), year_(year),
 		file_location_(file_location) {
+		this->cover_art_ = cover_art.Data();
 	}
 
 	/// <summary>
@@ -86,6 +89,14 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	const string FileName();
+	/// <summary>
+	/// The image of the track. This is the image of the track.
+	/// </summary>
+	/// <returns></returns>
+	const TrackImage Image() {
+		return TrackImage(cover_art_, sizeof(cover_art_)/sizeof(char)); // Return the image object
+		// We calculate the size of the image by dividing the size of the image by the size of a char
+	}
 
 	// Setters
 
@@ -129,6 +140,13 @@ public:
 	/// </summary>
 	/// <param name="filename"></param>
 	void SetFileName(const string filename);
+	/// <summary>
+	/// Sets the image of the track. This is the image of the track.
+	/// </summary>
+	/// <param name="image"></param>
+	void SetImage(TrackImage image) {
+		this->cover_art_ = image.Data(); // Set the image data
+	}
 
 
 private:
@@ -145,5 +163,6 @@ private:
 	double duration_;
 	string year_;
 	string file_location_;
+	char* cover_art_;
 
 };
