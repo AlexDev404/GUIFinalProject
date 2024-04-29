@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "ui_mainwindow.h"
 
 // Include the database class-schemas
 #include "Track.hpp"
@@ -84,6 +85,9 @@ void MainWindow::qMain() {
     
     // Commit the transaction
     t.commit();
+
+    // Update the UI
+    StateHasChanged(ui->allTracksListView);
 
  // -------------------------------- BEGIN_DEBUG --------------------------------------------------------------------------------------------
  // The following code displays usage of the database classes and their mappings

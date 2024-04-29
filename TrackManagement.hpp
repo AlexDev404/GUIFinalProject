@@ -30,15 +30,17 @@
 class TrackManagement {
 public:
 	/// <summary>
-    /// ******!!! EXPECTS THE DATABASE TO BE OPEN !!!******
-    /// 
-    /// Adds a track to the database. 
+    /// Adds a track to the database. Expects the database to be open.
     /// Takes into account that if the album, artist, or genre do not exist, they need to be added to the database.
     /// </summary>
     /// <param name="fileLocation"></param>
     /// <param name="defaultPlaylist"></param>
     /// <param name="database_context"></param>
-    static int addTrack(std::string& fileLocation, Playlist& defaultPlaylist, odb::sqlite::database& database_context); // Accepts only references 
+    static int AddTrack(std::string& fileLocation, Playlist& defaultPlaylist, odb::sqlite::database& database_context); // Accepts only references 
                                                                                                                        // because we don't want to create copies
 
+    /// <summary>
+    /// Removes a track from the database. Expects the database to be open.
+    /// </summary>
+    static int RemoveTrack(Track& track, odb::sqlite::database& database_context);
 };

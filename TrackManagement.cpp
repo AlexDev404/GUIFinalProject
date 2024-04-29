@@ -8,7 +8,7 @@
 #include <fstream>
 #include <string>
 
-int TrackManagement::addTrack(std::string& fileLocation, Playlist& defaultPlaylist, odb::sqlite::database& database_context) {
+int TrackManagement::AddTrack(std::string& fileLocation, Playlist& defaultPlaylist, odb::sqlite::database& database_context) {
 
     TagLib::MPEG::File mpegFile(fileLocation.c_str());
     TagLib::ID3v2::Tag* id3v2tag = mpegFile.ID3v2Tag();
@@ -109,4 +109,19 @@ int TrackManagement::addTrack(std::string& fileLocation, Playlist& defaultPlayli
     frame.~List();
     id3v2tag->~Tag();
     return 0;
+}
+
+int TrackManagement::RemoveTrack(Track& track, odb::sqlite::database& database_context) {
+	odb::result<Track> tracks = database_context.query<Track>(odb::query<Track>::file_location == track.FileName());
+    if (tracks.begin() != tracks.end()) {
+        try{
+			database_context.erase(*tracks.begin());
+		}
+        catch (odb::exception& e) {
+			qDebug() << e.what();
+			return 1;
+		}
+		return 0;
+	}
+	return 1;
 }

@@ -276,7 +276,7 @@ void MainWindow::on_actionOpen_Folder_triggered()
         std::string fileLocation = it.filePath().toStdString();
 
         // Add the track to the default playlist
-        int exists = TrackManagement::addTrack(fileLocation, defaultPlaylist, database_context);
+        int exists = TrackManagement::AddTrack(fileLocation, defaultPlaylist, database_context);
         if (exists == 1) {
             continue;
 		}
@@ -339,7 +339,7 @@ void MainWindow::StateHasChanged(QListView* listView) {
         QImage image;
         // Check to see if it's 16 bytes long. If it is, it's an empty image (probably a bug)
         if (!track_image.Data() || track_image.Size() == 16) {
-			image.load(":/otherfiles/assets/images/album.png");
+			image.load(":/otherfiles/assets/images/album.png"); // Replace with default image
 		}
         else {
             image.loadFromData(QByteArray::fromRawData(track_image.Data(), track_image.Size() == 16 ? 0 : track_image.Size()), "JPG"); // Pretty much all of the images are JPGs
@@ -367,7 +367,6 @@ void MainWindow::StateHasChanged(QListView* listView) {
 
 
         model->appendRow(trackView);
-        //ui->track_list_fp->addItem(QString::fromStdString(it->getTitle()));
     }
 
     // Commit the transaction
