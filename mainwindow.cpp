@@ -307,7 +307,10 @@ void MainWindow::StateHasChanged(QListView* listView) {
 
     auto model = new QStandardItemModel(this);
     listView->setModel(model);
-
+    // Call the PlayTrack function when the QStandardItem is double clicked
+    connect(listView, &QListView::doubleClicked, [=](const QModelIndex& index) {
+        PlayTrack(index);
+    });
 
     // Query for the default playlist
     odb::result<Playlist> playlists = database_context.query<Playlist>(odb::query<Playlist>::name == "DEFAULT");
@@ -347,7 +350,7 @@ void MainWindow::StateHasChanged(QListView* listView) {
         
         // Information about the track
         QPixmap pixmap = QPixmap::fromImage(image);
-        QStandardItem* trackView = new QStandardItem(QIcon(pixmap), QString::fromLatin1(track.Title() + "\n"));
+        QStandardItem* trackView = new QStandardItem(QIcon(pixmap), QString::fromLatin1((track.Title().empty()? track.FileName(): track.Title()) + "\n"));
         QString albumRow = QString::fromStdString(track_album.Title());
         QString artistRow = QString::fromStdString(track_artist.Name());
         
@@ -364,11 +367,71 @@ void MainWindow::StateHasChanged(QListView* listView) {
 
         // Have the image fit the trackView
         listView->setIconSize(QSize(100, 100));
-
-
         model->appendRow(trackView);
     }
 
     // Commit the transaction
     t.commit();
+}
+
+void MainWindow::PlayTrack(const QModelIndex& index) {
+
+    //qDebug() << "Playing track: " << index.data().toString();
+
+    // Split the index data by the newline into a QStringList 
+    QStringList trackInfo = index.data().toString().split("\n");
+    // TrackTitle, AlbumName, ArtistName 
+
+    if (trackInfo.size() < 3 || (trackInfo[1].toStdString() == ""))
+    {
+        qDebug() << "Invalid track information";
+
+        QImage placeholder;
+        placeholder.load(":/otherfiles/assets/images/album.png");
+
+        // Set the QLabel, "track_image_pa" to the album art of the track
+        ui->track_image_pa->setPixmap(QPixmap::fromImage(placeholder));
+
+        // Set the QLabel, "track_name_pa" to the title of the track
+        ui->track_name_pa->setText("Untitled Track");
+
+        // Set the QLabel, "mia_pa" to the artist of the track
+        ui->mia_pa->setText("No artist or missing information");
+        return;
+    }
+
+    // Retrieve the track from the database using the track title, album name and artist name
+    odb::sqlite::database database_context = db.getDatabase();
+    odb::transaction t(database_context.begin());
+
+    // Query for the album
+    Albums* track_album = database_context.query_one<Albums>(odb::query<Albums>::title == trackInfo[1].toStdString());
+    // Query for the artist
+    Artists* track_artist = database_context.query_one<Artists>(odb::query<Artists>::name == trackInfo[2].toStdString());
+
+    // Query for the track
+    Track track = *(database_context.query_one<Track>(
+        odb::query<Track>::title == trackInfo[0].toStdString()
+        && odb::query<Track>::album_id == track_album->Id()
+        && odb::query<Track>::artist_id == track_artist->Id()));
+
+
+    qDebug() << "Now Playing: " << QString::fromStdString(track.Title());
+
+    TrackImage track_image = track.Image();
+
+    // Set the QLabel, "track_image_pa" to the album art of the track
+    ui->track_image_pa->setPixmap(QPixmap::fromImage(QImage::fromData(QByteArray::fromRawData(track_image.Data(), track_image.Size()), "JPG")));
+
+    // Set the QLabel, "track_name_pa" to the title of the track
+    ui->track_name_pa->setText(QString::fromStdString(track.Title()));
+
+    // Set the QLabel, "mia_pa_album" to the album of the track
+    ui->mia_pa_album->setText(QString::fromStdString(track_album->Title()));
+
+    // Set the QLabel, "mia_pa" to the artist of the track
+    ui->mia_pa->setText(QString::fromStdString(track_artist->Name()));
+
+    t.commit();
+
 }

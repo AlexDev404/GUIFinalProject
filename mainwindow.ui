@@ -14,6 +14,8 @@
    <font>
     <family>Work Sans</family>
     <pointsize>7</pointsize>
+    <stylestrategy>PreferAntialias</stylestrategy>
+    <hintingpreference>PreferFullHinting</hintingpreference>
    </font>
   </property>
   <property name="windowTitle">
@@ -23,6 +25,17 @@
    <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="font">
+    <font>
+     <family>Work Sans</family>
+     <pointsize>7</pointsize>
+     <stylestrategy>PreferAntialias</stylestrategy>
+     <hintingpreference>PreferFullHinting</hintingpreference>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <widget class="QStackedWidget" name="mainStackedWidget">
     <property name="geometry">
      <rect>
@@ -1204,37 +1217,21 @@ border: 0;</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QWidget" name="layoutWidget_3">
+     <widget class="QPushButton" name="addButton_atp">
       <property name="geometry">
        <rect>
-        <x>540</x>
-        <y>500</y>
-        <width>271</width>
+        <x>720</x>
+        <y>505</y>
+        <width>99</width>
         <height>31</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
-       <item>
-        <widget class="QPushButton" name="addButton_atp">
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="text">
-          <string>Add</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="playButton_atp">
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="text">
-          <string>Play</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>Add more</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="editUsersPage">
@@ -1621,6 +1618,8 @@ border: 0;</string>
       <font>
        <family>Work Sans</family>
        <pointsize>12</pointsize>
+       <stylestrategy>PreferAntialias</stylestrategy>
+       <hintingpreference>PreferFullHinting</hintingpreference>
       </font>
      </property>
      <property name="styleSheet">
@@ -1665,35 +1664,43 @@ border: 0;</string>
     <widget class="QLabel" name="track_name_pa">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>160</y>
-       <width>271</width>
-       <height>31</height>
+       <x>120</x>
+       <y>10</y>
+       <width>161</width>
+       <height>111</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <family>Work Sans Semibold</family>
        <pointsize>14</pointsize>
+       <stylestrategy>PreferAntialias</stylestrategy>
+       <hintingpreference>PreferFullHinting</hintingpreference>
       </font>
      </property>
      <property name="styleSheet">
       <string notr="true">font-family: &quot;Work Sans Semibold&quot;;</string>
      </property>
      <property name="text">
-      <string>Listen to a song first</string>
+      <string>Listen to a song first.</string>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QLabel" name="track_image_pa">
      <property name="geometry">
       <rect>
-       <x>64</x>
-       <y>0</y>
-       <width>161</width>
-       <height>161</height>
+       <x>10</x>
+       <y>10</y>
+       <width>101</width>
+       <height>111</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -1702,20 +1709,31 @@ border: 0;</string>
      <property name="text">
       <string>TextLabel</string>
      </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
     </widget>
     <widget class="QLabel" name="mia_pa">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>190</y>
-       <width>281</width>
-       <height>20</height>
+       <x>10</x>
+       <y>150</y>
+       <width>271</width>
+       <height>61</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <family>Work Sans Light</family>
        <pointsize>10</pointsize>
+       <stylestrategy>PreferAntialias</stylestrategy>
+       <hintingpreference>PreferFullHinting</hintingpreference>
       </font>
      </property>
      <property name="styleSheet">
@@ -1724,8 +1742,14 @@ border: 0;</string>
      <property name="text">
       <string>Music In Action</string>
      </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QPushButton" name="play_pause_pa">
@@ -1776,6 +1800,39 @@ border: 0;</string>
       <string/>
      </property>
     </widget>
+    <widget class="QLabel" name="mia_pa_album">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>130</y>
+       <width>271</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Work Sans Light</family>
+       <pointsize>10</pointsize>
+       <stylestrategy>PreferAntialias</stylestrategy>
+       <hintingpreference>PreferFullHinting</hintingpreference>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-family: &quot;Work Sans Light&quot;;</string>
+     </property>
+     <property name="text">
+      <string>Music In Action</string>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
    <widget class="QFrame" name="header">
     <property name="geometry">
@@ -1795,33 +1852,49 @@ border: 0;</string>
     <widget class="QPushButton" name="settings">
      <property name="geometry">
       <rect>
-       <x>940</x>
+       <x>870</x>
        <y>0</y>
        <width>101</width>
        <height>31</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Work Sans</family>
+       <pointsize>9</pointsize>
+       <stylestrategy>PreferAntialias</stylestrategy>
+       <hintingpreference>PreferFullHinting</hintingpreference>
+      </font>
+     </property>
      <property name="styleSheet">
       <string notr="true"/>
      </property>
      <property name="text">
-      <string>    Settings</string>
+      <string>  Settings</string>
      </property>
     </widget>
     <widget class="QPushButton" name="user_loggedin">
      <property name="geometry">
       <rect>
-       <x>1050</x>
+       <x>980</x>
        <y>0</y>
-       <width>101</width>
+       <width>171</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Work Sans</family>
+       <pointsize>9</pointsize>
+       <stylestrategy>PreferAntialias</stylestrategy>
+       <hintingpreference>PreferFullHinting</hintingpreference>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true"/>
      </property>
      <property name="text">
-      <string>    [LOCAL USER]</string>
+      <string>  [LOCAL USER]</string>
      </property>
     </widget>
     <widget class="QPushButton" name="your_playlists">
@@ -1832,6 +1905,14 @@ border: 0;</string>
        <width>101</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Work Sans</family>
+       <pointsize>10</pointsize>
+       <stylestrategy>PreferAntialias</stylestrategy>
+       <hintingpreference>PreferFullHinting</hintingpreference>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true"/>
@@ -1854,6 +1935,8 @@ border: 0;</string>
        <family>Segoe UI</family>
        <pointsize>24</pointsize>
        <bold>true</bold>
+       <stylestrategy>PreferAntialias</stylestrategy>
+       <hintingpreference>PreferFullHinting</hintingpreference>
       </font>
      </property>
      <property name="styleSheet">
@@ -1872,6 +1955,14 @@ border: 0;</string>
        <height>31</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Work Sans</family>
+       <pointsize>10</pointsize>
+       <stylestrategy>PreferAntialias</stylestrategy>
+       <hintingpreference>PreferFullHinting</hintingpreference>
+      </font>
+     </property>
      <property name="styleSheet">
       <string notr="true"/>
      </property>
@@ -1887,6 +1978,14 @@ border: 0;</string>
        <width>101</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Work Sans</family>
+       <pointsize>10</pointsize>
+       <stylestrategy>PreferAntialias</stylestrategy>
+       <hintingpreference>PreferFullHinting</hintingpreference>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true"/>

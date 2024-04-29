@@ -5,6 +5,7 @@
 #include "database.hpp"
 #include <QStandardItemModel>
 #include <QListView>
+#include "Track.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -20,6 +21,7 @@ public:
     void LoadResources();
     void qMain();
     void StateHasChanged(QListView* listView);
+    void PlayTrack(const QModelIndex& index);
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 

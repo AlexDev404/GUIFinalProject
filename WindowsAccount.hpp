@@ -8,7 +8,7 @@ using std::string;
 class Windows_Account {
 public:
 	Windows_Account(string name, Roles* access_level) : 
-		name_(name), access_level_(access_level) {}
+		username_(name), role_id_(access_level) {}
 
 	// Getters
 
@@ -34,12 +34,12 @@ public:
 	/// Sets the name of the account.
 	/// </summary>
 	/// <param name="name"></param>
-	void SetName(string name);
+	void SetName(string username);
 	/// <summary>
 	/// Sets the access level of the account.
 	/// </summary>
 	/// <param name="access_level"></param>
-	void SetAccessLevel(Roles* access_level);
+	void SetAccessLevel(Roles* role_id);
 
 private:
 	friend class odb::access;
@@ -48,6 +48,6 @@ private:
 	// Persistent fields
 	#pragma db id auto
 	int _id;
-	string name_;
-	Roles* access_level_;
+	string username_;
+	Roles* role_id_;
 };

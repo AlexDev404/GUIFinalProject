@@ -1,3 +1,8 @@
+// For retrieving various Windows things
+// Such as the username, computer name, etc.
+#include <Windows.h>
+#include <Lmcons.h>
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -7,6 +12,8 @@
 #include "Artists.hpp"
 #include "Albums.hpp"
 #include "Playlist.hpp"
+#include "WindowsAccount.hpp"
+#include "Roles.hpp"
 
 // Include the database mappings
 #include "Track-odb.hxx"
@@ -14,6 +21,8 @@
 #include "Artists-odb.hxx"
 #include "Albums-odb.hxx"
 #include "Playlist-odb.hxx"
+#include "WindowsAccount-odb.hxx"
+#include "Roles-odb.hxx"
 
 // Include command-line output
 #include <QDebug>
@@ -46,7 +55,8 @@ void createTables(odb::sqlite::database &database_context) {
     // Center-Down (Track_Playcount, Track_Playlist) -- Mix of Autonomous + Dependent tables/classes
     
     // Create the Windows_Account table (independent)
-    database_context.execute("CREATE TABLE IF NOT EXISTS Windows_Account (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username TEXT, role_id TEXT)");
+    database_context.execute(std::string("CREATE TABLE IF NOT EXISTS Windows_Account (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username TEXT, role_id INTEGER, ") +
+                             std::string("FOREIGN KEY(role_id) REFERENCES Roles(id))"));
 
     // Dependent tables
 
@@ -82,63 +92,118 @@ void MainWindow::qMain() {
 
     // Create the tables
     createTables(database_context);
-    
+
+    // Set the current user and role
+    // https://stackoverflow.com/a/11587467/10976415
+    char username[UNLEN + 1];
+    DWORD username_len = UNLEN + 1;
+    GetUserNameA(username, &username_len);
+
+    // Get the group name and check if they're under "Administrators"
+    // https://stackoverflow.com/a/26496232/10976415
+    PSID administrators_group = NULL;
+    SID_IDENTIFIER_AUTHORITY nt_authority = SECURITY_NT_AUTHORITY;
+    BOOL result = AllocateAndInitializeSid(&nt_authority, 2, SECURITY_BUILTIN_DOMAIN_RID, DOMAIN_ALIAS_RID_ADMINS, 0, 0, 0, 0, 0, 0, &administrators_group);
+    BOOL is_admin = FALSE;
+
+
+    // Check and see if "User" and "Administrator" roles exist
+    // If they don't, create them
+
+    Roles* query_roles = database_context.query_one<Roles>(odb::query<Roles>::name == "User");
+    if (query_roles == nullptr) {
+		Roles user_role("User");
+		database_context.persist(user_role);
+	}
+
+    Roles* query_admin_roles = database_context.query_one<Roles>(odb::query<Roles>::name == "Administrator");
+    if (query_admin_roles == nullptr) {
+        Roles admin_role("Administrator");
+        database_context.persist(admin_role);
+    }
+
+    if (result)
+    {
+        CheckTokenMembership(NULL, administrators_group, &is_admin);
+        FreeSid(administrators_group);
+    }
+
+    // Check if the user exists
+    Windows_Account* query_user = database_context.query_one<Windows_Account>(odb::query<Windows_Account>::username == username);
+    if (query_user != nullptr) {
+		// The user exists
+		// Update the user's role
+        query_user->SetAccessLevel(is_admin? query_admin_roles: query_roles);
+        database_context.update(*query_user);
+    }
+    else {
+        // Create the Windows_Account object
+        Windows_Account currentUser(username, is_admin ? query_admin_roles : query_roles);
+
+        // Persist this new user
+        // This will be used to track the user's listening habits
+        database_context.persist(currentUser);
+    }
+
+    // Update the UI username field
+    ui->user_loggedin->setText(username);
+
     // Commit the transaction
     t.commit();
 
     // Update the UI
     StateHasChanged(ui->allTracksListView);
 
- // -------------------------------- BEGIN_DEBUG --------------------------------------------------------------------------------------------
- // The following code displays usage of the database classes and their mappings
- // It shows how to create playlists, artists, albums, genres, and tracks
- // Please note that this code is for debugging purposes only
- // 
- //   // .. Create a new playlist
- //   Playlist playlist("My Playlist", "2015");
+    // -------------------------------- BEGIN_DEBUG --------------------------------------------------------------------------------------------
+    // The following code displays usage of the database classes and their mappings
+    // It shows how to create playlists, artists, albums, genres, and tracks
+    // Please note that this code is for debugging purposes only
+    // 
+    //   // .. Create a new playlist
+    //   Playlist playlist("My Playlist", "2015");
 
- //   // Create a new artist
- //   Artists the_beatles("The Beatles");
+    //   // Create a new artist
+    //   Artists the_beatles("The Beatles");
 
- //   // Create the two albums (name, year)
- //   Albums one_remastered("1 (Remastered)", "2015");
- //   Albums let_it_be_remastered("Let It Be (Remastered)", "2015");
- //   Genres rock("Rock");
+    //   // Create the two albums (name, year)
+    //   Albums one_remastered("1 (Remastered)", "2015");
+    //   Albums let_it_be_remastered("Let It Be (Remastered)", "2015");
+    //   Genres rock("Rock");
 
- //   // string title, int* artist_id, string year, string file_location
+    //   // string title, int* artist_id, string year, string file_location
 
- //   // Create a new track
- //   Track track("Hey, Jude", &the_beatles, &one_remastered, "1968", 3.50, "C://Users//Downloads//The_Beatles__Hey_Jude.mp3");
- //   Track track2("Let It Be", &the_beatles, &let_it_be_remastered, "1970", 4.00, "C://Users//Downloads//The_Beatles__Let_It_Be.mp3");
- //   
- //   // Rock and roll song using the full track constructor
- //   Track rock_and_roll("Rock and Roll Music", &the_beatles, &one_remastered, &rock, "x", "1964", 1.25, "C://Users//Downloads//The_Beatles__Rock_and_Roll_Music.mp3");
+    //   // Create a new track
+    //   Track track("Hey, Jude", &the_beatles, &one_remastered, "1968", 3.50, "C://Users//Downloads//The_Beatles__Hey_Jude.mp3");
+    //   Track track2("Let It Be", &the_beatles, &let_it_be_remastered, "1970", 4.00, "C://Users//Downloads//The_Beatles__Let_It_Be.mp3");
+    //   
+    //   // Rock and roll song using the full track constructor
+    //   Track rock_and_roll("Rock and Roll Music", &the_beatles, &one_remastered, &rock, "x", "1964", 1.25, "C://Users//Downloads//The_Beatles__Rock_and_Roll_Music.mp3");
 
- //   // Add the tracks to the playlist
- //   Track_Playlist playlist_map_0(&track, &playlist); // Track_Playlist.map(playlist, track);
- //   Track_Playlist playlist_map_1(&track2, &playlist); // Track_Playlist.map(playlist, track2);
+    //   // Add the tracks to the playlist
+    //   Track_Playlist playlist_map_0(&track, &playlist); // Track_Playlist.map(playlist, track);
+    //   Track_Playlist playlist_map_1(&track2, &playlist); // Track_Playlist.map(playlist, track2);
 
- //   // Save everything
- //   unsigned long album_0_id, album_1_id, genre_0_id, the_beatles_id, track_0_id, track_1_id, track_2_id, playlist_map_0_id, playlist_map_1_id, playlist_0_id;
- //   try {
- //       the_beatles_id = database_context.persist(the_beatles);
- //       album_0_id = database_context.persist(one_remastered);
- //       album_1_id = database_context.persist(let_it_be_remastered);
- //       genre_0_id = database_context.persist(rock);
- //       track_0_id = database_context.persist(rock_and_roll);
- //       track_1_id = database_context.persist(track);
- //       track_2_id = database_context.persist(track2);
+    //   // Save everything
+    //   unsigned long album_0_id, album_1_id, genre_0_id, the_beatles_id, track_0_id, track_1_id, track_2_id, playlist_map_0_id, playlist_map_1_id, playlist_0_id;
+    //   try {
+    //       the_beatles_id = database_context.persist(the_beatles);
+    //       album_0_id = database_context.persist(one_remastered);
+    //       album_1_id = database_context.persist(let_it_be_remastered);
+    //       genre_0_id = database_context.persist(rock);
+    //       track_0_id = database_context.persist(rock_and_roll);
+    //       track_1_id = database_context.persist(track);
+    //       track_2_id = database_context.persist(track2);
 
- //       // Playlist and its mappings
- //       playlist_0_id = database_context.persist(playlist);
- //       playlist_map_0_id = database_context.persist(playlist_map_0);
- //       playlist_map_1_id = database_context.persist(playlist_map_1);
- //       
- //   } catch(const odb::exception& e) {
- //       qDebug() << e.what();
-	//}
- //   // Execute SQL commands to create the table
- //   //database_context.execute("CREATE TABLE IF NOT EXISTS Person (id INTEGER PRIMARY KEY, first TEXT, last TEXT, age INTEGER)");
- //   t.commit();
-    // -------------------------------- END_DEBUG --------------------------------------------------------------------------------------------
+    //       // Playlist and its mappings
+    //       playlist_0_id = database_context.persist(playlist);
+    //       playlist_map_0_id = database_context.persist(playlist_map_0);
+    //       playlist_map_1_id = database_context.persist(playlist_map_1);
+    //       
+    //   } catch(const odb::exception& e) {
+    //       qDebug() << e.what();
+       //}
+    //   // Execute SQL commands to create the table
+    //   //database_context.execute("CREATE TABLE IF NOT EXISTS Person (id INTEGER PRIMARY KEY, first TEXT, last TEXT, age INTEGER)");
+    //   t.commit();
+       // -------------------------------- END_DEBUG --------------------------------------------------------------------------------------------
 }

@@ -107,7 +107,7 @@ namespace odb
 
     static const id_type_ id;
 
-    // name
+    // username
     //
     typedef
     sqlite::query_column<
@@ -115,11 +115,11 @@ namespace odb
         ::std::string,
         sqlite::id_text >::query_type,
       sqlite::id_text >
-    name_type_;
+    username_type_;
 
-    static const name_type_ name;
+    static const username_type_ username;
 
-    // access_level
+    // role_id
     //
     typedef
     sqlite::query_column<
@@ -127,9 +127,9 @@ namespace odb
         int,
         sqlite::id_integer >::query_type,
       sqlite::id_integer >
-    access_level_type_;
+    role_id_type_;
 
-    static const access_level_type_ access_level;
+    static const role_id_type_ role_id;
   };
 
   template <typename A>
@@ -138,14 +138,14 @@ namespace odb
   id (A::table_name, "\"id\"", 0);
 
   template <typename A>
-  const typename pointer_query_columns< ::Windows_Account, id_sqlite, A >::name_type_
+  const typename pointer_query_columns< ::Windows_Account, id_sqlite, A >::username_type_
   pointer_query_columns< ::Windows_Account, id_sqlite, A >::
-  name (A::table_name, "\"name\"", 0);
+  username (A::table_name, "\"username\"", 0);
 
   template <typename A>
-  const typename pointer_query_columns< ::Windows_Account, id_sqlite, A >::access_level_type_
+  const typename pointer_query_columns< ::Windows_Account, id_sqlite, A >::role_id_type_
   pointer_query_columns< ::Windows_Account, id_sqlite, A >::
-  access_level (A::table_name, "\"access_level\"", 0);
+  role_id (A::table_name, "\"role_id\"", 0);
 
   template <>
   class access::object_traits_impl< ::Windows_Account, id_sqlite >:
@@ -167,23 +167,23 @@ namespace odb
       long long _id_value;
       bool _id_null;
 
-      // name_
+      // username_
       //
-      details::buffer name_value;
-      std::size_t name_size;
-      bool name_null;
+      details::buffer username_value;
+      std::size_t username_size;
+      bool username_null;
 
-      // access_level_
+      // role_id_
       //
-      long long access_level_value;
-      bool access_level_null;
+      long long role_id_value;
+      bool role_id_null;
 
       std::size_t version;
     };
 
     struct extra_statement_cache_type;
 
-    struct access_level_tag;
+    struct role_id_tag;
 
     using object_traits<object_type>::id;
 
@@ -292,7 +292,7 @@ namespace odb
   struct alias_traits<
     ::Roles,
     id_sqlite,
-    access::object_traits_impl< ::Windows_Account, id_sqlite >::access_level_tag>
+    access::object_traits_impl< ::Windows_Account, id_sqlite >::role_id_tag>
   {
     static const char table_name[];
   };
@@ -300,14 +300,14 @@ namespace odb
   template <>
   struct query_columns_base< ::Windows_Account, id_sqlite >
   {
-    // access_level
+    // role_id
     //
     typedef
     odb::alias_traits<
       ::Roles,
       id_sqlite,
-      access::object_traits_impl< ::Windows_Account, id_sqlite >::access_level_tag>
-    access_level_alias_;
+      access::object_traits_impl< ::Windows_Account, id_sqlite >::role_id_tag>
+    role_id_alias_;
   };
 
   template <typename A>
@@ -326,7 +326,7 @@ namespace odb
 
     static const id_type_ id;
 
-    // name
+    // username
     //
     typedef
     sqlite::query_column<
@@ -334,11 +334,11 @@ namespace odb
         ::std::string,
         sqlite::id_text >::query_type,
       sqlite::id_text >
-    name_type_;
+    username_type_;
 
-    static const name_type_ name;
+    static const username_type_ username;
 
-    // access_level
+    // role_id
     //
     typedef
     sqlite::query_column<
@@ -346,25 +346,25 @@ namespace odb
         int,
         sqlite::id_integer >::query_type,
       sqlite::id_integer >
-    access_level_column_type_;
+    role_id_column_type_;
 
     typedef
     odb::query_pointer<
       odb::pointer_query_columns<
         ::Roles,
         id_sqlite,
-        access_level_alias_ > >
-    access_level_pointer_type_;
+        role_id_alias_ > >
+    role_id_pointer_type_;
 
-    struct access_level_type_: access_level_pointer_type_, access_level_column_type_
+    struct role_id_type_: role_id_pointer_type_, role_id_column_type_
     {
-      access_level_type_ (const char* t, const char* c, const char* conv)
-        : access_level_column_type_ (t, c, conv)
+      role_id_type_ (const char* t, const char* c, const char* conv)
+        : role_id_column_type_ (t, c, conv)
       {
       }
     };
 
-    static const access_level_type_ access_level;
+    static const role_id_type_ role_id;
   };
 
   template <typename A>
@@ -373,14 +373,14 @@ namespace odb
   id (A::table_name, "\"id\"", 0);
 
   template <typename A>
-  const typename query_columns< ::Windows_Account, id_sqlite, A >::name_type_
+  const typename query_columns< ::Windows_Account, id_sqlite, A >::username_type_
   query_columns< ::Windows_Account, id_sqlite, A >::
-  name (A::table_name, "\"name\"", 0);
+  username (A::table_name, "\"username\"", 0);
 
   template <typename A>
-  const typename query_columns< ::Windows_Account, id_sqlite, A >::access_level_type_
+  const typename query_columns< ::Windows_Account, id_sqlite, A >::role_id_type_
   query_columns< ::Windows_Account, id_sqlite, A >::
-  access_level (A::table_name, "\"access_level\"", 0);
+  role_id (A::table_name, "\"role_id\"", 0);
 }
 
 #include "WindowsAccount-odb.ixx"

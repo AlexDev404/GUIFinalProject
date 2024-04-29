@@ -31,8 +31,8 @@ namespace odb
 
   const char alias_traits<  ::Roles,
     id_sqlite,
-    access::object_traits_impl< ::Windows_Account, id_sqlite >::access_level_tag>::
-  table_name[] = "\"access_level\"";
+    access::object_traits_impl< ::Windows_Account, id_sqlite >::role_id_tag>::
+  table_name[] = "\"role_id\"";
 
   struct access::object_traits_impl< ::Windows_Account, id_sqlite >::extra_statement_cache_type
   {
@@ -99,15 +99,15 @@ namespace odb
     //
     t[0UL] = false;
 
-    // name_
+    // username_
     //
     if (t[1UL])
     {
-      i.name_value.capacity (i.name_size);
+      i.username_value.capacity (i.username_size);
       grew = true;
     }
 
-    // access_level_
+    // role_id_
     //
     t[2UL] = false;
 
@@ -135,22 +135,22 @@ namespace odb
       n++;
     }
 
-    // name_
+    // username_
     //
     b[n].type = sqlite::image_traits<
       ::std::string,
       sqlite::id_text>::bind_value;
-    b[n].buffer = i.name_value.data ();
-    b[n].size = &i.name_size;
-    b[n].capacity = i.name_value.capacity ();
-    b[n].is_null = &i.name_null;
+    b[n].buffer = i.username_value.data ();
+    b[n].size = &i.username_size;
+    b[n].capacity = i.username_value.capacity ();
+    b[n].is_null = &i.username_null;
     n++;
 
-    // access_level_
+    // role_id_
     //
     b[n].type = sqlite::bind::integer;
-    b[n].buffer = &i.access_level_value;
-    b[n].is_null = &i.access_level_null;
+    b[n].buffer = &i.role_id_value;
+    b[n].is_null = &i.role_id_null;
     n++;
   }
 
@@ -193,30 +193,30 @@ namespace odb
       i._id_null = is_null;
     }
 
-    // name_
+    // username_
     //
     {
       ::std::string const& v =
-        o.name_;
+        o.username_;
 
       bool is_null (false);
-      std::size_t cap (i.name_value.capacity ());
+      std::size_t cap (i.username_value.capacity ());
       sqlite::value_traits<
           ::std::string,
           sqlite::id_text >::set_image (
-        i.name_value,
-        i.name_size,
+        i.username_value,
+        i.username_size,
         is_null,
         v);
-      i.name_null = is_null;
-      grew = grew || (cap != i.name_value.capacity ());
+      i.username_null = is_null;
+      grew = grew || (cap != i.username_value.capacity ());
     }
 
-    // access_level_
+    // role_id_
     //
     {
       ::Roles* const& v =
-        o.access_level_;
+        o.role_id_;
 
       typedef object_traits< ::Roles > obj_traits;
       typedef odb::pointer_traits< ::Roles* > ptr_traits;
@@ -230,13 +230,13 @@ namespace odb
         sqlite::value_traits<
             obj_traits::id_type,
             sqlite::id_integer >::set_image (
-          i.access_level_value,
+          i.role_id_value,
           is_null,
           ptr_id);
-        i.access_level_null = is_null;
+        i.role_id_null = is_null;
       }
       else
-        i.access_level_null = true;
+        i.role_id_null = true;
     }
 
     return grew;
@@ -265,31 +265,31 @@ namespace odb
         i._id_null);
     }
 
-    // name_
+    // username_
     //
     {
       ::std::string& v =
-        o.name_;
+        o.username_;
 
       sqlite::value_traits<
           ::std::string,
           sqlite::id_text >::set_value (
         v,
-        i.name_value,
-        i.name_size,
-        i.name_null);
+        i.username_value,
+        i.username_size,
+        i.username_null);
     }
 
-    // access_level_
+    // role_id_
     //
     {
       ::Roles*& v =
-        o.access_level_;
+        o.role_id_;
 
       typedef object_traits< ::Roles > obj_traits;
       typedef odb::pointer_traits< ::Roles* > ptr_traits;
 
-      if (i.access_level_null)
+      if (i.role_id_null)
         v = ptr_traits::pointer_type ();
       else
       {
@@ -298,8 +298,8 @@ namespace odb
             obj_traits::id_type,
             sqlite::id_integer >::set_value (
           ptr_id,
-          i.access_level_value,
-          i.access_level_null);
+          i.role_id_value,
+          i.role_id_null);
 
         // If a compiler error points to the line below, then
         // it most likely means that a pointer used in a member
@@ -330,24 +330,24 @@ namespace odb
   const char access::object_traits_impl< ::Windows_Account, id_sqlite >::persist_statement[] =
   "INSERT INTO \"Windows_Account\" "
   "(\"id\", "
-  "\"name\", "
-  "\"access_level\") "
+  "\"username\", "
+  "\"role_id\") "
   "VALUES "
   "(?, ?, ?)";
 
   const char access::object_traits_impl< ::Windows_Account, id_sqlite >::find_statement[] =
   "SELECT "
   "\"Windows_Account\".\"id\", "
-  "\"Windows_Account\".\"name\", "
-  "\"Windows_Account\".\"access_level\" "
+  "\"Windows_Account\".\"username\", "
+  "\"Windows_Account\".\"role_id\" "
   "FROM \"Windows_Account\" "
   "WHERE \"Windows_Account\".\"id\"=?";
 
   const char access::object_traits_impl< ::Windows_Account, id_sqlite >::update_statement[] =
   "UPDATE \"Windows_Account\" "
   "SET "
-  "\"name\"=?, "
-  "\"access_level\"=? "
+  "\"username\"=?, "
+  "\"role_id\"=? "
   "WHERE \"id\"=?";
 
   const char access::object_traits_impl< ::Windows_Account, id_sqlite >::erase_statement[] =
@@ -357,10 +357,10 @@ namespace odb
   const char access::object_traits_impl< ::Windows_Account, id_sqlite >::query_statement[] =
   "SELECT\n"
   "\"Windows_Account\".\"id\",\n"
-  "\"Windows_Account\".\"name\",\n"
-  "\"Windows_Account\".\"access_level\"\n"
+  "\"Windows_Account\".\"username\",\n"
+  "\"Windows_Account\".\"role_id\"\n"
   "FROM \"Windows_Account\"\n"
-  "LEFT JOIN \"Roles\" AS \"access_level\" ON \"access_level\".\"id\"=\"Windows_Account\".\"access_level\"";
+  "LEFT JOIN \"Roles\" AS \"role_id\" ON \"role_id\".\"id\"=\"Windows_Account\".\"role_id\"";
 
   const char access::object_traits_impl< ::Windows_Account, id_sqlite >::erase_query_statement[] =
   "DELETE FROM \"Windows_Account\"";
@@ -784,10 +784,10 @@ namespace odb
         {
           db.execute ("CREATE TABLE \"Windows_Account\" (\n"
                       "  \"id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"name\" TEXT NOT NULL,\n"
-                      "  \"access_level\" INTEGER NULL,\n"
-                      "  CONSTRAINT \"access_level_fk\"\n"
-                      "    FOREIGN KEY (\"access_level\")\n"
+                      "  \"username\" TEXT NOT NULL,\n"
+                      "  \"role_id\" INTEGER NULL,\n"
+                      "  CONSTRAINT \"role_id_fk\"\n"
+                      "    FOREIGN KEY (\"role_id\")\n"
                       "    REFERENCES \"Roles\" (\"id\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;

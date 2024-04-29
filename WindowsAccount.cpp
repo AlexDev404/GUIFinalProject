@@ -6,18 +6,18 @@ const int Windows_Account::Id() {
 }
 
 const string Windows_Account::Name() {
-	return name_;
+	return username_;
 }
 
 const Roles* Windows_Account::AccessLevel() {
-	return access_level_;
+	return role_id_;
 }
 
 // Setters
-void Windows_Account::SetName(string name) {
-	name_ = name;
+void Windows_Account::SetName(string username) {
+	username_ = username;
 }
 
 void Windows_Account::SetAccessLevel(Roles* access_level) {
-	this->access_level_ = access_level;
+	this->role_id_ = access_level;
 }
