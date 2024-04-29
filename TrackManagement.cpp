@@ -65,6 +65,7 @@ int TrackManagement::addTrack(std::string& fileLocation, Playlist& defaultPlayli
                     //std::ofstream file("F:\\Music\\albumArt.jpg", std::ios::binary);
                     void* source_image = malloc(coverArt->picture().size());
                     if (source_image) {
+                        // Randomly works now
                         memcpy(source_image, coverArt->picture().data(), coverArt->picture().size());
                         image = TrackImage((char*)source_image, coverArt->picture().size()); // Set the image object to the album art
                         /*file.write(image.Data(), image.Size());
