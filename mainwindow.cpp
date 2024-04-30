@@ -330,3 +330,109 @@ void MainWindow::on_play_pause_pa_clicked()
 	}
 }
 
+
+void MainWindow::on_back_pa_clicked()
+{
+    // Play the next track in the DEFAULT playlist
+    // Get the current track's position in the track_playlist table
+    odb::sqlite::database database_context = db.getDatabase();
+    odb::transaction t(database_context.begin());
+    Track_Playlist track_map = *(database_context.query_one<Track_Playlist>(odb::query<Track_Playlist>::playlist_id == defaultPlaylist.Id() &&
+        odb::query<Track_Playlist>::track_id == (currentTrack.Id() - 1))); // Same thing but -1
+
+    // Map this track_map to a track
+    currentTrack = *(track_map.TrackId());
+
+    // Get the URL of the track
+    track_url = new QUrl(QString::fromStdString(currentTrack.FileName()));
+
+    qDebug() << "Now Playing: " << QString::fromStdString(currentTrack.Title());
+
+    TrackImage track_image = currentTrack.Image();
+    Albums track_album = *(currentTrack.AlbumId());
+    Artists track_artist = *(currentTrack.ArtistId());
+
+    // Set the QLabel, "track_image_pa" to the album art of the track
+    ui->track_image_pa->setPixmap(QPixmap::fromImage(QImage::fromData(QByteArray::fromRawData(track_image.Data(), track_image.Size()), "JPG")));
+
+    // Set the QLabel, "track_name_pa" to the title of the track
+    ui->track_name_pa->setText(QString::fromStdString(currentTrack.Title()));
+
+    // Set the QLabel, "mia_pa_album" to the album of the track
+    ui->mia_pa_album->setText(QString::fromStdString(track_album.Title()));
+
+    // Set the QLabel, "mia_pa" to the artist of the track
+    ui->mia_pa->setText(QString::fromStdString(track_artist.Name()));
+
+
+    player->stop();
+    player->setSource(*track_url);
+
+    // Check if there was an error setting the media content
+    if (player->error() != QMediaPlayer::NoError) {
+        qDebug() << "----Error setting media content----";
+        qDebug() << "Error:" << player->errorString();
+        qDebug() << "File path:" << track_url;
+        return;
+    }
+
+    // Set the audio device and play the media
+    player->setAudioOutput(device);
+    player->play();
+
+    t.commit();
+
+}
+
+
+void MainWindow::on_forward_pa_clicked()
+{
+    // Play the next track in the DEFAULT playlist
+    // Get the current track's position in the track_playlist table
+    odb::sqlite::database database_context = db.getDatabase();
+    odb::transaction t(database_context.begin());
+    Track_Playlist track_map = *(database_context.query_one<Track_Playlist>(odb::query<Track_Playlist>::playlist_id == defaultPlaylist.Id() &&
+        odb::query<Track_Playlist>::track_id == (currentTrack.Id() + 1))); // Same thing but +1
+
+    // Map this track_map to a track
+    currentTrack = *(track_map.TrackId());
+
+    // Get the URL of the track
+    track_url = new QUrl(QString::fromStdString(currentTrack.FileName()));
+
+    qDebug() << "Now Playing: " << QString::fromStdString(currentTrack.Title());
+
+    TrackImage track_image = currentTrack.Image();
+    Albums track_album = *(currentTrack.AlbumId());
+    Artists track_artist = *(currentTrack.ArtistId());
+
+    // Set the QLabel, "track_image_pa" to the album art of the track
+    ui->track_image_pa->setPixmap(QPixmap::fromImage(QImage::fromData(QByteArray::fromRawData(track_image.Data(), track_image.Size()), "JPG")));
+
+    // Set the QLabel, "track_name_pa" to the title of the track
+    ui->track_name_pa->setText(QString::fromStdString(currentTrack.Title()));
+
+    // Set the QLabel, "mia_pa_album" to the album of the track
+    ui->mia_pa_album->setText(QString::fromStdString(track_album.Title()));
+
+    // Set the QLabel, "mia_pa" to the artist of the track
+    ui->mia_pa->setText(QString::fromStdString(track_artist.Name()));
+
+
+    player->stop();
+    player->setSource(*track_url);
+
+    // Check if there was an error setting the media content
+    if (player->error() != QMediaPlayer::NoError) {
+        qDebug() << "----Error setting media content----";
+        qDebug() << "Error:" << player->errorString();
+        qDebug() << "File path:" << track_url;
+        return;
+    }
+
+    // Set the audio device and play the media
+    player->setAudioOutput(device);
+    player->play();
+
+    t.commit();
+}

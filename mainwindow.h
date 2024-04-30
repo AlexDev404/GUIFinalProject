@@ -8,6 +8,8 @@
 #include "database.hpp"
 #include "Track.hpp"
 #include "Playlist.hpp"
+#include "Albums.hpp"
+#include "Artists.hpp"
 
 #include <QMediaPlayer>
 #include <QAudioOutput>
@@ -65,6 +67,10 @@ private slots:
 
     void on_play_pause_pa_clicked();
 
+    void on_back_pa_clicked();
+
+    void on_forward_pa_clicked();
+
 private:
     Ui::MainWindow* ui;
     // The database
@@ -79,6 +85,7 @@ private:
     Playlist defaultPlaylist = *(new Playlist("DEFAULT", "2022"));
     QUrl* track_url;
     QString folderPath;
+    Track currentTrack = *(new Track("NO_NAME"));
 
     // Icons
     QIcon searchIcon;

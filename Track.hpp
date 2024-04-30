@@ -13,6 +13,7 @@ using std::vector;
 #pragma db object
 class Track {
 public:
+	Track(string title) : title_(title) {};
 	/// <summary>
 	/// Create a Track. This constructor is used when creating a new Track.
 	/// </summary>
