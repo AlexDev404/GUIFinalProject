@@ -2,10 +2,16 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "database.hpp"
 #include <QStandardItemModel>
 #include <QListView>
+
+#include "database.hpp"
 #include "Track.hpp"
+
+#include <QMediaPlayer>
+#include <QAudioOutput>
+#include <QAudioDevice>
+#include <QMediaDevices>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,6 +28,7 @@ public:
     void qMain();
     void StateHasChanged(QListView* listView);
     void PlayTrack(const QModelIndex& index);
+    void UIAddTrack();
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
@@ -58,5 +65,9 @@ private:
     Ui::MainWindow *ui;
     // The database
     database db; // Format: SQLite
+
+    // The only media player we need
+    QMediaPlayer* player = new QMediaPlayer();
+    QAudioOutput* device = new QAudioOutput(QMediaDevices::defaultAudioOutput());
 };
 #endif // MAINWINDOW_H

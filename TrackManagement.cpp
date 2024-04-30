@@ -1,12 +1,23 @@
 #include "TrackManagement.hpp"
 #include "TrackImage.hpp"
+
 #include "taglib/id3v2tag.h"
 #include "taglib/id3v2frame.h"
 #include "taglib/mpegfile.h"
 #include "taglib/id3v2header.h"
 #include "taglib/attachedpictureframe.h"
+
 #include <fstream>
 #include <string>
+
+// For the UI
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+
+#include <QDirIterator>
+
+#include <QFile>
+#include <QFileDialog>
 
 int TrackManagement::AddTrack(std::string& fileLocation, Playlist& defaultPlaylist, odb::sqlite::database& database_context) {
 
@@ -124,4 +135,175 @@ int TrackManagement::RemoveTrack(Track& track, odb::sqlite::database& database_c
 		return 0;
 	}
 	return 1;
+}
+
+// MainWindow external functions
+
+/// <summary>
+/// Abstraction of the AddTrack function
+/// Adds a track to the database and updates the UI
+/// </summary>
+void MainWindow::UIAddTrack() {
+    // Open a file dialog to select a folder
+    QString folderPath = QFileDialog::getExistingDirectory(this, tr("Open Folder"), "C:\\", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    if (folderPath.isEmpty()) {
+        // Clean up (This actually does something)
+        folderPath.clear();
+        folderPath.~QString();
+        folderPath = nullptr;
+        return;
+    }
+
+    // Let's try to get the default playlist
+    db = *new database();
+    db.setDatabase("userdata");
+    odb::sqlite::database database_context = db.getDatabase();
+    odb::transaction t(database_context.begin());
+
+    // Query for the default playlist
+    odb::result<Playlist> playlists = database_context.query<Playlist>(odb::query<Playlist>::name == "DEFAULT");
+
+    // The default playlist
+    // What it is: A playlist that contains all the tracks in the folder
+    // Basically, this is the user's library. 
+    // It is the default playlist that is created when the user opens the application for the first time
+    // (but of course, the user doesn't know this)
+    Playlist defaultPlaylist("DEFAULT", "2022");
+    if (playlists.begin() == playlists.end()) {
+        database_context.persist(defaultPlaylist);
+    }
+    else {
+        defaultPlaylist = *playlists.begin();
+    }
+
+    // Walk through the folder and get all MP3 files in it
+    QDirIterator it(folderPath, QStringList() << "*.mp3", QDir::Files, QDirIterator::Subdirectories);
+    while (it.hasNext()) {
+        // Get the next file
+        it.next();
+
+        // Parse the ID3 tags
+        std::string filename = it.filePath().toStdString();
+        //TagLib::FileRef f(filename.c_str());
+        //if (!f.tag()) {
+            //qDebug() << "No ID3 tag found";
+          //  continue; // Skip the file if there is no ID3 tag
+        //}
+
+        // Get the file location
+        std::string fileLocation = it.filePath().toStdString();
+
+        // Add the track to the default playlist
+        int exists = TrackManagement::AddTrack(fileLocation, defaultPlaylist, database_context);
+        if (exists == 1) {
+            continue;
+        }
+    }
+
+    // Update the default playlist and commit the transaction
+    database_context.update(defaultPlaylist);
+    t.commit();
+
+    // Destroy all our objects
+    // Clean up (to be safe)
+    folderPath.clear();
+    folderPath.~QString();
+    folderPath = nullptr;
+    // Last time, the memory was spiking up to nearly ~800MB
+    // This time, it's just a mere ~43MB
+
+    // Update the UI
+    StateHasChanged(ui->allTracksListView);
+}
+
+
+/// <summary>
+/// Plays a track from the list view
+/// </summary>
+/// <param name="index"></param>
+void MainWindow::PlayTrack(const QModelIndex& index) {
+
+    //qDebug() << "Playing track: " << index.data().toString();
+
+    // Split the index data by the newline into a QStringList 
+    QStringList trackInfo = index.data().toString().split("\n");
+    QString trackFileName = trackInfo[0]; // Typically the file path
+    // FileName, TrackTitle, AlbumName, ArtistName 
+
+
+    // Play the track
+    // Display the track information
+
+    if (trackInfo.size() < 3 || (trackInfo[1].toStdString() == ""))
+    {
+        qDebug() << "Invalid track information";
+
+        QImage placeholder;
+        placeholder.load(":/otherfiles/assets/images/album.png");
+
+        // Set the QLabel, "track_image_pa" to the album art of the track
+        ui->track_image_pa->setPixmap(QPixmap::fromImage(placeholder));
+
+        // Set the QLabel, "track_name_pa" to the title of the track
+        ui->track_name_pa->setText("Untitled Track");
+
+        // Set the QLabel, "mia_pa" to the artist of the track
+        ui->mia_pa->setText("No artist or missing information");
+        // return;
+    }
+    else {
+
+        // Retrieve the track from the database using the track title, album name and artist name
+        odb::sqlite::database database_context = db.getDatabase();
+        odb::transaction t(database_context.begin());
+
+        // Query for the album
+        Albums* track_album = database_context.query_one<Albums>(odb::query<Albums>::title == trackInfo[1].toStdString());
+        // Query for the artist
+        Artists* track_artist = database_context.query_one<Artists>(odb::query<Artists>::name == trackInfo[2].toStdString());
+
+        // Query for the track
+        Track track = *(database_context.query_one<Track>(
+            odb::query<Track>::title == trackInfo[0].toStdString()
+            && odb::query<Track>::album_id == track_album->Id()
+            && odb::query<Track>::artist_id == track_artist->Id()));
+
+
+        qDebug() << "Now Playing: " << QString::fromStdString(track.Title());
+
+        TrackImage track_image = track.Image();
+
+        // Set the QLabel, "track_image_pa" to the album art of the track
+        ui->track_image_pa->setPixmap(QPixmap::fromImage(QImage::fromData(QByteArray::fromRawData(track_image.Data(), track_image.Size()), "JPG")));
+
+        // Set the QLabel, "track_name_pa" to the title of the track
+        ui->track_name_pa->setText(QString::fromStdString(track.Title()));
+
+        // Set the QLabel, "mia_pa_album" to the album of the track
+        ui->mia_pa_album->setText(QString::fromStdString(track_album->Title()));
+
+        // Set the QLabel, "mia_pa" to the artist of the track
+        ui->mia_pa->setText(QString::fromStdString(track_artist->Name()));
+
+        trackFileName = QString::fromStdString(track.FileName());
+
+        t.commit();
+    }
+
+    QUrl* url = new QUrl(trackFileName);
+
+    player->stop();
+    player->setSource(*url);
+
+    // Check if there was an error setting the media content
+    if (player->error() != QMediaPlayer::NoError) {
+        qDebug() << "----Error setting media content----";
+        qDebug() << "Error:" << player->errorString();
+        qDebug() << "File path:" << url;
+        return;
+    }
+
+    // Set the audio device and play the media
+    player->setAudioOutput(device);
+    player->play();
 }

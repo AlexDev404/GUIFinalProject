@@ -154,6 +154,31 @@ void MainWindow::qMain() {
     // Update the UI
     StateHasChanged(ui->allTracksListView);
 
+    // Connect our signals and slots
+    // Connect the audio output to stop itself once the media has finished playing
+    QAudioOutput::connect(player, &QMediaPlayer::playbackStateChanged, [=](QMediaPlayer::PlaybackState state) {
+        // Are we finished?
+       /* if (state == QMediaPlayer::StoppedState) {
+            player->stop();
+            device->deleteLater();
+            player->deleteLater();
+        }*/
+        // Are we switching tracks?
+        /* if (state == QMediaPlayer::PlayingState) {
+             player->stop();
+             device->deleteLater();
+             player->deleteLater();
+         }*/
+         // Are we still playing?
+         /*if (state == QMediaPlayer::PlayingState) {
+             return;
+         }*/
+         // Are we paused?
+        if (state == QMediaPlayer::PausedState) {
+            // Do nothing (for now)
+        }
+        });
+
     // -------------------------------- BEGIN_DEBUG --------------------------------------------------------------------------------------------
     // The following code displays usage of the database classes and their mappings
     // It shows how to create playlists, artists, albums, genres, and tracks

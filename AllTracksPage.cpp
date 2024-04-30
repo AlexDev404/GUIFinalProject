@@ -3,5 +3,5 @@
 
 void MainWindow::on_addButton_atp_clicked()
 {
-
+	this->UIAddTrack();
 }
