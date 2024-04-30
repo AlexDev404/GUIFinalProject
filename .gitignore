@@ -527,3 +527,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /userdata.sqlite
+/userdata__backup.sqlite
