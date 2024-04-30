@@ -4,6 +4,10 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QDirIterator>
+#include <QMediaPlayer>
+#include <QAudioOutput>
+#include <QAudioDevice>
+#include <QMediaDevices>
 
 // For populating the default playlist
 #include "database.hpp"
@@ -434,4 +438,40 @@ void MainWindow::PlayTrack(const QModelIndex& index) {
 
     t.commit();
 
+    // Use the MediaPlayer class to play the track
+    //MediaPlayer mediaplayer = new MediaPlayer(track);
+
+
+    // Play the track
+    //QMediaPlayer* player = new QMediaPlayer();
+    //QUrl* url = new QUrl(QString::fromStdString(track.FileName()));
+    //player->setSource(*url);
+    //player->play();
+
+        // Create a QMediaPlayer object
+    //QMediaPlayer* mediaPlayer = new QMediaPlayer(this);
+    //QAudioOutput* audioOutput = new QAudioOutput(QMediaDevices::defaultAudioOutput(), this);
+    //mediaPlayer->setAudioOutput(audioOutput);
+
+    //// Set the media content to the MP3 file
+    //QString filePath = QString::fromStdString(track.FileName());
+    //mediaPlayer->setSource(QUrl::fromLocalFile(filePath));
+
+    //// Check if the media was successfully loaded
+    //if (mediaPlayer->mediaStatus() == QMediaPlayer::LoadedMedia) {
+    //    // Play the media
+    //    mediaPlayer->play();
+
+    //    qDebug() << "Playing:" << filePath;
+    //}
+    //else if (mediaPlayer->error() != QMediaPlayer::NoError) {
+    //    // Error loading media
+    //    qDebug() << "Error loading media:" << mediaPlayer->errorString();
+    //    qDebug() << "File path:" << filePath;
+    //}
+    //else {
+    //    // Error loading media
+    //    qDebug() << "Error loading media:" << mediaPlayer->errorString();
+    //    qDebug() << "File path:" << filePath;
+    //}
 }

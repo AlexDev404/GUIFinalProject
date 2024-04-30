@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Pages">
+      <UniqueIdentifier>{d5be6769-7d7d-4977-b816-6550633ecbd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Schemas">
+      <UniqueIdentifier>{4a6783c5-d40f-4969-aa9c-413ff4d658b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Schemas\Track">
+      <UniqueIdentifier>{e040b937-4c0f-4494-87af-f85df51e37f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Schemas\Windows">
+      <UniqueIdentifier>{acc574c0-873e-43bd-b97c-d38785941ab6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Schemas\Artists">
+      <UniqueIdentifier>{d2ade260-fd0e-4276-b7f3-cbad2843bb15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other Files">
+      <UniqueIdentifier>{aa0ed69d-62e5-4455-ab36-c9c9cd0ce35b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Schemas\Roles">
+      <UniqueIdentifier>{621935a8-12a0-45ce-a025-5abbb6d7c8ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Schemas\Playlist">
+      <UniqueIdentifier>{ae88b974-192f-41e2-b227-1958f3833f18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Schemas\Track_Playlist">
+      <UniqueIdentifier>{23728149-8b78-4c57-8bd5-784195a05fd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Schemas\Albums">
+      <UniqueIdentifier>{a8062051-a619-43d6-b065-264d57087dd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Schemas\Genres">
+      <UniqueIdentifier>{4c0e1e3f-e186-4a53-a03f-bf00f0672d9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Schemas\Track_Playcount">
+      <UniqueIdentifier>{93e2854e-23c6-466f-925b-4cabc44690dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files\Compiled Schemas">
+      <UniqueIdentifier>{1b745572-e9eb-4194-a250-50df61dd652c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mainwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="database.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AllTracksPage.cpp">
+      <Filter>Source Files\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="qMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Track.cpp">
+      <Filter>Header Files\Schemas\Track</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowsAccount.cpp">
+      <Filter>Header Files\Schemas\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Artists.cpp">
+      <Filter>Header Files\Schemas\Artists</Filter>
+    </ClCompile>
+    <ClCompile Include="Roles.cpp">
+      <Filter>Header Files\Schemas\Roles</Filter>
+    </ClCompile>
+    <ClCompile Include="Playlist.cpp">
+      <Filter>Header Files\Schemas\Playlist</Filter>
+    </ClCompile>
+    <ClCompile Include="Track_Playlist.cpp">
+      <Filter>Header Files\Schemas\Track_Playlist</Filter>
+    </ClCompile>
+    <ClCompile Include="Artists-odb.cxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Artists-odb.ixx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Roles-odb.cxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Roles-odb.ixx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowsAccount-odb.cxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowsAccount-odb.ixx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Albums.cpp">
+      <Filter>Header Files\Schemas\Albums</Filter>
+    </ClCompile>
+    <ClCompile Include="Genres.cpp">
+      <Filter>Header Files\Schemas\Genres</Filter>
+    </ClCompile>
+    <ClCompile Include="Track_Playcount.cpp">
+      <Filter>Header Files\Schemas\Track_Playcount</Filter>
+    </ClCompile>
+    <ClCompile Include="Track_Playcount-odb.cxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Track_Playcount-odb.ixx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Track_Playlist-odb.cxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Track_Playlist-odb.ixx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Playlist-odb.cxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Playlist-odb.ixx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Track-odb.cxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Track-odb.ixx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Albums-odb.cxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Albums-odb.ixx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Genres-odb.cxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="Genres-odb.ixx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClCompile>
+    <ClCompile Include="TrackImage.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TrackManagement.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="mainwindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="debug\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="release\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="mainwindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\fonts\WorkSans-Black.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-BlackItalic.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-Bold.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-BoldItalic.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-ExtraBold.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-ExtraBoldItalic.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-ExtraLight.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-ExtraLightItalic.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-Italic.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-Light.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-LightItalic.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-Medium.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-MediumItalic.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-Regular.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-SemiBold.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-SemiBoldItalic.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-Thin.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-ThinItalic.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fonts\variable\WorkSans-VariableFont_wght.ttf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <QtRcc Include="resources.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <None Include="README.md">
+      <Filter>Other Files</Filter>
+    </None>
+    <None Include="assets\css\finalproject.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="database.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Track.hpp">
+      <Filter>Header Files\Schemas\Track</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsAccount.hpp">
+      <Filter>Header Files\Schemas\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Artists.hpp">
+      <Filter>Header Files\Schemas\Artists</Filter>
+    </ClInclude>
+    <ClInclude Include="Roles.hpp">
+      <Filter>Header Files\Schemas\Roles</Filter>
+    </ClInclude>
+    <ClInclude Include="Playlist.hpp">
+      <Filter>Header Files\Schemas\Playlist</Filter>
+    </ClInclude>
+    <ClInclude Include="Track_Playlist.hpp">
+      <Filter>Header Files\Schemas\Track_Playlist</Filter>
+    </ClInclude>
+    <ClInclude Include="Artists-odb.hxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClInclude>
+    <ClInclude Include="Roles-odb.hxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsAccount-odb.hxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClInclude>
+    <ClInclude Include="Albums.hpp">
+      <Filter>Header Files\Schemas\Albums</Filter>
+    </ClInclude>
+    <ClInclude Include="Genres.hpp">
+      <Filter>Header Files\Schemas\Genres</Filter>
+    </ClInclude>
+    <ClInclude Include="Track_Playcount.hpp">
+      <Filter>Header Files\Schemas\Track_Playcount</Filter>
+    </ClInclude>
+    <ClInclude Include="Track_Playcount-odb.hxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClInclude>
+    <ClInclude Include="Track_Playlist-odb.hxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClInclude>
+    <ClInclude Include="Playlist-odb.hxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClInclude>
+    <ClInclude Include="Track-odb.hxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClInclude>
+    <ClInclude Include="Genres-odb.hxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClInclude>
+    <ClInclude Include="Albums-odb.hxx">
+      <Filter>Generated Files\Compiled Schemas</Filter>
+    </ClInclude>
+    <ClInclude Include="TrackImage.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TrackManagement.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="include\bin\tag.dll">
+      <Filter>Generated Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="include\bin\tag_c.dll">
+      <Filter>Generated Files</Filter>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\images\album.png" />
+    <Image Include="assets\images\backward.png" />
+    <Image Include="assets\images\circle.png" />
+    <Image Include="assets\images\disk.png" />
+    <Image Include="assets\images\englishflag.png" />
+    <Image Include="assets\images\forward.png" />
+    <Image Include="assets\images\headphones.png" />
+    <Image Include="assets\images\lang.png" />
+    <Image Include="assets\images\pause.png" />
+    <Image Include="assets\images\play.png" />
+    <Image Include="assets\images\playlist.jpg" />
+    <Image Include="assets\images\playlist.png" />
+    <Image Include="assets\images\reports.png" />
+    <Image Include="assets\images\searchImg.png" />
+    <Image Include="assets\images\settings.png" />
+    <Image Include="assets\images\spanishflag.png" />
+    <Image Include="assets\images\trackman.png" />
+    <Image Include="assets\images\tracks.png" />
+    <Image Include="assets\images\user.png" />
+    <Image Include="assets\images\user_big.png" />
+  </ItemGroup>
+</Project>
