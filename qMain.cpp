@@ -87,7 +87,6 @@ void MainWindow::qMain() {
     db = *new database();
     db.setDatabase("userdata");
     odb::sqlite::database database_context = db.getDatabase();
-
     odb::transaction t(database_context.begin());
 
     // Create the tables
@@ -147,28 +146,30 @@ void MainWindow::qMain() {
 
     // Update the UI username field
     ui->user_loggedin->setText(username);
+    ui->label_sp_2->setText(QString::fromStdString(username) + "'s Settings");
 
     // Commit the transaction
     t.commit();
 
     // Update the UI
-    StateHasChanged(ui->allTracksListView);
+    StateHasChanged(ui->allTracksListView, QSize(125, 175), QSize(100, 100));
+    StateHasChanged(ui->libraryListView, QSize(125, 30), QSize(25, 25));
 
     // Connect our signals and slots
     // Connect the audio output to stop itself once the media has finished playing
     QAudioOutput::connect(player, &QMediaPlayer::playbackStateChanged, [=](QMediaPlayer::PlaybackState state) {
         // Are we finished?
-       /* if (state == QMediaPlayer::StoppedState) {
-            player->stop();
-            device->deleteLater();
-            player->deleteLater();
-        }*/
+        if (state == QMediaPlayer::StoppedState) {
+            // Stop the audio output
+			player->stop();
+			// Change the controls icon to a stop icon
+			ui->play_pause_pa->setIcon(stopIcon);
+        }
         // Are we switching tracks?
-        /* if (state == QMediaPlayer::PlayingState) {
-             player->stop();
-             device->deleteLater();
-             player->deleteLater();
-         }*/
+         if (state == QMediaPlayer::PlayingState) {
+             // Change the controls icon to a pause icon
+             ui->play_pause_pa->setIcon(pauseIcon);
+         }
          // Are we still playing?
          /*if (state == QMediaPlayer::PlayingState) {
              return;

@@ -1641,6 +1641,21 @@ border: 0;</string>
      <property name="styleSheet">
       <string notr="true"/>
      </property>
+     <property name="resizeMode">
+      <enum>QListView::Adjust</enum>
+     </property>
+     <property name="uniformItemSizes">
+      <bool>true</bool>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <property name="selectionRectVisible">
+      <bool>true</bool>
+     </property>
+     <property name="itemAlignment">
+      <set>Qt::AlignHCenter|Qt::AlignTop</set>
+     </property>
     </widget>
    </widget>
    <widget class="QFrame" name="play_area">

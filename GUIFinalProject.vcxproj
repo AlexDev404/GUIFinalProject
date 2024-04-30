@@ -354,6 +354,7 @@
     <Image Include="assets\images\searchImg.png" />
     <Image Include="assets\images\settings.png" />
     <Image Include="assets\images\spanishflag.png" />
+    <Image Include="assets\images\stop.png" />
     <Image Include="assets\images\trackman.png" />
     <Image Include="assets\images\tracks.png" />
     <Image Include="assets\images\user.png" />
