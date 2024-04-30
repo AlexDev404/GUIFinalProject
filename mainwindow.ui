@@ -1127,6 +1127,21 @@
         <height>411</height>
        </rect>
       </property>
+      <property name="movement">
+       <enum>QListView::Static</enum>
+      </property>
+      <property name="resizeMode">
+       <enum>QListView::Adjust</enum>
+      </property>
+      <property name="viewMode">
+       <enum>QListView::IconMode</enum>
+      </property>
+      <property name="uniformItemSizes">
+       <bool>true</bool>
+      </property>
+      <property name="itemAlignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
      </widget>
      <widget class="QWidget" name="layoutWidget_2">
       <property name="geometry">
@@ -1208,13 +1223,13 @@ border: 0;</string>
        <enum>QListView::IconMode</enum>
       </property>
       <property name="uniformItemSizes">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
       </property>
       <property name="itemAlignment">
-       <set>Qt::AlignCenter</set>
+       <set>Qt::AlignLeading</set>
       </property>
      </widget>
      <widget class="QPushButton" name="addButton_atp">
@@ -1380,7 +1395,7 @@ border: 0;</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>80</y>
+        <y>60</y>
         <width>121</width>
         <height>20</height>
        </rect>
@@ -1397,8 +1412,8 @@ border: 0;</string>
      <widget class="QComboBox" name="reportTypeComboBox">
       <property name="geometry">
        <rect>
-        <x>140</x>
-        <y>80</y>
+        <x>20</x>
+        <y>90</y>
         <width>131</width>
         <height>26</height>
        </rect>

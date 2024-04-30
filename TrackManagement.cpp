@@ -247,6 +247,9 @@ void MainWindow::PlayTrack(const QModelIndex& index) {
         // Set the QLabel, "track_name_pa" to the title of the track
         ui->track_name_pa->setText("Untitled Track");
 
+        // Set the QLabel, "mia_pa_album" to the album of the track
+        ui->mia_pa_album->setText("No album available");
+
         // Set the QLabel, "mia_pa" to the artist of the track
         ui->mia_pa->setText("No artist or missing information");
         // return;
