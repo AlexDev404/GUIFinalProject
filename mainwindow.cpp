@@ -226,7 +226,7 @@ void MainWindow::on_languageButton_clicked()
 
 void MainWindow::on_actionOpen_Folder_triggered()
 {
-
+    this->UIAddTrack();
 }
 
 void MainWindow::StateHasChanged(QListView* listView) {
@@ -251,7 +251,7 @@ void MainWindow::StateHasChanged(QListView* listView) {
     // Basically, this is the user's library. 
     // It is the default playlist that is created when the user opens the application for the first time
     // (but of course, the user doesn't know this)
-    Playlist defaultPlaylist("DEFAULT", "2022");
+    // Playlist defaultPlaylist("DEFAULT", "2022"); // Globally defined in mainwindow.h
     if (playlists.begin() == playlists.end()) {
         database_context.persist(defaultPlaylist);
     }
@@ -270,7 +270,6 @@ void MainWindow::StateHasChanged(QListView* listView) {
         Artists track_artist = *(track.ArtistId());
 
         TrackImage track_image = track.Image();
-        QImage image;
         // Check to see if it's 16 bytes long. If it is, it's an empty image (probably a bug)
         if (!track_image.Data() || track_image.Size() == 16) {
 			image.load(":/otherfiles/assets/images/album.png"); // Replace with default image
@@ -280,11 +279,11 @@ void MainWindow::StateHasChanged(QListView* listView) {
         }
         
         // Information about the track
-        QPixmap pixmap = QPixmap::fromImage(image);
-        QStandardItem* trackView = new QStandardItem(QIcon(pixmap), QString::fromLatin1((track.Title().empty()? track.FileName(): track.Title()) + "\n"));
+        pixmap = QPixmap::fromImage(image).scaled(80, 80); // Resize the image to 80x80
+        // Standardize the icon size across all the tracks
+        trackView = new QStandardItem(QIcon(pixmap.scaled(100, 100)), QString::fromLatin1((track.Title().empty()? track.FileName(): track.Title()) + "\n"));
         QString albumRow = QString::fromStdString(track_album.Title());
         QString artistRow = QString::fromStdString(track_artist.Name());
-        
         
         // We can add more information to the trackView if we want
         // For example, we can add the artist, album, etc.

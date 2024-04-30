@@ -7,6 +7,7 @@
 
 #include "database.hpp"
 #include "Track.hpp"
+#include "Playlist.hpp"
 
 #include <QMediaPlayer>
 #include <QAudioOutput>
@@ -69,5 +70,11 @@ private:
     // The only media player we need
     QMediaPlayer* player = new QMediaPlayer();
     QAudioOutput* device = new QAudioOutput(QMediaDevices::defaultAudioOutput());
+    QImage image;
+    QPixmap pixmap;
+    QStandardItem* trackView;
+    Playlist defaultPlaylist = *(new Playlist("DEFAULT", "2022"));
+    QUrl* track_url;
+    QString folderPath;
 };
 #endif // MAINWINDOW_H
