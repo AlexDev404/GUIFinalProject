@@ -182,6 +182,12 @@
     <ClCompile Include="Genres-odb.ixx">
       <Filter>Generated Files\Compiled Schemas</Filter>
     </ClCompile>
+    <ClCompile Include="TrackImage.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TrackManagement.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mainwindow.h">
@@ -265,6 +271,7 @@
     <None Include="README.md">
       <Filter>Other Files</Filter>
     </None>
+    <None Include="assets\css\finalproject.css" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="database.hpp">
@@ -324,6 +331,12 @@
     <ClInclude Include="Albums-odb.hxx">
       <Filter>Generated Files\Compiled Schemas</Filter>
     </ClInclude>
+    <ClInclude Include="TrackImage.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TrackManagement.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="include\bin\tag.dll">
@@ -332,5 +345,27 @@
     <CopyFileToFolders Include="include\bin\tag_c.dll">
       <Filter>Generated Files</Filter>
     </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\images\album.png" />
+    <Image Include="assets\images\backward.png" />
+    <Image Include="assets\images\circle.png" />
+    <Image Include="assets\images\disk.png" />
+    <Image Include="assets\images\englishflag.png" />
+    <Image Include="assets\images\forward.png" />
+    <Image Include="assets\images\headphones.png" />
+    <Image Include="assets\images\lang.png" />
+    <Image Include="assets\images\pause.png" />
+    <Image Include="assets\images\play.png" />
+    <Image Include="assets\images\playlist.jpg" />
+    <Image Include="assets\images\playlist.png" />
+    <Image Include="assets\images\reports.png" />
+    <Image Include="assets\images\searchImg.png" />
+    <Image Include="assets\images\settings.png" />
+    <Image Include="assets\images\spanishflag.png" />
+    <Image Include="assets\images\trackman.png" />
+    <Image Include="assets\images\tracks.png" />
+    <Image Include="assets\images\user.png" />
+    <Image Include="assets\images\user_big.png" />
   </ItemGroup>
 </Project>

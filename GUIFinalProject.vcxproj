@@ -141,7 +141,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.\include;GeneratedFiles\$(ConfigurationName);GeneratedFiles;.;debug;/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(QTDIR)\include\QtMultimedia;.\include;GeneratedFiles\$(ConfigurationName);GeneratedFiles;.;debug;/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -permissive- -Zc:__cplusplus -Zc:externConstexpr -utf-8 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -161,8 +161,8 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>odb-sqlite.lib;odb-mssql.lib;odb-mysql.lib;odb-pgsql.lib;odb-boost.lib;odb-qt.lib;odb.lib;crypto.lib;mysqlclient.lib;pq.lib;sqlite3.lib;ssl.lib;z.lib;$(QTDIR)\lib\Qt6EntryPointd.lib;shell32.lib;tag.lib;tag_c.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>.\include\lib\;C:\Qt\6.6.2\msvc2019_64\lib\odb-debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>odb-sqlite.lib;odb-mssql.lib;odb-mysql.lib;odb-pgsql.lib;odb-boost.lib;odb-qt.lib;odb.lib;crypto.lib;mysqlclient.lib;pq.lib;sqlite3.lib;ssl.lib;z.lib;$(QTDIR)\lib\Qt6EntryPointd.lib;shell32.lib;tag.lib;tag_c.lib;Qt6Multimedia.lib;Qt6MultimediaWidgets.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\include\lib\;$(QTDIR)\lib\odb-debug;$(QTDIR)\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
