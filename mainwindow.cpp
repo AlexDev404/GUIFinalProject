@@ -200,7 +200,7 @@ void MainWindow::on_all_tracks_clicked()
 
 void MainWindow::on_all_albums_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(3);
+    this->LoadAllAlbumsPage();
 }
 
 
@@ -285,7 +285,7 @@ void MainWindow::StateHasChanged(QListView* listView, QSize size, QSize icon_siz
         image = image.scaled(60, 60); // Downscale the image to 60x60
         image = image.convertToFormat(QImage::Format_Indexed8); // Convert the image to an indexed 8-bit image
         pixmap = QPixmap::fromImage(image).scaled(icon_size); // Standardize the icon size across all the tracks
-        image = image.scaled(0, 0); // Clear the image
+        image = *(new QImage);
         // Create a QStandardItem for the track
         trackView = new QStandardItem(QIcon(pixmap), QString::fromLatin1((track.Title().empty()? track.FileName(): track.Title()) + "\n"));
         QString albumRow = QString::fromStdString(track_album.Title());

@@ -203,6 +203,9 @@
     <ClCompile Include="TrackManagement.cpp">
       <Filter>Header Files\Util\Track</Filter>
     </ClCompile>
+    <ClCompile Include="AllAlbumsPage.cpp">
+      <Filter>Source Files\Pages</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mainwindow.h">

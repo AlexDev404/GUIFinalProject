@@ -208,6 +208,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Albums.cpp" />
+    <ClCompile Include="AllAlbumsPage.cpp" />
     <ClCompile Include="AllTracksPage.cpp" />
     <ClCompile Include="Artists-odb.cxx" />
     <ClCompile Include="Artists-odb.ixx">

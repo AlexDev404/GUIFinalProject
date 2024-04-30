@@ -30,6 +30,7 @@ public:
     void StateHasChanged(QListView* listView, QSize size, QSize icon_size);
     void PlayTrack(const QModelIndex& index);
     void UIAddTrack();
+    void LoadAllAlbumsPage();
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 

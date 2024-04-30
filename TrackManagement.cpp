@@ -213,7 +213,7 @@ void MainWindow::UIAddTrack() {
 
     // Update the UI
     StateHasChanged(ui->allTracksListView, QSize(125, 175), QSize(100, 100));
-    StateHasChanged(ui->libraryListView, QSize(125, 30), QSize(25, 25));
+    StateHasChanged(ui->libraryListView, QSize(125, 30), QSize(16, 16));
 }
 
 
