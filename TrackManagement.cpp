@@ -145,7 +145,7 @@ int TrackManagement::RemoveTrack(Track& track, odb::sqlite::database& database_c
 /// </summary>
 void MainWindow::UIAddTrack() {
     // Open a file dialog to select a folder
-    QString folderPath = QFileDialog::getExistingDirectory(this, tr("Open Folder"), "C:\\", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    folderPath = QFileDialog::getExistingDirectory(this, tr("Open Folder"), "C:\\", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     if (folderPath.isEmpty()) {
         // Clean up (This actually does something)
         folderPath.clear();
@@ -168,7 +168,6 @@ void MainWindow::UIAddTrack() {
     // Basically, this is the user's library. 
     // It is the default playlist that is created when the user opens the application for the first time
     // (but of course, the user doesn't know this)
-    Playlist defaultPlaylist("DEFAULT", "2022");
     if (playlists.begin() == playlists.end()) {
         database_context.persist(defaultPlaylist);
     }
@@ -290,16 +289,16 @@ void MainWindow::PlayTrack(const QModelIndex& index) {
         t.commit();
     }
 
-    QUrl* url = new QUrl(trackFileName);
+    track_url = new QUrl(trackFileName);
 
     player->stop();
-    player->setSource(*url);
+    player->setSource(*track_url);
 
     // Check if there was an error setting the media content
     if (player->error() != QMediaPlayer::NoError) {
         qDebug() << "----Error setting media content----";
         qDebug() << "Error:" << player->errorString();
-        qDebug() << "File path:" << url;
+        qDebug() << "File path:" << track_url;
         return;
     }
 
