@@ -84,6 +84,21 @@
     <Filter Include="Generated Files\Compiled Schemas">
       <UniqueIdentifier>{1b745572-e9eb-4194-a250-50df61dd652c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Util">
+      <UniqueIdentifier>{49dcd314-035a-417b-be5d-4726f5a8ba11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Util\Track">
+      <UniqueIdentifier>{1dfc7d46-57aa-411e-9695-6a1a5455e2bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\css">
+      <UniqueIdentifier>{8032f2b3-1620-496f-8a53-1e25699ec71f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\images">
+      <UniqueIdentifier>{c83702be-9751-4f2c-a07c-f184e873fc55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\fonts">
+      <UniqueIdentifier>{84041d81-45b1-44a3-82b4-97a22be15f92}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -183,10 +198,10 @@
       <Filter>Generated Files\Compiled Schemas</Filter>
     </ClCompile>
     <ClCompile Include="TrackImage.cpp">
-      <Filter>Generated Files</Filter>
+      <Filter>Header Files\Util\Track</Filter>
     </ClCompile>
     <ClCompile Include="TrackManagement.cpp">
-      <Filter>Generated Files</Filter>
+      <Filter>Header Files\Util\Track</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -208,70 +223,66 @@
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\fonts\WorkSans-Black.ttf">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\fonts\WorkSans-BlackItalic.ttf">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\fonts\WorkSans-Bold.ttf">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\fonts\WorkSans-BoldItalic.ttf">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\fonts\WorkSans-ExtraBold.ttf">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\fonts\WorkSans-ExtraBoldItalic.ttf">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\fonts\WorkSans-ExtraLight.ttf">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\fonts\WorkSans-ExtraLightItalic.ttf">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\fonts\WorkSans-Italic.ttf">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\fonts\WorkSans-Light.ttf">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\fonts\WorkSans-LightItalic.ttf">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\fonts\WorkSans-Medium.ttf">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\fonts\WorkSans-MediumItalic.ttf">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\fonts\WorkSans-Regular.ttf">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\fonts\WorkSans-SemiBold.ttf">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\fonts\WorkSans-SemiBoldItalic.ttf">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\fonts\WorkSans-Thin.ttf">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\fonts\WorkSans-ThinItalic.ttf">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\fonts\variable\WorkSans-VariableFont_wght.ttf">
-      <Filter>Resource Files</Filter>
-    </None>
     <QtRcc Include="resources.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
     <None Include="README.md">
       <Filter>Other Files</Filter>
     </None>
-    <None Include="assets\css\finalproject.css" />
+    <None Include="assets\fonts\WorkSans-Black.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-BlackItalic.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-Bold.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-BoldItalic.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-ExtraBold.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-ExtraBoldItalic.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-ExtraLight.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-ExtraLightItalic.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-Italic.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-Light.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-LightItalic.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-Medium.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-MediumItalic.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-Regular.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-SemiBold.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-SemiBoldItalic.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-Thin.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </None>
+    <None Include="assets\fonts\WorkSans-ThinItalic.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="database.hpp">
@@ -332,10 +343,10 @@
       <Filter>Generated Files\Compiled Schemas</Filter>
     </ClInclude>
     <ClInclude Include="TrackImage.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Util\Track</Filter>
     </ClInclude>
     <ClInclude Include="TrackManagement.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Util\Track</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -347,25 +358,73 @@
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="assets\images\album.png" />
-    <Image Include="assets\images\backward.png" />
-    <Image Include="assets\images\circle.png" />
-    <Image Include="assets\images\disk.png" />
-    <Image Include="assets\images\englishflag.png" />
-    <Image Include="assets\images\forward.png" />
-    <Image Include="assets\images\headphones.png" />
-    <Image Include="assets\images\lang.png" />
-    <Image Include="assets\images\pause.png" />
-    <Image Include="assets\images\play.png" />
-    <Image Include="assets\images\playlist.jpg" />
-    <Image Include="assets\images\playlist.png" />
-    <Image Include="assets\images\reports.png" />
-    <Image Include="assets\images\searchImg.png" />
-    <Image Include="assets\images\settings.png" />
-    <Image Include="assets\images\spanishflag.png" />
-    <Image Include="assets\images\trackman.png" />
-    <Image Include="assets\images\tracks.png" />
-    <Image Include="assets\images\user.png" />
-    <Image Include="assets\images\user_big.png" />
+    <Image Include="assets\images\album.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="assets\images\backward.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="assets\images\circle.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="assets\images\disk.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="assets\images\englishflag.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="assets\images\forward.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="assets\images\headphones.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="assets\images\lang.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="assets\images\pause.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="assets\images\play.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="assets\images\playlist.jpg">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="assets\images\playlist.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="assets\images\reports.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="assets\images\searchImg.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="assets\images\settings.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="assets\images\spanishflag.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="assets\images\trackman.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="assets\images\tracks.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="assets\images\user.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="assets\images\user_big.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\fonts\variable\WorkSans-VariableFont_wght.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </None>
+    <None Include="assets\css\finalproject.css">
+      <Filter>Resource Files\css</Filter>
+    </None>
   </ItemGroup>
 </Project>
