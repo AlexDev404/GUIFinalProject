@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QFontDatabase>
 #include <QFile>
+#include <QColorSpace>
 
 // For populating the default playlist
 #include "database.hpp"
@@ -65,25 +66,27 @@ void MainWindow::LoadResources(){
     }
 
     // ------------------------------------ Load an image from file ------------------------------------
-    QIcon searchIcon(":/otherfiles/assets/images/searchImg.png");
-    QIcon settingIcon(":/otherfiles/assets/images/settings.png");
-    QIcon userIcon(":/otherfiles/assets/images/user.png");
-    QIcon headphonesIcon(":/otherfiles/assets/images/headphones.png");
-    QIcon backIcon(":/otherfiles/assets/images/backward.png");
-    QIcon playIcon(":/otherfiles/assets/images/play.png");
-    QIcon forwardIcon(":/otherfiles/assets/images/forward.png");
-    QPixmap playlistImage(":/otherfiles/assets/images/playlist.jpg");
+    searchIcon = *(new QIcon(":/otherfiles/assets/images/searchImg.png"));
+    settingIcon = *(new QIcon(":/otherfiles/assets/images/settings.png"));
+    userIcon = *(new QIcon(":/otherfiles/assets/images/user.png"));
+    headphonesIcon = *(new QIcon(":/otherfiles/assets/images/headphones.png"));
+    backIcon = *(new QIcon(":/otherfiles/assets/images/backward.png"));
+    playIcon = *(new QIcon(":/otherfiles/assets/images/play.png"));
+    pauseIcon = *(new QIcon(":/otherfiles/assets/images/pause.png"));
+    stopIcon = *(new QIcon(":/otherfiles/assets/images/stop.png"));
+    forwardIcon = *(new QIcon(":/otherfiles/assets/images/forward.png"));
+    playlistImage = *(new QPixmap(":/otherfiles/assets/images/playlist.jpg"));
 
-    QIcon trackIcon(":/otherfiles/assets/images/tracks.png");
-    QIcon albumIcon(":/otherfiles/assets/images/album.png");
-    QIcon playlistIcon(":/otherfiles/assets/images/playlist.png");
-    QIcon languageIcon(":/otherfiles/assets/images/lang.png");
-    QIcon usermanIcon(":/otherfiles/assets/images/user_big.png");
-    QIcon trackmanIcon(":/otherfiles/assets/images/trackman.png");
-    QIcon reportsIcon(":/otherfiles/assets/images/reports.png");
+    trackIcon = *(new QIcon(":/otherfiles/assets/images/tracks.png"));
+    albumIcon = *(new QIcon(":/otherfiles/assets/images/album.png"));
+    playlistIcon = *(new QIcon(":/otherfiles/assets/images/playlist.png"));
+    languageIcon = *(new QIcon(":/otherfiles/assets/images/lang.png"));
+    usermanIcon = *(new QIcon(":/otherfiles/assets/images/user_big.png"));
+    trackmanIcon = *(new QIcon(":/otherfiles/assets/images/trackman.png"));
+    reportsIcon = *(new QIcon(":/otherfiles/assets/images/reports.png"));
 
-    QIcon englishIcon(":/otherfiles/assets/images/englishflag.png");
-    QIcon spanishIcon(":/otherfiles/assets/images/spanishflag.png");
+    englishIcon = *(new QIcon(":/otherfiles/assets/images/englishflag.png"));
+    spanishIcon = *(new QIcon(":/otherfiles/assets/images/spanishflag.png"));
 
     // -------------------------------------------- Apply icons --------------------------------------------
 
@@ -107,7 +110,7 @@ void MainWindow::LoadResources(){
     // Play Area Icons
     ui->back_pa->setIcon(QIcon(backIcon));
     ui->back_pa->setIcon(QIcon(backIcon));
-    ui->play_pause_pa->setIcon(QIcon(playIcon));
+    ui->play_pause_pa->setIcon(QIcon(stopIcon));
     ui->forward_pa->setIcon(QIcon(forwardIcon));
 
     int h = ui->track_image_pa->height();    // Get the height & width of the QLabel
@@ -197,7 +200,7 @@ void MainWindow::on_all_tracks_clicked()
 
 void MainWindow::on_all_albums_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(3);
+    this->LoadAllAlbumsPage();
 }
 
 
@@ -229,7 +232,7 @@ void MainWindow::on_actionOpen_Folder_triggered()
     this->UIAddTrack();
 }
 
-void MainWindow::StateHasChanged(QListView* listView) {
+void MainWindow::StateHasChanged(QListView* listView, QSize size, QSize icon_size) {
     // Update the UI
     db = *new database();
     db.setDatabase("userdata");
@@ -279,9 +282,12 @@ void MainWindow::StateHasChanged(QListView* listView) {
         }
         
         // Information about the track
-        pixmap = QPixmap::fromImage(image).scaled(80, 80); // Resize the image to 80x80
-        // Standardize the icon size across all the tracks
-        trackView = new QStandardItem(QIcon(pixmap.scaled(100, 100)), QString::fromLatin1((track.Title().empty()? track.FileName(): track.Title()) + "\n"));
+        image = image.scaled(60, 60); // Downscale the image to 60x60
+        image = image.convertToFormat(QImage::Format_Indexed8); // Convert the image to an indexed 8-bit image
+        pixmap = QPixmap::fromImage(image).scaled(icon_size); // Standardize the icon size across all the tracks
+        image = *(new QImage);
+        // Create a QStandardItem for the track
+        trackView = new QStandardItem(QIcon(pixmap), QString::fromLatin1((track.Title().empty()? track.FileName(): track.Title()) + "\n"));
         QString albumRow = QString::fromStdString(track_album.Title());
         QString artistRow = QString::fromStdString(track_artist.Name());
         
@@ -293,13 +299,34 @@ void MainWindow::StateHasChanged(QListView* listView) {
         trackView->setText(trackView->text() + albumRow + "\n" + artistRow);
 
         // Resize the trackView to 175 pixels
-        trackView->setSizeHint(QSize(125, 175));
+        trackView->setSizeHint(size);
 
         // Have the image fit the trackView
-        listView->setIconSize(QSize(100, 100));
+        listView->setIconSize(icon_size);
         model->appendRow(trackView);
     }
 
     // Commit the transaction
     t.commit();
 }
+
+void MainWindow::on_play_pause_pa_clicked()
+{
+    // Check if we have any media loaded
+    // If we don't, we can't play anything
+    if (player->mediaStatus() == QMediaPlayer::NoMedia) {
+		return;
+	}
+    // Check if we are paused already
+    if (player->playbackState() == QMediaPlayer::PausedState) {
+		player->play();
+        // Change the icon to a pause icon
+        ui->play_pause_pa->setIcon(pauseIcon);
+	}
+    else {
+		player->pause();
+        // Change the icon to a play icon
+		ui->play_pause_pa->setIcon(playIcon);
+	}
+}
+

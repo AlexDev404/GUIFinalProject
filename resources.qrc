@@ -42,5 +42,6 @@
         <file>assets/images/user_big.png</file>
         <file>assets/images/englishflag.png</file>
         <file>assets/images/spanishflag.png</file>
+        <file>assets/images/stop.png</file>
     </qresource>
 </RCC>

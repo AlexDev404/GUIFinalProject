@@ -27,10 +27,11 @@ class MainWindow : public QMainWindow
 public:
     void LoadResources();
     void qMain();
-    void StateHasChanged(QListView* listView);
+    void StateHasChanged(QListView* listView, QSize size, QSize icon_size);
     void PlayTrack(const QModelIndex& index);
     void UIAddTrack();
-    MainWindow(QWidget *parent = nullptr);
+    void LoadAllAlbumsPage();
+    MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
 private slots:
@@ -62,8 +63,10 @@ private slots:
 
     void on_actionOpen_Folder_triggered();
 
+    void on_play_pause_pa_clicked();
+
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow* ui;
     // The database
     database db; // Format: SQLite
 
@@ -76,5 +79,26 @@ private:
     Playlist defaultPlaylist = *(new Playlist("DEFAULT", "2022"));
     QUrl* track_url;
     QString folderPath;
+
+    // Icons
+    QIcon searchIcon;
+    QIcon settingIcon;
+    QIcon userIcon;
+    QIcon headphonesIcon;
+    QIcon backIcon;
+    QIcon playIcon;
+    QIcon pauseIcon;
+    QIcon stopIcon;
+    QIcon forwardIcon;
+    QPixmap playlistImage;
+    QIcon trackIcon;
+    QIcon albumIcon;
+    QIcon playlistIcon;
+    QIcon languageIcon;
+    QIcon usermanIcon;
+    QIcon trackmanIcon;
+    QIcon reportsIcon;
+    QIcon englishIcon;
+    QIcon spanishIcon;
 };
 #endif // MAINWINDOW_H

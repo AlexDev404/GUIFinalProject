@@ -203,6 +203,9 @@
     <ClCompile Include="TrackManagement.cpp">
       <Filter>Header Files\Util\Track</Filter>
     </ClCompile>
+    <ClCompile Include="AllAlbumsPage.cpp">
+      <Filter>Source Files\Pages</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mainwindow.h">
@@ -416,6 +419,9 @@
       <Filter>Resource Files\images</Filter>
     </Image>
     <Image Include="assets\images\user_big.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="assets\images\stop.png">
       <Filter>Resource Files\images</Filter>
     </Image>
   </ItemGroup>

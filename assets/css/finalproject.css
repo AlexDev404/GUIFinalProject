@@ -1,8 +1,27 @@
 QFrame, QListView {
    border: 0;
    padding: 0;
+   color: white;
 /*   box-sizing: border-box;*/
 }
+
+QListView::item {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px 5px 5px 5px;
+  background-color: #08111c;
+}
+
+QListView::item:selected {
+  background-color: #122842;
+  color: white;
+}
+
+QListView::item:hover {
+  background-color: #1c3f68;
+}
+
 
 QMainWindow {
    background: #0E1C2E;

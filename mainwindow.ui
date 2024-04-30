@@ -51,7 +51,7 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="playlistDisplayPage">
      <widget class="QLabel" name="label_5">
@@ -1099,9 +1099,9 @@
      <widget class="QLabel" name="label_aap_1">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>20</x>
         <y>20</y>
-        <width>851</width>
+        <width>131</width>
         <height>31</height>
        </rect>
       </property>
@@ -1118,7 +1118,7 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QListView" name="allAlbumListView">
+     <widget class="QListView" name="allAlbumsListView">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -1126,6 +1126,21 @@
         <width>801</width>
         <height>411</height>
        </rect>
+      </property>
+      <property name="movement">
+       <enum>QListView::Static</enum>
+      </property>
+      <property name="resizeMode">
+       <enum>QListView::Adjust</enum>
+      </property>
+      <property name="viewMode">
+       <enum>QListView::IconMode</enum>
+      </property>
+      <property name="uniformItemSizes">
+       <bool>true</bool>
+      </property>
+      <property name="itemAlignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
       </property>
      </widget>
      <widget class="QWidget" name="layoutWidget_2">
@@ -1208,13 +1223,13 @@ border: 0;</string>
        <enum>QListView::IconMode</enum>
       </property>
       <property name="uniformItemSizes">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
       </property>
       <property name="itemAlignment">
-       <set>Qt::AlignCenter</set>
+       <set>Qt::AlignLeading</set>
       </property>
      </widget>
      <widget class="QPushButton" name="addButton_atp">
@@ -1380,7 +1395,7 @@ border: 0;</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>80</y>
+        <y>60</y>
         <width>121</width>
         <height>20</height>
        </rect>
@@ -1397,8 +1412,8 @@ border: 0;</string>
      <widget class="QComboBox" name="reportTypeComboBox">
       <property name="geometry">
        <rect>
-        <x>140</x>
-        <y>80</y>
+        <x>20</x>
+        <y>90</y>
         <width>131</width>
         <height>26</height>
        </rect>
@@ -1640,6 +1655,21 @@ border: 0;</string>
      </property>
      <property name="styleSheet">
       <string notr="true"/>
+     </property>
+     <property name="resizeMode">
+      <enum>QListView::Adjust</enum>
+     </property>
+     <property name="uniformItemSizes">
+      <bool>false</bool>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+     <property name="selectionRectVisible">
+      <bool>true</bool>
+     </property>
+     <property name="itemAlignment">
+      <set>Qt::AlignHCenter|Qt::AlignTop</set>
      </property>
     </widget>
    </widget>
