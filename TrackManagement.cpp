@@ -266,21 +266,21 @@ void MainWindow::PlayTrack(const QModelIndex& index) {
         Artists* track_artist = database_context.query_one<Artists>(odb::query<Artists>::name == trackInfo[2].toStdString());
 
         // Query for the track
-        Track track = *(database_context.query_one<Track>(
+        currentTrack = *(database_context.query_one<Track>(
             odb::query<Track>::title == trackInfo[0].toStdString()
             && odb::query<Track>::album_id == track_album->Id()
             && odb::query<Track>::artist_id == track_artist->Id()));
 
 
-        qDebug() << "Now Playing: " << QString::fromStdString(track.Title());
+        qDebug() << "Now Playing: " << QString::fromStdString(currentTrack.Title());
 
-        TrackImage track_image = track.Image();
+        TrackImage track_image = currentTrack.Image();
 
         // Set the QLabel, "track_image_pa" to the album art of the track
         ui->track_image_pa->setPixmap(QPixmap::fromImage(QImage::fromData(QByteArray::fromRawData(track_image.Data(), track_image.Size()), "JPG")));
 
         // Set the QLabel, "track_name_pa" to the title of the track
-        ui->track_name_pa->setText(QString::fromStdString(track.Title()));
+        ui->track_name_pa->setText(QString::fromStdString(currentTrack.Title()));
 
         // Set the QLabel, "mia_pa_album" to the album of the track
         ui->mia_pa_album->setText(QString::fromStdString(track_album->Title()));
@@ -288,7 +288,7 @@ void MainWindow::PlayTrack(const QModelIndex& index) {
         // Set the QLabel, "mia_pa" to the artist of the track
         ui->mia_pa->setText(QString::fromStdString(track_artist->Name()));
 
-        trackFileName = QString::fromStdString(track.FileName());
+        trackFileName = QString::fromStdString(currentTrack.FileName());
 
         t.commit();
     }
