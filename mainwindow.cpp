@@ -333,6 +333,11 @@ void MainWindow::on_play_pause_pa_clicked()
 
 void MainWindow::on_back_pa_clicked()
 {
+    // Check if we have any media loaded
+    // If we don't, we can't play anything
+    if (player->mediaStatus() == QMediaPlayer::NoMedia) {
+        return;
+    }
     // Play the next track in the DEFAULT playlist
     // Get the current track's position in the track_playlist table
     odb::sqlite::database database_context = db.getDatabase();
@@ -387,6 +392,11 @@ void MainWindow::on_back_pa_clicked()
 
 void MainWindow::on_forward_pa_clicked()
 {
+    // Check if we have any media loaded
+    // If we don't, we can't play anything
+    if (player->mediaStatus() == QMediaPlayer::NoMedia) {
+        return;
+    }
     // Play the next track in the DEFAULT playlist
     // Get the current track's position in the track_playlist table
     odb::sqlite::database database_context = db.getDatabase();
