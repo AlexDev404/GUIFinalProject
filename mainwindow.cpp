@@ -338,6 +338,10 @@ void MainWindow::on_back_pa_clicked()
     if (player->mediaStatus() == QMediaPlayer::NoMedia) {
         return;
     }
+    // Are we at the start of the playlist?
+    if (currentTrack.Id() == 1) {
+		return;
+	}
     // Play the next track in the DEFAULT playlist
     // Get the current track's position in the track_playlist table
     odb::sqlite::database database_context = db.getDatabase();
@@ -401,8 +405,15 @@ void MainWindow::on_forward_pa_clicked()
     // Get the current track's position in the track_playlist table
     odb::sqlite::database database_context = db.getDatabase();
     odb::transaction t(database_context.begin());
-    Track_Playlist track_map = *(database_context.query_one<Track_Playlist>(odb::query<Track_Playlist>::playlist_id == defaultPlaylist.Id() &&
-        odb::query<Track_Playlist>::track_id == (currentTrack.Id() + 1))); // Same thing but +1
+    Track_Playlist* track_map_ = database_context.query_one<Track_Playlist>(odb::query<Track_Playlist>::playlist_id == defaultPlaylist.Id() &&
+        odb::query<Track_Playlist>::track_id == (currentTrack.Id() + 1)); // Same thing but +1
+
+    // Are we at the end of the playlist?
+    if (track_map_ == nullptr) {
+        		return;
+    }
+
+    Track_Playlist track_map = *track_map_;
 
     // Map this track_map to a track
     currentTrack = *(track_map.TrackId());
