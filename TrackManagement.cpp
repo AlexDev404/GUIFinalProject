@@ -276,17 +276,9 @@ void MainWindow::PlayTrack(const QModelIndex& index) {
 
         TrackImage track_image = currentTrack.Image();
 
-        // Set the QLabel, "track_image_pa" to the album art of the track
-        ui->track_image_pa->setPixmap(QPixmap::fromImage(QImage::fromData(QByteArray::fromRawData(track_image.Data(), track_image.Size()), "JPG")));
+		// Set the play area data
+        SetPlayAreaData(track_image, currentTrack.Title(), track_album->Title(), track_artist->Name());
 
-        // Set the QLabel, "track_name_pa" to the title of the track
-        ui->track_name_pa->setText(QString::fromStdString(currentTrack.Title()));
-
-        // Set the QLabel, "mia_pa_album" to the album of the track
-        ui->mia_pa_album->setText(QString::fromStdString(track_album->Title()));
-
-        // Set the QLabel, "mia_pa" to the artist of the track
-        ui->mia_pa->setText(QString::fromStdString(track_artist->Name()));
 
         trackFileName = QString::fromStdString(currentTrack.FileName());
 
@@ -309,4 +301,18 @@ void MainWindow::PlayTrack(const QModelIndex& index) {
     // Set the audio device and play the media
     player->setAudioOutput(device);
     player->play();
+}
+
+void MainWindow::SetPlayAreaData(TrackImage track_image, std::string track_title, std::string album_name, std::string artist_name) {
+    // Set the QLabel, "track_image_pa" to the album art of the track
+    ui->track_image_pa->setPixmap(QPixmap::fromImage(QImage::fromData(QByteArray::fromRawData(track_image.Data(), track_image.Size() == 16 ? 0 : track_image.Size()), "JPG")));
+
+    // Set the QLabel, "track_name_pa" to the title of the track
+    ui->track_name_pa->setText(QString::fromStdString(track_title));
+
+    // Set the QLabel, "mia_pa_album" to the album of the track
+    ui->mia_pa_album->setText(QString::fromStdString(album_name));
+
+    // Set the QLabel, "mia_pa" to the artist of the track
+    ui->mia_pa->setText(QString::fromStdString(artist_name));
 }

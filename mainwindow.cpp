@@ -361,17 +361,8 @@ void MainWindow::on_back_pa_clicked()
     Albums track_album = *(currentTrack.AlbumId());
     Artists track_artist = *(currentTrack.ArtistId());
 
-    // Set the QLabel, "track_image_pa" to the album art of the track
-    ui->track_image_pa->setPixmap(QPixmap::fromImage(QImage::fromData(QByteArray::fromRawData(track_image.Data(), track_image.Size()), "JPG")));
-
-    // Set the QLabel, "track_name_pa" to the title of the track
-    ui->track_name_pa->setText(QString::fromStdString(currentTrack.Title()));
-
-    // Set the QLabel, "mia_pa_album" to the album of the track
-    ui->mia_pa_album->setText(QString::fromStdString(track_album.Title()));
-
-    // Set the QLabel, "mia_pa" to the artist of the track
-    ui->mia_pa->setText(QString::fromStdString(track_artist.Name()));
+	// Set the play area data
+    SetPlayAreaData(track_image, currentTrack.Title(), track_album.Title(), track_artist.Name());
 
 
     player->stop();
@@ -427,18 +418,8 @@ void MainWindow::on_forward_pa_clicked()
     Albums track_album = *(currentTrack.AlbumId());
     Artists track_artist = *(currentTrack.ArtistId());
 
-    // Set the QLabel, "track_image_pa" to the album art of the track
-    ui->track_image_pa->setPixmap(QPixmap::fromImage(QImage::fromData(QByteArray::fromRawData(track_image.Data(), track_image.Size()), "JPG")));
-
-    // Set the QLabel, "track_name_pa" to the title of the track
-    ui->track_name_pa->setText(QString::fromStdString(currentTrack.Title()));
-
-    // Set the QLabel, "mia_pa_album" to the album of the track
-    ui->mia_pa_album->setText(QString::fromStdString(track_album.Title()));
-
-    // Set the QLabel, "mia_pa" to the artist of the track
-    ui->mia_pa->setText(QString::fromStdString(track_artist.Name()));
-
+    // Set the play area data
+    SetPlayAreaData(track_image, currentTrack.Title(), track_album.Title(), track_artist.Name());
 
     player->stop();
     player->setSource(*track_url);

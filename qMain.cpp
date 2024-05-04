@@ -137,12 +137,15 @@ void MainWindow::qMain() {
     }
     else {
         // Create the Windows_Account object
-        Windows_Account currentUser(username, is_admin ? query_admin_roles : query_roles);
+        currentUser = Windows_Account(username, is_admin ? query_admin_roles : query_roles);
 
         // Persist this new user
         // This will be used to track the user's listening habits
         database_context.persist(currentUser);
     }
+
+    // Set the current user
+	currentUser = *query_user;
 
     // Update the UI username field
     ui->user_loggedin->setText(username);
