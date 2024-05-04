@@ -40,7 +40,7 @@ public:
     /// <param name="track_title"></param>
     /// <param name="album_name"></param>
     /// <param name="artist_name"></param>
-    void SetPlayAreaData(TrackImage& track_image, std::string track_title, std::string album_name, std::string artist_name);
+    void SetPlayAreaData(TrackImage& track_image, std::string track_title, std::string album_name, std::string artist_name, odb::sqlite::database& database_context);
     void UIAddTrack();
     void LoadAllAlbumsPage();
     MainWindow(QWidget* parent = nullptr);

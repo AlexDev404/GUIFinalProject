@@ -277,7 +277,7 @@ void MainWindow::PlayTrack(const QModelIndex& index) {
         TrackImage track_image = currentTrack.Image();
 
 		// Set the play area data
-        SetPlayAreaData(track_image, currentTrack.Title(), track_album->Title(), track_artist->Name());
+        SetPlayAreaData(track_image, currentTrack.Title(), track_album->Title(), track_artist->Name(), database_context);
 
 
         trackFileName = QString::fromStdString(currentTrack.FileName());
@@ -303,7 +303,7 @@ void MainWindow::PlayTrack(const QModelIndex& index) {
     player->play();
 }
 
-void MainWindow::SetPlayAreaData(TrackImage& track_image, std::string track_title, std::string album_name, std::string artist_name) {
+void MainWindow::SetPlayAreaData(TrackImage& track_image, std::string track_title, std::string album_name, std::string artist_name, odb::sqlite::database& database_context) {
     // Set the QLabel, "track_image_pa" to the album art of the track
     ui->track_image_pa->setPixmap(QPixmap::fromImage(QImage::fromData(QByteArray::fromRawData(track_image.Data(), (track_image.Data() == NULL || track_image.Size() == 16 || track_image.Size() < 0) ? 0 : track_image.Size()), "JPG")));
 
@@ -317,8 +317,6 @@ void MainWindow::SetPlayAreaData(TrackImage& track_image, std::string track_titl
     ui->mia_pa->setText(QString::fromStdString(artist_name));
 
     // Run a quick query against the databaseand add the track to the recently played table (Track_Playcount)
-    odb::sqlite::database database_context = db.getDatabase();
-
     // OK, so knowing that we have the current track stored in `currentTrack`, we can now add it to the Track_Playcount table
     odb::result<Track_Playcount> track_playcount = database_context.query<Track_Playcount>(odb::query<Track_Playcount>::track_id == currentTrack.Id());
 	// If the track is not in the Track_Playcount table, add it

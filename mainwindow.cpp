@@ -362,7 +362,7 @@ void MainWindow::on_back_pa_clicked()
     Artists track_artist = *(currentTrack.ArtistId());
 
 	// Set the play area data
-    SetPlayAreaData(track_image, currentTrack.Title(), track_album.Title(), track_artist.Name());
+    SetPlayAreaData(track_image, currentTrack.Title(), track_album.Title(), track_artist.Name(), database_context);
 
 
     player->stop();
@@ -419,7 +419,7 @@ void MainWindow::on_forward_pa_clicked()
     Artists track_artist = *(currentTrack.ArtistId());
 
     // Set the play area data
-    SetPlayAreaData(track_image, currentTrack.Title(), track_album.Title(), track_artist.Name());
+    SetPlayAreaData(track_image, currentTrack.Title(), track_album.Title(), track_artist.Name(), database_context);
 
     player->stop();
     player->setSource(*track_url);
