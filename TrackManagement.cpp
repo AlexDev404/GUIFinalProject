@@ -315,4 +315,23 @@ void MainWindow::SetPlayAreaData(TrackImage& track_image, std::string track_titl
 
     // Set the QLabel, "mia_pa" to the artist of the track
     ui->mia_pa->setText(QString::fromStdString(artist_name));
+
+    // Run a quick query against the databaseand add the track to the recently played table (Track_Playcount)
+    odb::sqlite::database database_context = db.getDatabase();
+
+    // OK, so knowing that we have the current track stored in `currentTrack`, we can now add it to the Track_Playcount table
+    odb::result<Track_Playcount> track_playcount = database_context.query<Track_Playcount>(odb::query<Track_Playcount>::track_id == currentTrack.Id());
+	// If the track is not in the Track_Playcount table, add it
+    if (track_playcount.begin() == track_playcount.end()) {
+		// Add the track to the Track_Playcount table with a playcount of 1
+        Track_Playcount track_playcount_entry(&currentUser, &currentTrack, 1);
+        database_context.persist(track_playcount_entry);
+    }
+	else { // If the track is in the Track_Playcount table, update the playcount
+        Track_Playcount track_playcount_entry = *track_playcount.begin();
+        track_playcount_entry.SetCount(track_playcount_entry.Count() + 1);
+        database_context.update(track_playcount_entry);
+    }
+
+	// With this, we are now tracking the playcount of the track
 }

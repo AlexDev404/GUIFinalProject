@@ -34,7 +34,7 @@ public:
     void StateHasChanged(QListView* listView, QSize size, QSize icon_size);
     void PlayTrack(const QModelIndex& index);
     /// <summary>
-    /// Sets the play area data. This is the data that is displayed when a track is played.
+    /// Expects database to be open. Sets the play area data. This is the data that is displayed when a track is played.
     /// </summary>
     /// <param name="track_image"></param>
     /// <param name="track_title"></param>
