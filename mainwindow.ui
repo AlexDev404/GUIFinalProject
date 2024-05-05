@@ -51,7 +51,7 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>7</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="playlistDisplayPage">
      <widget class="QLabel" name="label_5">
@@ -171,6 +171,16 @@
       </property>
       <property name="text">
        <string>Play/Pause</string>
+      </property>
+     </widget>
+     <widget class="QListView" name="playlistListView">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>250</y>
+        <width>781</width>
+        <height>291</height>
+       </rect>
       </property>
      </widget>
     </widget>
