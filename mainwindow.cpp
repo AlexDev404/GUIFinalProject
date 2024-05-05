@@ -170,7 +170,7 @@ void MainWindow::on_search_submit_clicked()
 
 void MainWindow::on_reportButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(7);
+    this->LoadReportPage();
 }
 
 

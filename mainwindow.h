@@ -43,6 +43,7 @@ public:
     void SetPlayAreaData(TrackImage& track_image, std::string track_title, std::string album_name, std::string artist_name, odb::sqlite::database& database_context);
     void UIAddTrack();
     void LoadAllAlbumsPage();
+	void LoadReportPage();
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
