@@ -7,9 +7,11 @@
 
 #include "database.hpp"
 #include "Track.hpp"
+#include "TrackImage.hpp"
 #include "Playlist.hpp"
 #include "Albums.hpp"
 #include "Artists.hpp"
+#include "WindowsAccount.hpp"
 
 #include <QMediaPlayer>
 #include <QAudioOutput>
@@ -29,10 +31,20 @@ class MainWindow : public QMainWindow
 public:
     void LoadResources();
     void qMain();
-    void StateHasChanged(QListView* listView, QSize size, QSize icon_size);
+    void LoadAllTracksPage(QListView* listView, QSize size, QSize icon_size);
+	void LoadPlayListDisplayPage(const QModelIndex& index);
     void PlayTrack(const QModelIndex& index);
+    /// <summary>
+    /// Expects database to be open. Sets the play area data. This is the data that is displayed when a track is played.
+    /// </summary>
+    /// <param name="track_image"></param>
+    /// <param name="track_title"></param>
+    /// <param name="album_name"></param>
+    /// <param name="artist_name"></param>
+    void SetPlayAreaData(TrackImage& track_image, std::string track_title, std::string album_name, std::string artist_name, odb::sqlite::database& database_context);
     void UIAddTrack();
     void LoadAllAlbumsPage();
+	void LoadReportPage();
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
@@ -86,6 +98,7 @@ private:
     QUrl* track_url;
     QString folderPath;
     Track currentTrack = *(new Track("NO_NAME"));
+    Windows_Account currentUser = *(new Windows_Account("NULL_USER"));
 
     // Icons
     QIcon searchIcon;

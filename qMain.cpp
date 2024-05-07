@@ -137,12 +137,15 @@ void MainWindow::qMain() {
     }
     else {
         // Create the Windows_Account object
-        Windows_Account currentUser(username, is_admin ? query_admin_roles : query_roles);
+        currentUser = Windows_Account(username, is_admin ? query_admin_roles : query_roles);
 
         // Persist this new user
         // This will be used to track the user's listening habits
         database_context.persist(currentUser);
     }
+
+    // Set the current user
+	currentUser = *query_user;
 
     // Update the UI username field
     ui->user_loggedin->setText(username);
@@ -152,8 +155,8 @@ void MainWindow::qMain() {
     t.commit();
 
     // Update the UI
-    StateHasChanged(ui->allTracksListView, QSize(125, 175), QSize(100, 100));
-    StateHasChanged(ui->libraryListView, QSize(125, 30), QSize(16, 16));
+    LoadAllTracksPage(ui->allTracksListView, QSize(125, 175), QSize(100, 100));
+    LoadAllTracksPage(ui->libraryListView, QSize(125, 30), QSize(16, 16));
 
     // Connect our signals and slots
     // Connect the audio output to stop itself once the media has finished playing

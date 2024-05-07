@@ -212,8 +212,8 @@ void MainWindow::UIAddTrack() {
     // This time, it's ~243MB
 
     // Update the UI
-    StateHasChanged(ui->allTracksListView, QSize(125, 175), QSize(100, 100));
-    StateHasChanged(ui->libraryListView, QSize(125, 30), QSize(16, 16));
+    LoadAllTracksPage(ui->allTracksListView, QSize(125, 175), QSize(100, 100));
+    LoadAllTracksPage(ui->libraryListView, QSize(125, 30), QSize(16, 16));
 }
 
 
@@ -276,17 +276,9 @@ void MainWindow::PlayTrack(const QModelIndex& index) {
 
         TrackImage track_image = currentTrack.Image();
 
-        // Set the QLabel, "track_image_pa" to the album art of the track
-        ui->track_image_pa->setPixmap(QPixmap::fromImage(QImage::fromData(QByteArray::fromRawData(track_image.Data(), track_image.Size()), "JPG")));
+		// Set the play area data
+        SetPlayAreaData(track_image, currentTrack.Title(), track_album->Title(), track_artist->Name(), database_context);
 
-        // Set the QLabel, "track_name_pa" to the title of the track
-        ui->track_name_pa->setText(QString::fromStdString(currentTrack.Title()));
-
-        // Set the QLabel, "mia_pa_album" to the album of the track
-        ui->mia_pa_album->setText(QString::fromStdString(track_album->Title()));
-
-        // Set the QLabel, "mia_pa" to the artist of the track
-        ui->mia_pa->setText(QString::fromStdString(track_artist->Name()));
 
         trackFileName = QString::fromStdString(currentTrack.FileName());
 
@@ -309,4 +301,35 @@ void MainWindow::PlayTrack(const QModelIndex& index) {
     // Set the audio device and play the media
     player->setAudioOutput(device);
     player->play();
+}
+
+void MainWindow::SetPlayAreaData(TrackImage& track_image, std::string track_title, std::string album_name, std::string artist_name, odb::sqlite::database& database_context) {
+    // Set the QLabel, "track_image_pa" to the album art of the track
+    ui->track_image_pa->setPixmap(QPixmap::fromImage(QImage::fromData(QByteArray::fromRawData(track_image.Data(), (track_image.Data() == NULL || track_image.Size() == 16 || track_image.Size() < 0) ? 0 : track_image.Size()), "JPG")));
+
+    // Set the QLabel, "track_name_pa" to the title of the track
+    ui->track_name_pa->setText(QString::fromStdString(track_title));
+
+    // Set the QLabel, "mia_pa_album" to the album of the track
+    ui->mia_pa_album->setText(QString::fromStdString(album_name));
+
+    // Set the QLabel, "mia_pa" to the artist of the track
+    ui->mia_pa->setText(QString::fromStdString(artist_name));
+
+    // Run a quick query against the databaseand add the track to the recently played table (Track_Playcount)
+    // OK, so knowing that we have the current track stored in `currentTrack`, we can now add it to the Track_Playcount table
+    odb::result<Track_Playcount> track_playcount = database_context.query<Track_Playcount>(odb::query<Track_Playcount>::track_id == currentTrack.Id());
+	// If the track is not in the Track_Playcount table, add it
+    if (track_playcount.begin() == track_playcount.end()) {
+		// Add the track to the Track_Playcount table with a playcount of 1
+        Track_Playcount track_playcount_entry(&currentUser, &currentTrack, 1);
+        database_context.persist(track_playcount_entry);
+    }
+	else { // If the track is in the Track_Playcount table, update the playcount
+        Track_Playcount track_playcount_entry = *track_playcount.begin();
+        track_playcount_entry.SetCount(track_playcount_entry.Count() + 1);
+        database_context.update(track_playcount_entry);
+    }
+
+	// With this, we are now tracking the playcount of the track
 }
