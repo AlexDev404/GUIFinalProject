@@ -228,6 +228,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Playlist.cpp" />
+    <ClCompile Include="PlayListDisplayPage.cpp" />
     <ClCompile Include="qMain.cpp" />
     <ClCompile Include="ReportPage.cpp" />
     <ClCompile Include="Roles-odb.cxx" />

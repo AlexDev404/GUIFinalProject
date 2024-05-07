@@ -212,8 +212,8 @@ void MainWindow::UIAddTrack() {
     // This time, it's ~243MB
 
     // Update the UI
-    StateHasChanged(ui->allTracksListView, QSize(125, 175), QSize(100, 100));
-    StateHasChanged(ui->libraryListView, QSize(125, 30), QSize(16, 16));
+    LoadAllTracksPage(ui->allTracksListView, QSize(125, 175), QSize(100, 100));
+    LoadAllTracksPage(ui->libraryListView, QSize(125, 30), QSize(16, 16));
 }
 
 

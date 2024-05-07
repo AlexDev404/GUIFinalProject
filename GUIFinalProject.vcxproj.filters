@@ -209,6 +209,9 @@
     <ClCompile Include="ReportPage.cpp">
       <Filter>Source Files\Pages</Filter>
     </ClCompile>
+    <ClCompile Include="PlayListDisplayPage.cpp">
+      <Filter>Source Files\Pages</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mainwindow.h">

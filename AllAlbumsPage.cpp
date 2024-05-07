@@ -33,8 +33,8 @@ void MainWindow::LoadAllAlbumsPage() {
     ui->allAlbumsListView->setModel(model);
     // Call the PlayTrack function when the QStandardItem is double clicked
     connect(ui->allAlbumsListView, &QListView::doubleClicked, [=](const QModelIndex& index) {
-        // LoadPlayListDisplayPage(index);
-        });
+        LoadPlayListDisplayPage(index);
+    });
 
     // Query for the default playlist
     odb::result<Albums> albums = database_context.query<Albums>();
