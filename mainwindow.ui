@@ -51,10 +51,10 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>4</number>
     </property>
-    <widget class="QWidget" name="playlistDisplayPage">
-     <widget class="QLabel" name="label_5">
+    <widget class="QWidget" name="libraryDisplayPage">
+     <widget class="QLabel" name="album_Image_ld">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -70,7 +70,7 @@
        <string>TextLabel</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_6">
+     <widget class="QLabel" name="album_playlist_title_ld">
       <property name="geometry">
        <rect>
         <x>200</x>
@@ -99,7 +99,7 @@
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_7">
+     <widget class="QLabel" name="artist_ld">
       <property name="geometry">
        <rect>
         <x>200</x>
@@ -128,7 +128,7 @@
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_8">
+     <widget class="QLabel" name="published_ld">
       <property name="geometry">
        <rect>
         <x>200</x>
@@ -157,7 +157,7 @@
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_10">
+     <widget class="QPushButton" name="state_Button_ld">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -171,6 +171,20 @@
       </property>
       <property name="text">
        <string>Play/Pause</string>
+      </property>
+     </widget>
+     <widget class="QListView" name="details_listView_ld">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>251</y>
+        <width>791</width>
+        <height>301</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;
+border: 0;</string>
       </property>
      </widget>
     </widget>
@@ -191,7 +205,7 @@
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="genres">
        <attribute name="title">
@@ -269,7 +283,7 @@
           <x>40</x>
           <y>390</y>
           <width>201</width>
-          <height>26</height>
+          <height>28</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -362,7 +376,7 @@
           <x>40</x>
           <y>390</y>
           <width>201</width>
-          <height>26</height>
+          <height>28</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_10">
@@ -455,7 +469,7 @@
           <x>40</x>
           <y>390</y>
           <width>201</width>
-          <height>26</height>
+          <height>28</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_11">
@@ -486,7 +500,7 @@
          </rect>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="addtrack">
          <widget class="QLabel" name="label_fp_14">
@@ -582,7 +596,7 @@
             <x>390</x>
             <y>80</y>
             <width>181</width>
-            <height>81</height>
+            <height>84</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout_3">
@@ -722,7 +736,7 @@
             <x>390</x>
             <y>110</y>
             <width>181</width>
-            <height>81</height>
+            <height>84</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout_7">
@@ -772,7 +786,7 @@
             <x>523</x>
             <y>70</y>
             <width>201</width>
-            <height>26</height>
+            <height>28</height>
            </rect>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout">
@@ -842,7 +856,7 @@
             <x>30</x>
             <y>260</y>
             <width>201</width>
-            <height>26</height>
+            <height>28</height>
            </rect>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_12">
@@ -954,7 +968,7 @@
         <x>20</x>
         <y>20</y>
         <width>791</width>
-        <height>56</height>
+        <height>62</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="heading_sp">
@@ -1316,7 +1330,7 @@ border: 0;</string>
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="libraryDisplayPage">
+    <widget class="QWidget" name="libraryDisplayPage2">
      <widget class="QLabel" name="label_ldp_1">
       <property name="geometry">
        <rect>
@@ -2098,7 +2112,7 @@ border-bottom-left-radius: 0;</string>
      <x>0</x>
      <y>0</y>
      <width>1230</width>
-     <height>16</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

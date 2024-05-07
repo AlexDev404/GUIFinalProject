@@ -33,6 +33,7 @@ public:
     void PlayTrack(const QModelIndex& index);
     void UIAddTrack();
     void LoadAllAlbumsPage();
+    void LoadLibraryDisplayPageAlbum(QSize size, QSize icon_size);
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 

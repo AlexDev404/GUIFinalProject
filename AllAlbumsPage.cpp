@@ -8,6 +8,7 @@
 #include "Track.hpp"
 #include "Track-odb.hxx"
 
+
 void MainWindow::LoadAllAlbumsPage() {
 
     // TODO: Clear the tracks view
@@ -31,9 +32,14 @@ void MainWindow::LoadAllAlbumsPage() {
 
     auto model = new QStandardItemModel(this);
     ui->allAlbumsListView->setModel(model);
+
     // Call the PlayTrack function when the QStandardItem is double clicked
     connect(ui->allAlbumsListView, &QListView::doubleClicked, [=](const QModelIndex& index) {
         // LoadPlayListDisplayPage(index);
+        ui->mainStackedWidget->setCurrentIndex(0);
+        
+        // Set up the album display
+        LoadLibraryDisplayPageAlbum(QSize(125, 175), QSize(100, 100));
         });
 
     // Query for the default playlist
