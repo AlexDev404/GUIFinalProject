@@ -9,6 +9,8 @@
 #include "Track_Playlist-odb.hxx"
 
 void MainWindow::LoadPlayListDisplayPage(const QModelIndex& index) {
+    QSize icon_size = QSize(50, 50);
+    QSize card_size = QSize(14, 70);
 
     db = *new database();
     db.setDatabase("userdata");
@@ -25,9 +27,6 @@ void MainWindow::LoadPlayListDisplayPage(const QModelIndex& index) {
 	if (albums.begin() == albums.end()) {
 		return;
 	}
-
-    // Get all the albums
-    odb::result<Albums> albums = database_context.query<Albums>();
 
     // Add the albums to the list
     for (odb::result<Albums>::iterator albumIt = albums.begin(); albumIt != albums.end(); albumIt++) {
@@ -63,7 +62,7 @@ void MainWindow::LoadPlayListDisplayPage(const QModelIndex& index) {
             trackView->setText(trackView->text());
 
             // Resize the trackView to the specified size
-            trackView->setSizeHint(size);
+            trackView->setSizeHint(card_size);
 
             // Have the image fit the trackView
             ui->details_listView_ld->setIconSize(icon_size);
@@ -73,4 +72,5 @@ void MainWindow::LoadPlayListDisplayPage(const QModelIndex& index) {
 
     // Commit the transaction
     t.commit();
+    ui->mainStackedWidget->setCurrentIndex(0);
 }
