@@ -23,37 +23,27 @@
 
 void MainWindow::LoadReportPage() {
 	ui->mainStackedWidget->setCurrentIndex(7);
-	ui->reportPage->setStyleSheet("background-color: #1c1c1c;");
-	ui->reportPage->setAutoFillBackground(true);
-
-	// Start to fill out the columns of reportTableDisplay
-	// With its appropriate values
-	ui->reportTableDisplay->setColumnCount(3);
-	ui->reportTableDisplay->setRowCount(5);
-	ui->reportTableDisplay->setHorizontalHeaderItem(0, new QTableWidgetItem("Total played (Tracks, Albums, Artists)")); // The first column is the total number of tracks, albums, and artists played
-	ui->reportTableDisplay->setHorizontalHeaderItem(1, new QTableWidgetItem("Average played (Tracks, Albums, Artists)")); // The second column is the average number of tracks, albums, and artists played
-	ui->reportTableDisplay->setHorizontalHeaderItem(2, new QTableWidgetItem("Total Listening Time")); // The third column is the total time spent listening to music
 
 	// Query the database for the total tracks played by the current WindowsAccount
 	odb::sqlite::database database_context = db.getDatabase();
 	odb::transaction t(database_context.begin());
 	odb::result<Track_Playcount> trackList = database_context.query<Track_Playcount>(odb::query<Track_Playcount>::user_id == currentUser.Id());
 	
-	// Set the total number of tracks played
+	// Initialize the total number of tracks played
 	int totalTracksPlayed = 0; // The total number of tracks played
 
-	// Set the total number of albums played
+	// Initialize the total number of albums played
 	int totalAlbumsPlayed = 0;
 	Albums* album_now = new Albums("NULL_ALBUM", "NULL_DATE");
 
-	// Set the total number of artists played
+	// Initialize the total number of artists played
 	int totalArtistsPlayed = 0;
 	Artists* artist_now = new Artists("NULL_ARTIST");
 
-	// Set the total time spent listening to music
+	// Initialize the total time spent listening to music
 	double totalTimeSpentListeningToMusic = 0; // The total time spent listening to music
 
-	// Set the average time spent listening to music
+	// Initialize the average time spent listening to music
 	double averageTimeSpentListeningToMusic = 0; // The average time spent listening to music
 
 	// Iterate through the trackList and get the total number of tracks played, albums played, artists played, and the total time spent listening to music
@@ -85,44 +75,52 @@ void MainWindow::LoadReportPage() {
 	// Now, calculate the average time spent listening to music
 	averageTimeSpentListeningToMusic = totalTimeSpentListeningToMusic / totalTracksPlayed;
 
-	// Set the total number of tracks played
-	ui->reportTableDisplay->setItem(0, 0, new QTableWidgetItem(QString::number(totalTracksPlayed))); // Set the total number of tracks played
-	ui->reportTableDisplay->setItem(0, 1, new QTableWidgetItem(QString::number(averageTimeSpentListeningToMusic / 60) + " minutes")); // Set the average time spent listening to music
-	ui->reportTableDisplay->setItem(0, 2, new QTableWidgetItem(QString::number(totalTimeSpentListeningToMusic / 60) + " minutes")); // Set the total time spent listening to music
+	// Start to fill out the columns of reportTableDisplay
+    // With its appropriate values
+	//ui->reportTableDisplay->setColumnCount(3);
+	//ui->reportTableDisplay->setRowCount(5);
+	//ui->reportTableDisplay->setHorizontalHeaderItem(0, new QTableWidgetItem("Total played (Tracks, Albums, Artists)")); // The first column is the total number of tracks, albums, and artists played
+	//ui->reportTableDisplay->setHorizontalHeaderItem(1, new QTableWidgetItem("Average played (Tracks, Albums, Artists)")); // The second column is the average number of tracks, albums, and artists played
+	//ui->reportTableDisplay->setHorizontalHeaderItem(2, new QTableWidgetItem("Total Listening Time")); // The third column is the total time spent listening to music
 
-	// Set the total number of albums played
-	ui->reportTableDisplay->setItem(1, 0, new QTableWidgetItem(QString::number(totalAlbumsPlayed)));
-	ui->reportTableDisplay->setItem(1, 1, new QTableWidgetItem("N/A"));
-	ui->reportTableDisplay->setItem(1, 2, new QTableWidgetItem("N/A"));
+	//// Set the total number of tracks played
+	//ui->reportTableDisplay->setItem(0, 0, new QTableWidgetItem(QString::number(totalTracksPlayed))); // Set the total number of tracks played
+	//ui->reportTableDisplay->setItem(0, 1, new QTableWidgetItem(QString::number(averageTimeSpentListeningToMusic / 60) + " minutes")); // Set the average time spent listening to music
+	//ui->reportTableDisplay->setItem(0, 2, new QTableWidgetItem(QString::number(totalTimeSpentListeningToMusic / 60) + " minutes")); // Set the total time spent listening to music
 
-	// Set the total number of artists played
-	ui->reportTableDisplay->setItem(2, 0, new QTableWidgetItem(QString::number(totalArtistsPlayed)));
-	ui->reportTableDisplay->setItem(2, 1, new QTableWidgetItem("N/A"));
-	ui->reportTableDisplay->setItem(2, 2, new QTableWidgetItem("N/A"));
+	//// Set the total number of albums played
+	//ui->reportTableDisplay->setItem(1, 0, new QTableWidgetItem(QString::number(totalAlbumsPlayed)));
+	//ui->reportTableDisplay->setItem(1, 1, new QTableWidgetItem("N/A"));
+	//ui->reportTableDisplay->setItem(1, 2, new QTableWidgetItem("N/A"));
+
+	//// Set the total number of artists played
+	//ui->reportTableDisplay->setItem(2, 0, new QTableWidgetItem(QString::number(totalArtistsPlayed)));
+	//ui->reportTableDisplay->setItem(2, 1, new QTableWidgetItem("N/A"));
+	//ui->reportTableDisplay->setItem(2, 2, new QTableWidgetItem("N/A"));
 
 
-	// Set the column width of the reportTableDisplay
-	//ui->reportTableDisplay->setColumnWidth(0, 100);
-	//ui->reportTableDisplay->setColumnWidth(1, 100);
-	//ui->reportTableDisplay->setColumnWidth(2, 100);
+	//// Set the column width of the reportTableDisplay
+	////ui->reportTableDisplay->setColumnWidth(0, 100);
+	////ui->reportTableDisplay->setColumnWidth(1, 100);
+	////ui->reportTableDisplay->setColumnWidth(2, 100);
 
-	//// Set the row height of the reportTableDisplay
-	//ui->reportTableDisplay->setRowHeight(0, 50);
-	//ui->reportTableDisplay->setRowHeight(1, 50);
-	//ui->reportTableDisplay->setRowHeight(2, 50);
-	//ui->reportTableDisplay->setRowHeight(3, 50);
-	//ui->reportTableDisplay->setRowHeight(4, 50);
+	////// Set the row height of the reportTableDisplay
+	////ui->reportTableDisplay->setRowHeight(0, 50);
+	////ui->reportTableDisplay->setRowHeight(1, 50);
+	////ui->reportTableDisplay->setRowHeight(2, 50);
+	////ui->reportTableDisplay->setRowHeight(3, 50);
+	////ui->reportTableDisplay->setRowHeight(4, 50);
 
-	// Set the font of the reportTableDisplay
-	ui->reportTableDisplay->setFont(QFont("Arial", 12, QFont::Bold));
+	//// Set the font of the reportTableDisplay
+	//ui->reportTableDisplay->setFont(QFont("Arial", 12, QFont::Bold));
 
-	// Set the font of the reportTableDisplay headers
-	ui->reportTableDisplay->horizontalHeader()->setFont(QFont("Arial", 12, QFont::Bold));
+	//// Set the font of the reportTableDisplay headers
+	//ui->reportTableDisplay->horizontalHeader()->setFont(QFont("Arial", 12, QFont::Bold));
 
-	// Set the font of the reportTableDisplay items
-	ui->reportTableDisplay->horizontalHeaderItem(0)->setFont(QFont("Arial", 12, QFont::Bold));
-	ui->reportTableDisplay->horizontalHeaderItem(1)->setFont(QFont("Arial", 12, QFont::Bold));
-	ui->reportTableDisplay->horizontalHeaderItem(2)->setFont(QFont("Arial", 12, QFont::Bold));
+	//// Set the font of the reportTableDisplay items
+	//ui->reportTableDisplay->horizontalHeaderItem(0)->setFont(QFont("Arial", 12, QFont::Bold));
+	//ui->reportTableDisplay->horizontalHeaderItem(1)->setFont(QFont("Arial", 12, QFont::Bold));
+	//ui->reportTableDisplay->horizontalHeaderItem(2)->setFont(QFont("Arial", 12, QFont::Bold));
 
-	t.commit();
+	t.commit(); // Don't need the database anymore beyond this point
 }
