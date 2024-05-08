@@ -53,7 +53,8 @@ private slots:
 
     // Context menus
     void ShowUserContextMenu(QPoint pos);
-
+    void ShowAlbumContextMenu(QPoint pos);
+    void ShowTracksContextMenu(QPoint pos);
 
     // Other stuff
     void on_settings_clicked();

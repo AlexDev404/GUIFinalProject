@@ -13,6 +13,8 @@
 #include "taglib/tag.h"
 #include "taglib/fileref.h"
 
+#include <QMessageBox>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -99,7 +101,6 @@ void MainWindow::LoadResources(){
 
     // Search Buttons
     ui->search_submit->setIcon(QIcon(searchIcon));
-    ui->SearchEditTrackButton_fp->setIcon(QIcon(searchIcon));
 
     // Play Area Icons
     ui->back_pa->setIcon(QIcon(backIcon));
@@ -188,6 +189,7 @@ void MainWindow::on_userManagementButton_clicked()
 
 void MainWindow::on_all_tracks_clicked()
 {
+    LoadAllTracksPage(ui->allTracksListView, QSize(125, 175), QSize(100, 100));
     ui->mainStackedWidget->setCurrentWidget(ui->allTracksPage);
 }
 
@@ -262,8 +264,19 @@ void MainWindow::on_back_pa_clicked()
     // Get the current track's position in the track_playlist table
     odb::sqlite::database database_context = db.getDatabase();
     odb::transaction t(database_context.begin());
-    Track_Playlist track_map = *(database_context.query_one<Track_Playlist>(odb::query<Track_Playlist>::playlist_id == defaultPlaylist.Id() &&
-        odb::query<Track_Playlist>::track_id == (currentTrack.Id() - 1))); // Same thing but -1
+    Track_Playlist* track_map_ = database_context.query_one<Track_Playlist>(odb::query<Track_Playlist>::playlist_id == defaultPlaylist.Id() &&
+        odb::query<Track_Playlist>::track_id == (currentTrack.Id() - 1)); // Same thing but -1
+
+    if (track_map_ == NULL) {
+        //QMessageBox msgBox;
+        //msgBox.setWindowTitle("Media error");
+        //msgBox.setIcon(QMessageBox::Critical);
+        //msgBox.setText("<FONT COLOR='BLACK'>The back button is unavailable at this time.</ FONT>");
+        //msgBox.exec();
+        return;
+    }
+
+	Track_Playlist track_map = *track_map_;
 
     // Map this track_map to a track
     currentTrack = *(track_map.TrackId());

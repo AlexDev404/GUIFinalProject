@@ -24,8 +24,6 @@
 #include "WindowsAccount-odb.hxx"
 #include "Roles-odb.hxx"
 
-#include <QMessageBox>
-
 // Include command-line output
 #include <QDebug>
 
@@ -192,54 +190,6 @@ void MainWindow::qMain() {
         if (state == QMediaPlayer::PausedState) {
             // Do nothing (for now)
         }
-		// Are we in an error state
-
-    // Check if there was an error setting the media content
-        if (state == QMediaPlayer::erro) {
-            qDebug() << "----Error setting media content----";
-            qDebug() << "Error:" << player->error() << ": " << player->errorString();
-            qDebug() << "File path:" << track_url;
-
-            // Check if the file was not found
-            if (state == QMediaPlayer::ResourceError) {
-                qDebug() << "----Media not found----";
-                qDebug() << "File path:" << track_url;
-                QMessageBox msgBox;
-                msgBox.setWindowTitle("Media error");
-                msgBox.setIcon(QMessageBox::Critical);
-                msgBox.setText("<FONT COLOR='BLACK'>The requested media was not found.</ FONT>");
-                msgBox.exec();
-                try {
-                    // Erase the file from the database
-                    database_context.erase_query<Track>(odb::query<Track>::id == currentTrack.Id());
-                }
-                catch (odb::exception& e) {
-                    qDebug() << e.what();
-                }
-
-                // Refresh the UI data
-                ui->allTracksListView->model()->deleteLater();
-                ui->allTracksListView->setModel(nullptr);
-
-                ui->libraryListView->model()->deleteLater();
-                ui->allTracksListView->model()->deleteLater();
-                ui->allTracksListView->setModel(nullptr);
-
-                t.commit(); // Clean-up after ourselves
-
-
-
-                // Update the UI
-                LoadAllTracksPage(ui->allTracksListView, QSize(125, 175), QSize(100, 100));
-                LoadAllTracksPage(ui->libraryListView, QSize(125, 30), QSize(16, 16));
-
-                return;
-            }
-            t.commit();
-            return;
-        }
-
-
         });
 
     // -------------------------------- BEGIN_DEBUG --------------------------------------------------------------------------------------------
