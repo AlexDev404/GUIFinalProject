@@ -16,7 +16,7 @@ void MainWindow::LoadAllAlbumsPage() {
 
     // Load all albums
     // Set the current index to the all albums page
-    ui->mainStackedWidget->setCurrentIndex(3);
+    ui->mainStackedWidget->setCurrentWidget(ui->allAlbumsPage);
 
     // Query the database for the albums
     // Update the UI
@@ -25,8 +25,6 @@ void MainWindow::LoadAllAlbumsPage() {
         return;
     }
 
-    db = *new database();
-    db.setDatabase("userdata");
     odb::sqlite::database database_context = db.getDatabase();
     odb::transaction t(database_context.begin());
 

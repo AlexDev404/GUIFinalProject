@@ -15,9 +15,6 @@ void MainWindow::LoadPlayListDisplayPage(const QModelIndex& index) {
     QSize icon_size = QSize(50, 50);
     QSize card_size = QSize(14, 70);
 
-
-    db = *new database();
-    db.setDatabase("userdata");
     odb::sqlite::database database_context = db.getDatabase();
     odb::transaction t(database_context.begin());
 
@@ -106,5 +103,5 @@ void MainWindow::LoadPlayListDisplayPage(const QModelIndex& index) {
 
     // Commit the transaction
     t.commit();
-    ui->mainStackedWidget->setCurrentIndex(0);
+    ui->mainStackedWidget->setCurrentWidget(ui->libraryDisplayPage);
 }

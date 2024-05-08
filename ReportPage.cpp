@@ -22,7 +22,7 @@
 // To music, which is the total time spent listening to music divided by the total number of tracks played.
 
 void MainWindow::LoadReportPage() {
-	ui->mainStackedWidget->setCurrentIndex(7);
+	ui->mainStackedWidget->setCurrentWidget(ui->reportPage);
 
 	// Query the database for the total tracks played by the current WindowsAccount
 	odb::sqlite::database database_context = db.getDatabase();

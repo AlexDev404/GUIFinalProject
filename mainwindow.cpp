@@ -89,9 +89,9 @@ void MainWindow::LoadResources(){
     setWindowIcon(QIcon(headphonesIcon));
 
     // Setting initial windows
-    ui->mainStackedWidget->setCurrentIndex(4);
-    ui->managementTab_fp->setCurrentIndex(0);
-    ui->trackManagementSub->setCurrentIndex(0);
+    ui->mainStackedWidget->setCurrentWidget(ui->allTracksPage);
+    ui->managementTab_fp->setCurrentWidget(ui->albums);
+    ui->trackManagementSub->setCurrentWidget(ui->addtrack);
 
     // Header
     ui->user_loggedin->setIcon(QIcon(userIcon));
@@ -152,13 +152,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_settings_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(2);
+    ui->mainStackedWidget->setCurrentWidget(ui->settingsPage);
 }
 
 
 void MainWindow::on_search_submit_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(8);
+    ui->mainStackedWidget->setCurrentWidget(ui->searchResultPage);
 }
 
 
@@ -170,25 +170,25 @@ void MainWindow::on_reportButton_clicked()
 
 void MainWindow::on_your_playlists_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(6);
+    ui->mainStackedWidget->setCurrentWidget(ui->libraryDisplayPage2);
 }
 
 
 void MainWindow::on_trackManagementButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(1);
+    ui->mainStackedWidget->setCurrentWidget(ui->formsPage);
 }
 
 
 void MainWindow::on_userManagementButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(5);
+    this->LoadUserManagementPage();
 }
 
 
 void MainWindow::on_all_tracks_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(4);
+    ui->mainStackedWidget->setCurrentWidget(ui->allTracksPage);
 }
 
 
@@ -200,25 +200,25 @@ void MainWindow::on_all_albums_clicked()
 
 void MainWindow::on_viewSongsButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(4);
+    ui->mainStackedWidget->setCurrentWidget(ui->allTracksPage);
 }
 
 
 void MainWindow::on_viewAlbumsButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(3);
+    ui->mainStackedWidget->setCurrentWidget(ui->allAlbumsPage);
 }
 
 
 void MainWindow::on_viewPlaylistButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(6);
+    ui->mainStackedWidget->setCurrentWidget(ui->libraryDisplayPage2);
 }
 
 
 void MainWindow::on_languageButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(9);
+    ui->mainStackedWidget->setCurrentWidget(ui->languagePage);
 }
 
 void MainWindow::on_actionOpen_Folder_triggered()

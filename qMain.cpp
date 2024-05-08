@@ -121,6 +121,12 @@ void MainWindow::qMain() {
         database_context.persist(admin_role);
     }
 
+    Roles* query_banned_roles = database_context.query_one<Roles>(odb::query<Roles>::name == "Banned");
+    if (query_banned_roles == nullptr) {
+        Roles banned_role("Banned");
+        database_context.persist(banned_role);
+    }
+
     if (result)
     {
         CheckTokenMembership(NULL, administrators_group, &is_admin);

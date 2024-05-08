@@ -20,8 +20,6 @@ void MainWindow::on_addButton_atp_clicked()
 
 void MainWindow::LoadAllTracksPage(QListView* listView, QSize size, QSize icon_size) {
     // Update the UI
-    db = *new database();
-    db.setDatabase("userdata");
     odb::sqlite::database database_context = db.getDatabase();
     odb::transaction t(database_context.begin());
 

@@ -33,6 +33,7 @@ public:
     void qMain();
     void LoadAllTracksPage(QListView* listView, QSize size, QSize icon_size);
 	void LoadPlayListDisplayPage(const QModelIndex& index);
+    void LoadUserManagementPage();
     void PlayTrack(const QModelIndex& index);
     /// <summary>
     /// Expects database to be open. Sets the play area data. This is the data that is displayed when a track is played.
@@ -49,6 +50,12 @@ public:
     ~MainWindow();
 
 private slots:
+
+    // Context menus
+    void ShowUserContextMenu(QPoint pos);
+
+
+    // Other stuff
     void on_settings_clicked();
 
     void on_search_submit_clicked();
