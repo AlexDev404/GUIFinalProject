@@ -69,6 +69,9 @@
       <property name="text">
        <string>TextLabel</string>
       </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QLabel" name="album_playlist_title_ld">
       <property name="geometry">
@@ -90,7 +93,7 @@
        <string notr="true">font-family: &quot;Work Sans Semibold&quot;;</string>
       </property>
       <property name="text">
-       <string>Rubber Soul (Remastered)</string>
+       <string>ALBUM NAME</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -119,7 +122,7 @@
        <string notr="true">font-family: &quot;Work Sans Light&quot;;</string>
       </property>
       <property name="text">
-       <string>The Beatles</string>
+       <string>ALBUM ARTIST</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -148,7 +151,7 @@
        <string notr="true">font-family: &quot;Work Sans Light&quot;;</string>
       </property>
       <property name="text">
-       <string>1965</string>
+       <string>ALBUM YEAR</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -170,7 +173,7 @@
        <string notr="true"/>
       </property>
       <property name="text">
-       <string>Play/Pause</string>
+       <string>Play</string>
       </property>
      </widget>
      <widget class="QListView" name="playlistListView">
@@ -1167,38 +1170,6 @@ border: 0;</string>
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
       </property>
      </widget>
-     <widget class="QWidget" name="layoutWidget_2">
-      <property name="geometry">
-       <rect>
-        <x>540</x>
-        <y>500</y>
-        <width>271</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <widget class="QPushButton" name="playButton_aap">
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="text">
-          <string>Play</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="addToLibraryButton_aap">
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="text">
-          <string>Add to Library</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
     </widget>
     <widget class="QWidget" name="allTracksPage">
      <widget class="QLabel" name="label_atp_1">
@@ -2134,7 +2105,7 @@ border-bottom-left-radius: 0;</string>
      <x>0</x>
      <y>0</y>
      <width>1230</width>
-     <height>20</height>
+     <height>16</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

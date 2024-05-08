@@ -83,6 +83,8 @@ private slots:
 
     void on_forward_pa_clicked();
 
+    void on_state_Button_ld_clicked();
+
 private:
     Ui::MainWindow* ui;
     // The database

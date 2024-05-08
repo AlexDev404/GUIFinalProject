@@ -354,3 +354,15 @@ void MainWindow::on_forward_pa_clicked()
 
     t.commit();
 }
+
+void MainWindow::on_state_Button_ld_clicked()
+{
+	this->on_play_pause_pa_clicked();
+	if (player->playbackState() == QMediaPlayer::PlayingState) {
+		ui->state_Button_ld->setText("Pause");
+	}
+    else {
+		ui->state_Button_ld->setText("Play");
+	}
+}
+
