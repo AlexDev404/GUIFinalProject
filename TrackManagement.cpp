@@ -242,6 +242,8 @@ void MainWindow::PlayTrack(const QModelIndex& index) {
     QStringList trackInfo = index.data().toString().split("\n");
     QString trackFileName = trackInfo[0]; // Typically the file path
     // FileName, TrackTitle, AlbumName, ArtistName 
+	string track_album_string = trackInfo[1].toStdString();
+	string track_artist_string = trackInfo.size() >= 3? trackInfo[2].toStdString(): "";
 
     // Retrieve the track from the database using the track title, album name and artist name
     odb::sqlite::database database_context = db.getDatabase();
@@ -250,8 +252,13 @@ void MainWindow::PlayTrack(const QModelIndex& index) {
     // Play the track
     // Display the track information
 
-    if (trackInfo.size() < 3 || (trackInfo[1].toStdString() == ""))
+    if (trackInfo.size() < 3 && (trackInfo[1].toStdString() != ""))
     {
+        track_album_string = "";
+        track_artist_string = trackInfo[1].toStdString();
+        // return;
+    }
+    else {
         qDebug() << "Invalid track information";
 
         QImage placeholder;
@@ -270,17 +277,18 @@ void MainWindow::PlayTrack(const QModelIndex& index) {
         ui->mia_pa->setText("No artist or missing information");
         // return;
     }
-    else {
 
+    if (trackInfo.size() >= 3 || (trackInfo.size() < 3 && (trackInfo[1].toStdString() != ""))) {
         // Query for the album
-        Albums* track_album = database_context.query_one<Albums>(odb::query<Albums>::title == trackInfo[1].toStdString());
+        Albums* track_album = database_context.query_one<Albums>(odb::query<Albums>::title == track_album_string);
         // Query for the artist
-        Artists* track_artist = database_context.query_one<Artists>(odb::query<Artists>::name == trackInfo[2].toStdString());
+        Artists* track_artist = database_context.query_one<Artists>(odb::query<Artists>::name == track_artist_string);
 
         // Query for the track
         Track* currentTrack_ = database_context.query_one<Track>(
             odb::query<Track>::title == trackInfo[0].toStdString()
-            && odb::query<Track>::album_id == track_album->Id()
+            && (trackInfo.size() < 3? odb::query<Track>::title == trackInfo[0].toStdString() : 
+                                      odb::query<Track>::album_id == track_album->Id())
             && odb::query<Track>::artist_id == track_artist->Id());
 
         if (currentTrack_ == NULL) {

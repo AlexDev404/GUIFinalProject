@@ -15,6 +15,9 @@
 #include "Artists-odb.hxx"
 #include "WindowsAccount-odb.hxx"
 
+#include <qDebug>
+#include <QMessageBox>
+
 // So this is the report page. It is a simple page that displays the report of the
 // The recently played tracks, albums, and artists. It also displays the total number of
 // tracks, albums, and artists played. It also displays the total time spent listening to music
@@ -22,105 +25,89 @@
 // To music, which is the total time spent listening to music divided by the total number of tracks played.
 
 void MainWindow::LoadReportPage() {
-	ui->mainStackedWidget->setCurrentWidget(ui->reportPage);
+    ui->mainStackedWidget->setCurrentWidget(ui->reportPage);
 
-	// Query the database for the total tracks played by the current WindowsAccount
-	odb::sqlite::database database_context = db.getDatabase();
-	odb::transaction t(database_context.begin());
-	odb::result<Track_Playcount> trackList = database_context.query<Track_Playcount>(odb::query<Track_Playcount>::user_id == currentUser.Id());
-	
-	// Initialize the total number of tracks played
-	int totalTracksPlayed = 0; // The total number of tracks played
+    // Query the database for the total tracks played by the current WindowsAccount
+    odb::sqlite::database database_context = db.getDatabase();
+    odb::transaction t(database_context.begin());
 
-	// Initialize the total number of albums played
-	int totalAlbumsPlayed = 0;
-	Albums* album_now = new Albums("NULL_ALBUM", "NULL_DATE");
+    auto model = new QStandardItemModel(this);
+    ui->reportListView->setModel(model);
 
-	// Initialize the total number of artists played
-	int totalArtistsPlayed = 0;
-	Artists* artist_now = new Artists("NULL_ARTIST");
+    // Call the PlayTrack function when the QStandardItem is double clicked
+    connect(ui->reportListView, &QListView::doubleClicked, [=](const QModelIndex& index) {
+        PlayTrack(index);
+        });
 
-	// Initialize the total time spent listening to music
-	double totalTimeSpentListeningToMusic = 0; // The total time spent listening to music
-
-	// Initialize the average time spent listening to music
-	double averageTimeSpentListeningToMusic = 0; // The average time spent listening to music
-
-	// Iterate through the trackList and get the total number of tracks played, albums played, artists played, and the total time spent listening to music
-	for (odb::result<Track_Playcount>::iterator i = trackList.begin(); i != trackList.end(); ++i) {
-		// Convert the track_id to a Track object
-		Track track = *(i->TrackId()); // Get the track object
-		Albums album = *(track.AlbumId()); // Get the album object
-		Artists artist = *(track.ArtistId()); // Get the artist object
-
-		// If the album is not the same as the previous album, increment the total number of albums played
-		if ((album_now == NULL) || (album_now->Id() != album.Id())) {
-			*album_now = album;
-			totalAlbumsPlayed++;
-		}
-
-		// If the artist is not the same as the previous artist, increment the total number of artists played
-		if ((artist_now == NULL) || (artist_now->Id() != artist.Id())) {
-			*artist_now = artist;
-			totalArtistsPlayed++;
-		}
-
-		totalTracksPlayed++;
-		totalTimeSpentListeningToMusic += track.Duration();
-	}
-
-	delete album_now;
-	delete artist_now;
-
-	// Now, calculate the average time spent listening to music
-	averageTimeSpentListeningToMusic = totalTimeSpentListeningToMusic / totalTracksPlayed;
-
-	// Start to fill out the columns of reportTableDisplay
-    // With its appropriate values
-	//ui->reportTableDisplay->setColumnCount(3);
-	//ui->reportTableDisplay->setRowCount(5);
-	//ui->reportTableDisplay->setHorizontalHeaderItem(0, new QTableWidgetItem("Total played (Tracks, Albums, Artists)")); // The first column is the total number of tracks, albums, and artists played
-	//ui->reportTableDisplay->setHorizontalHeaderItem(1, new QTableWidgetItem("Average played (Tracks, Albums, Artists)")); // The second column is the average number of tracks, albums, and artists played
-	//ui->reportTableDisplay->setHorizontalHeaderItem(2, new QTableWidgetItem("Total Listening Time")); // The third column is the total time spent listening to music
-
-	//// Set the total number of tracks played
-	//ui->reportTableDisplay->setItem(0, 0, new QTableWidgetItem(QString::number(totalTracksPlayed))); // Set the total number of tracks played
-	//ui->reportTableDisplay->setItem(0, 1, new QTableWidgetItem(QString::number(averageTimeSpentListeningToMusic / 60) + " minutes")); // Set the average time spent listening to music
-	//ui->reportTableDisplay->setItem(0, 2, new QTableWidgetItem(QString::number(totalTimeSpentListeningToMusic / 60) + " minutes")); // Set the total time spent listening to music
-
-	//// Set the total number of albums played
-	//ui->reportTableDisplay->setItem(1, 0, new QTableWidgetItem(QString::number(totalAlbumsPlayed)));
-	//ui->reportTableDisplay->setItem(1, 1, new QTableWidgetItem("N/A"));
-	//ui->reportTableDisplay->setItem(1, 2, new QTableWidgetItem("N/A"));
-
-	//// Set the total number of artists played
-	//ui->reportTableDisplay->setItem(2, 0, new QTableWidgetItem(QString::number(totalArtistsPlayed)));
-	//ui->reportTableDisplay->setItem(2, 1, new QTableWidgetItem("N/A"));
-	//ui->reportTableDisplay->setItem(2, 2, new QTableWidgetItem("N/A"));
+    // --------------------------------- Up to here should be right ---------------------------------------
 
 
-	//// Set the column width of the reportTableDisplay
-	////ui->reportTableDisplay->setColumnWidth(0, 100);
-	////ui->reportTableDisplay->setColumnWidth(1, 100);
-	////ui->reportTableDisplay->setColumnWidth(2, 100);
+    // Populate the reportlistView with the calculated statistics
+    if (ui->reportTypeComboBox->currentText() == "Tracks") {
+        string user_id = std::to_string(currentUser.Id());
+        odb::result<Track_Playcount> playCounts;
 
-	////// Set the row height of the reportTableDisplay
-	////ui->reportTableDisplay->setRowHeight(0, 50);
-	////ui->reportTableDisplay->setRowHeight(1, 50);
-	////ui->reportTableDisplay->setRowHeight(2, 50);
-	////ui->reportTableDisplay->setRowHeight(3, 50);
-	////ui->reportTableDisplay->setRowHeight(4, 50);
+        try {
+            // Query the track_Playcount table
+            playCounts = database_context.query<Track_Playcount>(
+                ("WHERE user_id = " + user_id + " ORDER BY " + odb::query<Track_Playcount>::count + " DESC LIMIT 5")
+            ); // The top 5 tracks
+        }
+        catch (odb::exception& error) {
+            qDebug() << error.what();
+            // Handle the error
+            // Display the error message
+            QMessageBox::critical(this, "Error", QString::fromStdString(error.what()));
+        }
+        // Append the top 5 tracks to the `ui->reportListView`
+        // Loop through the `playCounts` five times
+        // Loop until we're at the fifth track (tracks.begin() + 4)
+        for (odb::result<Track_Playcount>::iterator trackNow = playCounts.begin(); trackNow != playCounts.end(); trackNow++) {
+            // The track
+            Track track = *(trackNow->TrackId());
+            // The user
+            Windows_Account user = *(trackNow->UserId());
+            // Reading and comphrending, I told you 11 I'm honestly half awake okay
+            // Well which questions do u have maybe i can answer them for u
 
-	//// Set the font of the reportTableDisplay
-	//ui->reportTableDisplay->setFont(QFont("Arial", 12, QFont::Bold));
+            // Me still processing sorry..k
+            // I'm confused as to how we getting the most listened to. becuase?? Since we doing in base on users
+            // I assume we limit the 5 in the if statement good point
 
-	//// Set the font of the reportTableDisplay headers
-	//ui->reportTableDisplay->horizontalHeader()->setFont(QFont("Arial", 12, QFont::Bold));
+            // Me forgetting about the limit at the top
+            // loll its okays i changed it just now
+            // .. it's now querying the top 5 tracks to the current user now so we dont have to check that anymore:)
+            // u can take a look at it and if u have any questions ask me here 
+            // so we just display now...yes
+            // can u do it??? Probably yeah 
+            // ok then i believe in u :D Do i have to process this now:| yes pls
+            // just 2 lines of code (... i think?) xDDDDD it the append to the list view...?yes
+            // but we not making it facny with the image...?
+            // well we can if u rlly wanna?? or if u want we can try again later afterward:)...??
 
-	//// Set the font of the reportTableDisplay items
-	//ui->reportTableDisplay->horizontalHeaderItem(0)->setFont(QFont("Arial", 12, QFont::Bold));
-	//ui->reportTableDisplay->horizontalHeaderItem(1)->setFont(QFont("Arial", 12, QFont::Bold));
-	//ui->reportTableDisplay->horizontalHeaderItem(2)->setFont(QFont("Arial", 12, QFont::Bold));
+            if (user.Id() == currentUser.Id()) {
+                // do something...torture u silly lmao hmm
+				Artists artist = *(track.ArtistId());
 
-	t.commit(); // Don't need the database anymore beyond this point
+				// Create a new QStandardItem
+                QStandardItem* view = new QStandardItem(QString::fromStdString(track.Title() + "\n" + artist.Name()));
+                view->setText(view->text()); // Add the hidden data to allow the track to play
+				view->setEditable(false);
+
+                // Append the item to the model
+                model->appendRow(view); // here against my will yes
+                // compile it finally lmao
+            }
+        }
+    }
+    else if (ui->reportTypeComboBox->currentText() == "Albums") {
+        // Display top 5 most played albums
+        // You need to implement this part to query and display top 5 albums
+    }
+    else if (ui->reportTypeComboBox->currentText() == "Artists") {
+        // Display top 5 most played artists
+        // You need to implement this part to query and display top 5 artists
+    }
+
+    t.commit(); // Don't need the database anymore beyond this point
 }

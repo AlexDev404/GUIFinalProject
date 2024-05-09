@@ -51,7 +51,7 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>8</number>
     </property>
     <widget class="QWidget" name="libraryDisplayPage">
      <widget class="QLabel" name="album_Image_ld">
@@ -218,7 +218,7 @@ border: 0;</string>
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="genres">
        <attribute name="title">
@@ -1301,7 +1301,7 @@ border: 0;</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QTableWidget" name="reportTableDisplay">
+     <widget class="QListView" name="reportListView">
       <property name="geometry">
        <rect>
         <x>20</x>
