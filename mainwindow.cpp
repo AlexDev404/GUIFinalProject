@@ -21,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     LoadResources();
     qMain();
+
+    // connect(ui->reportTypeComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(LoadReportPage()));
 }
 
 void MainWindow::LoadResources(){
