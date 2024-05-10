@@ -1335,19 +1335,6 @@ border: 0;</string>
        <string>Clear</string>
       </property>
      </widget>
-     <widget class="QListView" name="reportlistView">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>130</y>
-        <width>801</width>
-        <height>351</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background: #18314f;</string>
-      </property>
-     </widget>
     </widget>
     <widget class="QWidget" name="searchResultPage">
      <widget class="QLabel" name="label_srp_1">
