@@ -254,6 +254,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Track_Playlist.cpp" />
+    <ClCompile Include="UserManagementPage.cpp" />
     <ClCompile Include="WindowsAccount-odb.cxx" />
     <ClCompile Include="WindowsAccount-odb.ixx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>

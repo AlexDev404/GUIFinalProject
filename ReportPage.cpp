@@ -25,6 +25,7 @@
 // To music, which is the total time spent listening to music divided by the total number of tracks played.
 
 void MainWindow::LoadReportPage() {
+    ui->mainStackedWidget->setCurrentWidget(ui->reportPage);
     ui->mainStackedWidget->setCurrentIndex(7);
 
     // Query the database for the total tracks played by the current WindowsAccount
@@ -32,8 +33,18 @@ void MainWindow::LoadReportPage() {
     odb::transaction t(database_context.begin());
 
     auto model = new QStandardItemModel(this);
+    ui->reportListView->setModel(model);
+    // Query the database for the total tracks played by the current WindowsAccount
+    odb::sqlite::database database_context = db.getDatabase();
+    odb::transaction t(database_context.begin());
+
+    auto model = new QStandardItemModel(this);
     ui->reportlistView->setModel(model);
 
+    // Call the PlayTrack function when the QStandardItem is double clicked
+    connect(ui->reportListView, &QListView::doubleClicked, [=](const QModelIndex& index) {
+        PlayTrack(index);
+        });
     // Call the PlayTrack function when the QStandardItem is double clicked
     connect(ui->reportlistView, &QListView::doubleClicked, [=](const QModelIndex& index) {
         PlayTrack(index);

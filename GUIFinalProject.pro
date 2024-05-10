@@ -11,13 +11,16 @@ CONFIG += c++17
 SOURCES += \
     Albums-odb.cxx \
     Albums.cpp \
+    AllAlbumsPage.cpp \
     AllTracksPage.cpp \
     Artists-odb.cxx \
     Artists.cpp \
     Genres-odb.cxx \
     Genres.cpp \
+    PlayListDisplayPage.cpp \
     Playlist-odb.cxx \
     Playlist.cpp \
+    ReportPage.cpp \
     Roles-odb.cxx \
     Roles.cpp \
     Track-odb.cxx \
@@ -28,6 +31,7 @@ SOURCES += \
     Track_Playcount.cpp \
     Track_Playlist-odb.cxx \
     Track_Playlist.cpp \
+    UserManagementPage.cpp \
     WindowsAccount-odb.cxx \
     WindowsAccount.cpp \
     database.cpp \
