@@ -3,6 +3,8 @@
 #include <QFontDatabase>
 #include <QFile>
 #include <QColorSpace>
+#include <QTranslator>
+
 
 // For populating the default playlist
 #include "database.hpp"
@@ -146,6 +148,11 @@ void MainWindow::LoadResources(){
     ui->spanishButton->setIcon(QIcon(spanishIcon));
     ui->spanishButton->setIconSize(QSize(125, 125));
 
+    // Connect the English and Spanish buttons to language switching slots
+    connect(ui->englishButton, &QPushButton::clicked, this, &MainWindow::switchToEnglish);
+    connect(ui->spanishButton, &QPushButton::clicked, this, &MainWindow::switchToSpanish);
+
+
 }
 
 MainWindow::~MainWindow()
@@ -225,6 +232,34 @@ void MainWindow::on_languageButton_clicked()
     ui->mainStackedWidget->setCurrentWidget(ui->languagePage);
 }
 
+void MainWindow::switchToEnglish() {
+	// Change application language to English
+	QTranslator translator;
+	if (translator.load(":/otherfiles/assets/translations/EnglishTranslation_en.qm")) {
+		qDebug() << "English translation loaded successfully";
+		qApp->installTranslator(&translator);
+		ui->retranslateUi(this);
+	}
+	else {
+		qDebug() << "Failed to load English translation file";
+	}
+}
+
+void MainWindow::switchToSpanish() {
+	// Change application language to Spanish
+	QTranslator translator;
+	if (translator.load(":/otherfiles/assets/translations/Translation_es_MX.qm")) {
+		qDebug() << "Spanish translation loaded successfully";
+		qApp->installTranslator(&translator);
+		ui->retranslateUi(this);
+	}
+	else {
+		qDebug() << "Failed to load Spanish translation file";
+	}
+}
+
+
+
 void MainWindow::on_actionOpen_Folder_triggered()
 {
     this->UIAddTrack();
@@ -235,19 +270,19 @@ void MainWindow::on_play_pause_pa_clicked()
     // Check if we have any media loaded
     // If we don't, we can't play anything
     if (player->mediaStatus() == QMediaPlayer::NoMedia) {
-		return;
-	}
+        return;
+    }
     // Check if we are paused already
     if (player->playbackState() == QMediaPlayer::PausedState) {
-		player->play();
+        player->play();
         // Change the icon to a pause icon
         ui->play_pause_pa->setIcon(pauseIcon);
-	}
+    }
     else {
-		player->pause();
+        player->pause();
         // Change the icon to a play icon
-		ui->play_pause_pa->setIcon(playIcon);
-	}
+        ui->play_pause_pa->setIcon(playIcon);
+    }
 }
 
 
@@ -260,8 +295,8 @@ void MainWindow::on_back_pa_clicked()
     }
     // Are we at the start of the playlist?
     if (currentTrack.Id() == 1) {
-		return;
-	}
+        return;
+    }
     // Play the next track in the DEFAULT playlist
     // Get the current track's position in the track_playlist table
     odb::sqlite::database database_context = db.getDatabase();
@@ -278,7 +313,7 @@ void MainWindow::on_back_pa_clicked()
         return;
     }
 
-	Track_Playlist track_map = *track_map_;
+    Track_Playlist track_map = *track_map_;
 
     // Map this track_map to a track
     currentTrack = *(track_map.TrackId());
@@ -292,7 +327,7 @@ void MainWindow::on_back_pa_clicked()
     Albums track_album = *(currentTrack.AlbumId());
     Artists track_artist = *(currentTrack.ArtistId());
 
-	// Set the play area data
+    // Set the play area data
     SetPlayAreaData(track_image, currentTrack.Title(), track_album.Title(), track_artist.Name(), database_context);
 
 
@@ -332,7 +367,7 @@ void MainWindow::on_forward_pa_clicked()
 
     // Are we at the end of the playlist?
     if (track_map_ == nullptr) {
-        		return;
+                return;
     }
 
     Track_Playlist track_map = *track_map_;
@@ -372,12 +407,24 @@ void MainWindow::on_forward_pa_clicked()
 
 void MainWindow::on_state_Button_ld_clicked()
 {
-	this->on_play_pause_pa_clicked();
-	if (player->playbackState() == QMediaPlayer::PlayingState) {
-		ui->state_Button_ld->setText("Pause");
-	}
+    this->on_play_pause_pa_clicked();
+    if (player->playbackState() == QMediaPlayer::PlayingState) {
+        ui->state_Button_ld->setText("Pause");
+    }
     else {
-		ui->state_Button_ld->setText("Play");
-	}
+        ui->state_Button_ld->setText("Play");
+    }
+}
+
+
+void MainWindow::on_englishButton_clicked()
+{
+    switchToEnglish();
+}
+
+
+void MainWindow::on_spanishButton_clicked()
+{
+    switchToSpanish();
 }
 

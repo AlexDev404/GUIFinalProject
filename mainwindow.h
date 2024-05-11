@@ -93,6 +93,14 @@ private slots:
 
     void on_state_Button_ld_clicked();
 
+    void switchToEnglish();
+
+    void switchToSpanish();
+
+    void on_englishButton_clicked();
+
+    void on_spanishButton_clicked();
+
 private:
     Ui::MainWindow* ui;
     // The database
