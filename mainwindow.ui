@@ -1321,6 +1321,9 @@ border: 0;</string>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background: transparent;</string>
+      </property>
      </widget>
      <widget class="QPushButton" name="clearButton_rp">
       <property name="geometry">
@@ -1335,6 +1338,92 @@ border: 0;</string>
        <string>Clear</string>
       </property>
      </widget>
+     <widget class="QFrame" name="reportsPageChooser">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>230</y>
+        <width>321</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <widget class="QLabel" name="track_name_pa_3">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>73</y>
+         <width>279</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Work Sans Semibold</family>
+         <pointsize>14</pointsize>
+         <stylestrategy>PreferAntialias</stylestrategy>
+         <hintingpreference>PreferFullHinting</hintingpreference>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font-family: &quot;Work Sans Semibold&quot;;</string>
+       </property>
+       <property name="text">
+        <string>Choose a functionality to begin.</string>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignHCenter|Qt::AlignTop</set>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="title_text_3">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>20</y>
+         <width>240</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>24</pointsize>
+         <bold>true</bold>
+         <stylestrategy>PreferAntialias</stylestrategy>
+         <hintingpreference>PreferFullHinting</hintingpreference>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Reports</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </widget>
+     <zorder>label_rp_1</zorder>
+     <zorder>reportTypeComboBox</zorder>
+     <zorder>label_rp_2</zorder>
+     <zorder>clearButton_rp</zorder>
+     <zorder>reportsPageChooser</zorder>
+     <zorder>reportListView</zorder>
     </widget>
     <widget class="QWidget" name="searchResultPage">
      <widget class="QLabel" name="label_srp_1">
