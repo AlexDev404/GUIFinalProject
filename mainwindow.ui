@@ -51,10 +51,10 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>8</number>
     </property>
-    <widget class="QWidget" name="playlistDisplayPage">
-     <widget class="QLabel" name="label_5">
+    <widget class="QWidget" name="libraryDisplayPage">
+     <widget class="QLabel" name="album_Image_ld">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -69,8 +69,11 @@
       <property name="text">
        <string>TextLabel</string>
       </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
      </widget>
-     <widget class="QLabel" name="label_6">
+     <widget class="QLabel" name="album_playlist_title_ld">
       <property name="geometry">
        <rect>
         <x>200</x>
@@ -90,7 +93,7 @@
        <string notr="true">font-family: &quot;Work Sans Semibold&quot;;</string>
       </property>
       <property name="text">
-       <string>Rubber Soul (Remastered)</string>
+       <string>ALBUM NAME</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -99,7 +102,7 @@
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_7">
+     <widget class="QLabel" name="artist_ld">
       <property name="geometry">
        <rect>
         <x>200</x>
@@ -119,7 +122,7 @@
        <string notr="true">font-family: &quot;Work Sans Light&quot;;</string>
       </property>
       <property name="text">
-       <string>The Beatles</string>
+       <string>ALBUM ARTIST</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -128,7 +131,7 @@
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_8">
+     <widget class="QLabel" name="published_ld">
       <property name="geometry">
        <rect>
         <x>200</x>
@@ -148,7 +151,7 @@
        <string notr="true">font-family: &quot;Work Sans Light&quot;;</string>
       </property>
       <property name="text">
-       <string>1965</string>
+       <string>ALBUM YEAR</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -157,7 +160,7 @@
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_10">
+     <widget class="QPushButton" name="state_Button_ld">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -170,7 +173,31 @@
        <string notr="true"/>
       </property>
       <property name="text">
-       <string>Play/Pause</string>
+       <string>Play</string>
+      </property>
+     </widget>
+     <widget class="QListView" name="playlistListView">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>250</y>
+        <width>781</width>
+        <height>291</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QListView" name="details_listView_ld">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>251</y>
+        <width>791</width>
+        <height>301</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;
+border: 0;</string>
       </property>
      </widget>
     </widget>
@@ -191,7 +218,7 @@
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="genres">
        <attribute name="title">
@@ -212,7 +239,7 @@
          <rect>
           <x>40</x>
           <y>20</y>
-          <width>731</width>
+          <width>91</width>
           <height>31</height>
          </rect>
         </property>
@@ -230,153 +257,31 @@
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
-       <widget class="QWidget" name="layoutWidget_4">
-        <property name="geometry">
-         <rect>
-          <x>480</x>
-          <y>390</y>
-          <width>295</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_7">
-         <item>
-          <widget class="QPushButton" name="AddGenres_fp">
-           <property name="text">
-            <string>Add</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="EditGenres_fp">
-           <property name="text">
-            <string>Edit</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="deleteGenres_fp">
-           <property name="text">
-            <string>Delete</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="layoutWidget_10">
+       <widget class="QPushButton" name="AddGenres_fp">
         <property name="geometry">
          <rect>
           <x>40</x>
-          <y>390</y>
-          <width>201</width>
-          <height>26</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <item>
-          <widget class="QLineEdit" name="SearchGenreInput_fp"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="SearchGenreButton_fp">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="artists">
-       <attribute name="title">
-        <string>Artists</string>
-       </attribute>
-       <widget class="QLabel" name="label_fp_3">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>20</y>
-          <width>731</width>
+          <y>380</y>
+          <width>71</width>
           <height>31</height>
          </rect>
-        </property>
-        <property name="font">
-         <font>
-          <family>Work Sans</family>
-          <pointsize>18</pointsize>
-          <bold>true</bold>
-         </font>
         </property>
         <property name="text">
-         <string>Artists</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <string>Add</string>
         </property>
        </widget>
-       <widget class="QWidget" name="layoutWidget_5">
+       <widget class="QPushButton" name="EditGenres_fp">
         <property name="geometry">
          <rect>
-          <x>480</x>
-          <y>390</y>
-          <width>295</width>
+          <x>120</x>
+          <y>380</y>
+          <width>71</width>
           <height>31</height>
          </rect>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_8">
-         <item>
-          <widget class="QPushButton" name="addArtists_fp">
-           <property name="text">
-            <string>Add</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="editArtists_fp">
-           <property name="text">
-            <string>Edit</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="deleteArtists_fp">
-           <property name="text">
-            <string>Delete</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QListView" name="artistsListView_fp">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>70</y>
-          <width>731</width>
-          <height>301</height>
-         </rect>
+        <property name="text">
+         <string>Edit</string>
         </property>
-       </widget>
-       <widget class="QWidget" name="layoutWidget_11">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>390</y>
-          <width>201</width>
-          <height>26</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_10">
-         <item>
-          <widget class="QLineEdit" name="SearchArtistsInput_fp"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="SearchArtistsButton_fp">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-        </layout>
        </widget>
       </widget>
       <widget class="QWidget" name="albums">
@@ -393,45 +298,12 @@
          </rect>
         </property>
        </widget>
-       <widget class="QWidget" name="layoutWidget_6">
-        <property name="geometry">
-         <rect>
-          <x>480</x>
-          <y>390</y>
-          <width>295</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_9">
-         <item>
-          <widget class="QPushButton" name="addAlbum_fp">
-           <property name="text">
-            <string>Add</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="editAlbum_fp">
-           <property name="text">
-            <string>Edit</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="deleteAlbum_fp">
-           <property name="text">
-            <string>Delete</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
        <widget class="QLabel" name="label_fp_2">
         <property name="geometry">
          <rect>
           <x>40</x>
           <y>20</y>
-          <width>731</width>
+          <width>91</width>
           <height>31</height>
          </rect>
         </property>
@@ -449,27 +321,31 @@
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
-       <widget class="QWidget" name="layoutWidget_12">
+       <widget class="QPushButton" name="addAlbum_fp">
         <property name="geometry">
          <rect>
           <x>40</x>
-          <y>390</y>
-          <width>201</width>
-          <height>26</height>
+          <y>380</y>
+          <width>71</width>
+          <height>31</height>
          </rect>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_11">
-         <item>
-          <widget class="QLineEdit" name="SearchAlbumsInput"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="SearchAlbumsButton_fp">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <property name="text">
+         <string>Add</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="editAlbum_fp">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>380</y>
+          <width>71</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Edit</string>
+        </property>
        </widget>
       </widget>
       <widget class="QWidget" name="tracks">
@@ -486,7 +362,7 @@
          </rect>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="addtrack">
          <widget class="QLabel" name="label_fp_14">
@@ -514,14 +390,14 @@
          <widget class="QPushButton" name="addTrackButton_fp">
           <property name="geometry">
            <rect>
-            <x>340</x>
+            <x>160</x>
             <y>230</y>
-            <width>51</width>
-            <height>20</height>
+            <width>81</width>
+            <height>31</height>
            </rect>
           </property>
           <property name="text">
-           <string>Add</string>
+           <string>Submit</string>
           </property>
          </widget>
          <widget class="QWidget" name="formLayoutWidget_2">
@@ -582,7 +458,7 @@
             <x>390</x>
             <y>80</y>
             <width>181</width>
-            <height>81</height>
+            <height>87</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout_3">
@@ -633,7 +509,7 @@
            <rect>
             <x>0</x>
             <y>20</y>
-            <width>731</width>
+            <width>121</width>
             <height>31</height>
            </rect>
           </property>
@@ -654,8 +530,8 @@
          <widget class="QWidget" name="formLayoutWidget_4">
           <property name="geometry">
            <rect>
-            <x>160</x>
-            <y>110</y>
+            <x>0</x>
+            <y>60</y>
             <width>183</width>
             <height>131</height>
            </rect>
@@ -706,83 +582,33 @@
          <widget class="QPushButton" name="editButton_fp">
           <property name="geometry">
            <rect>
-            <x>340</x>
-            <y>260</y>
-            <width>51</width>
-            <height>20</height>
+            <x>0</x>
+            <y>210</y>
+            <width>81</width>
+            <height>31</height>
            </rect>
           </property>
           <property name="text">
-           <string>Edit</string>
+           <string>Submit</string>
           </property>
          </widget>
          <widget class="QWidget" name="formLayoutWidget_3">
           <property name="geometry">
            <rect>
-            <x>390</x>
-            <y>110</y>
+            <x>190</x>
+            <y>60</y>
             <width>181</width>
-            <height>81</height>
+            <height>31</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout_7">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_fp_16">
-             <property name="text">
-              <string>Lyrics</string>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="1">
-            <widget class="QPushButton" name="editTrackLyrics">
-             <property name="text">
-              <string>Search</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
             <widget class="QDoubleSpinBox" name="editTrackDuration"/>
            </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_fp_17">
-             <property name="text">
-              <string>File</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QPushButton" name="EditTrackFile">
-             <property name="text">
-              <string>Search</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
+           <item row="0" column="0">
             <widget class="QLabel" name="label_fp_18">
              <property name="text">
               <string>Duration</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="layoutWidget">
-          <property name="geometry">
-           <rect>
-            <x>523</x>
-            <y>70</y>
-            <width>201</width>
-            <height>26</height>
-           </rect>
-          </property>
-          <layout class="QHBoxLayout" name="horizontalLayout">
-           <item>
-            <widget class="QLineEdit" name="SearchEditTrackInput_fp"/>
-           </item>
-           <item>
-            <widget class="QPushButton" name="SearchEditTrackButton_fp">
-             <property name="text">
-              <string/>
              </property>
             </widget>
            </item>
@@ -842,7 +668,7 @@
             <x>30</x>
             <y>260</y>
             <width>201</width>
-            <height>26</height>
+            <height>28</height>
            </rect>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_12">
@@ -892,18 +718,13 @@
           <string>Edit</string>
          </property>
         </item>
-        <item>
-         <property name="text">
-          <string>Delete</string>
-         </property>
-        </item>
        </widget>
        <widget class="QLabel" name="label_fp_6">
         <property name="geometry">
          <rect>
           <x>40</x>
           <y>20</y>
-          <width>731</width>
+          <width>81</width>
           <height>31</height>
          </rect>
         </property>
@@ -954,7 +775,7 @@
         <x>20</x>
         <y>20</y>
         <width>791</width>
-        <height>56</height>
+        <height>62</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="heading_sp">
@@ -1095,6 +916,70 @@
       </widget>
      </widget>
     </widget>
+    <widget class="QWidget" name="userIsBannedPage">
+     <widget class="QLabel" name="title_text_2">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>240</y>
+        <width>231</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI</family>
+        <pointsize>24</pointsize>
+        <bold>true</bold>
+        <stylestrategy>PreferAntialias</stylestrategy>
+        <hintingpreference>PreferFullHinting</hintingpreference>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>Banned</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="track_name_pa_2">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>283</y>
+        <width>270</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Work Sans Semibold</family>
+        <pointsize>14</pointsize>
+        <stylestrategy>PreferAntialias</stylestrategy>
+        <hintingpreference>PreferFullHinting</hintingpreference>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font-family: &quot;Work Sans Semibold&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Great work!
+Nobody likes you now.</string>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignHCenter|Qt::AlignTop</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
     <widget class="QWidget" name="allAlbumsPage">
      <widget class="QLabel" name="label_aap_1">
       <property name="geometry">
@@ -1142,38 +1027,6 @@
       <property name="itemAlignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
       </property>
-     </widget>
-     <widget class="QWidget" name="layoutWidget_2">
-      <property name="geometry">
-       <rect>
-        <x>540</x>
-        <y>500</y>
-        <width>271</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <widget class="QPushButton" name="playButton_aap">
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="text">
-          <string>Play</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="addToLibraryButton_aap">
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="text">
-          <string>Add to Library</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
      </widget>
     </widget>
     <widget class="QWidget" name="allTracksPage">
@@ -1250,39 +1103,6 @@ border: 0;</string>
      </widget>
     </widget>
     <widget class="QWidget" name="editUsersPage">
-     <widget class="QWidget" name="layoutWidget_7">
-      <property name="geometry">
-       <rect>
-        <x>530</x>
-        <y>500</y>
-        <width>295</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
-       <item>
-        <widget class="QPushButton" name="deleteButton_eup">
-         <property name="text">
-          <string>Delete</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="blockButton_eup">
-         <property name="text">
-          <string>Block</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="unblockButton_eup">
-         <property name="text">
-          <string>Unblock</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
      <widget class="QListView" name="userListView">
       <property name="geometry">
        <rect>
@@ -1298,7 +1118,7 @@ border: 0;</string>
        <rect>
         <x>20</x>
         <y>20</y>
-        <width>801</width>
+        <width>161</width>
         <height>31</height>
        </rect>
       </property>
@@ -1315,8 +1135,21 @@ border: 0;</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
+     <widget class="QPushButton" name="addButton_eup">
+      <property name="geometry">
+       <rect>
+        <x>730</x>
+        <y>510</y>
+        <width>89</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Add</string>
+      </property>
+     </widget>
     </widget>
-    <widget class="QWidget" name="libraryDisplayPage">
+    <widget class="QWidget" name="libraryDisplayPage2">
      <widget class="QLabel" name="label_ldp_1">
       <property name="geometry">
        <rect>
@@ -1391,6 +1224,12 @@ border: 0;</string>
      </widget>
     </widget>
     <widget class="QWidget" name="reportPage">
+     <property name="font">
+      <font>
+       <stylestrategy>PreferAntialias</stylestrategy>
+       <hintingpreference>PreferFullHinting</hintingpreference>
+      </font>
+     </property>
      <widget class="QLabel" name="label_rp_1">
       <property name="geometry">
        <rect>
@@ -1462,7 +1301,7 @@ border: 0;</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QTableWidget" name="reportTableDisplay">
+     <widget class="QListView" name="reportListView">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -1470,6 +1309,12 @@ border: 0;</string>
         <width>811</width>
         <height>351</height>
        </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
      </widget>
      <widget class="QPushButton" name="clearButton_rp">

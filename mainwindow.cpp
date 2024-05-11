@@ -9,15 +9,11 @@
 #include "Track_Playlist.hpp"
 #include "Track_Playlist-odb.hxx"
 
-// Schemas
-#include "Playlist.hpp"
-
-// Mappings
-#include "Playlist-odb.hxx"
-
 // ID3 Tagging
 #include "taglib/tag.h"
 #include "taglib/fileref.h"
+
+#include <QMessageBox>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -95,9 +91,9 @@ void MainWindow::LoadResources(){
     setWindowIcon(QIcon(headphonesIcon));
 
     // Setting initial windows
-    ui->mainStackedWidget->setCurrentIndex(4);
-    ui->managementTab_fp->setCurrentIndex(0);
-    ui->trackManagementSub->setCurrentIndex(0);
+    ui->mainStackedWidget->setCurrentWidget(ui->allTracksPage);
+    ui->managementTab_fp->setCurrentWidget(ui->albums);
+    ui->trackManagementSub->setCurrentWidget(ui->addtrack);
 
     // Header
     ui->user_loggedin->setIcon(QIcon(userIcon));
@@ -105,7 +101,6 @@ void MainWindow::LoadResources(){
 
     // Search Buttons
     ui->search_submit->setIcon(QIcon(searchIcon));
-    ui->SearchEditTrackButton_fp->setIcon(QIcon(searchIcon));
 
     // Play Area Icons
     ui->back_pa->setIcon(QIcon(backIcon));
@@ -158,43 +153,44 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_settings_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(2);
+    ui->mainStackedWidget->setCurrentWidget(ui->settingsPage);
 }
 
 
 void MainWindow::on_search_submit_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(8);
+    ui->mainStackedWidget->setCurrentWidget(ui->searchResultPage);
 }
 
 
 void MainWindow::on_reportButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(7);
+    this->LoadReportPage();
 }
 
 
 void MainWindow::on_your_playlists_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(6);
+    ui->mainStackedWidget->setCurrentWidget(ui->libraryDisplayPage2);
 }
 
 
 void MainWindow::on_trackManagementButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(1);
+    ui->mainStackedWidget->setCurrentWidget(ui->formsPage);
 }
 
 
 void MainWindow::on_userManagementButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(5);
+    this->LoadUserManagementPage();
 }
 
 
 void MainWindow::on_all_tracks_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(4);
+    LoadAllTracksPage(ui->allTracksListView, QSize(125, 175), QSize(100, 100));
+    ui->mainStackedWidget->setCurrentWidget(ui->allTracksPage);
 }
 
 
@@ -206,108 +202,30 @@ void MainWindow::on_all_albums_clicked()
 
 void MainWindow::on_viewSongsButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(4);
+    ui->mainStackedWidget->setCurrentWidget(ui->allTracksPage);
 }
 
 
 void MainWindow::on_viewAlbumsButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(3);
+    ui->mainStackedWidget->setCurrentWidget(ui->allAlbumsPage);
 }
 
 
 void MainWindow::on_viewPlaylistButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(6);
+    ui->mainStackedWidget->setCurrentWidget(ui->libraryDisplayPage2);
 }
 
 
 void MainWindow::on_languageButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(9);
+    ui->mainStackedWidget->setCurrentWidget(ui->languagePage);
 }
 
 void MainWindow::on_actionOpen_Folder_triggered()
 {
     this->UIAddTrack();
-}
-
-void MainWindow::StateHasChanged(QListView* listView, QSize size, QSize icon_size) {
-    // Update the UI
-    db = *new database();
-    db.setDatabase("userdata");
-    odb::sqlite::database database_context = db.getDatabase();
-    odb::transaction t(database_context.begin());
-
-    auto model = new QStandardItemModel(this);
-    listView->setModel(model);
-    // Call the PlayTrack function when the QStandardItem is double clicked
-    connect(listView, &QListView::doubleClicked, [=](const QModelIndex& index) {
-        PlayTrack(index);
-    });
-
-    // Query for the default playlist
-    odb::result<Playlist> playlists = database_context.query<Playlist>(odb::query<Playlist>::name == "DEFAULT");
-
-    // The default playlist
-    // What it is: A playlist that contains all the tracks in the folder
-    // Basically, this is the user's library. 
-    // It is the default playlist that is created when the user opens the application for the first time
-    // (but of course, the user doesn't know this)
-    // Playlist defaultPlaylist("DEFAULT", "2022"); // Globally defined in mainwindow.h
-    if (playlists.begin() == playlists.end()) {
-        database_context.persist(defaultPlaylist);
-    }
-    else {
-        defaultPlaylist = *playlists.begin();
-    }
-
-    // Get all the tracks in the default playlist
-    odb::result<Track_Playlist> track_map = database_context.query<Track_Playlist>(odb::query<Track_Playlist>::playlist_id == defaultPlaylist.Id());
-
-    // Add the tracks to the list
-    for (odb::result<Track_Playlist>::iterator it = track_map.begin(); it != track_map.end(); it++) {
-        // Get the track
-        Track track = *(it->TrackId());
-        Albums track_album = *(track.AlbumId());
-        Artists track_artist = *(track.ArtistId());
-
-        TrackImage track_image = track.Image();
-        // Check to see if it's 16 bytes long. If it is, it's an empty image (probably a bug)
-        if (!track_image.Data() || track_image.Size() == 16) {
-			image.load(":/otherfiles/assets/images/album.png"); // Replace with default image
-		}
-        else {
-            image.loadFromData(QByteArray::fromRawData(track_image.Data(), track_image.Size() == 16 ? 0 : track_image.Size()), "JPG"); // Pretty much all of the images are JPGs
-        }
-        
-        // Information about the track
-        image = image.scaled(60, 60); // Downscale the image to 60x60
-        image = image.convertToFormat(QImage::Format_Indexed8); // Convert the image to an indexed 8-bit image
-        pixmap = QPixmap::fromImage(image).scaled(icon_size); // Standardize the icon size across all the tracks
-        image = *(new QImage);
-        // Create a QStandardItem for the track
-        trackView = new QStandardItem(QIcon(pixmap), QString::fromLatin1((track.Title().empty()? track.FileName(): track.Title()) + "\n"));
-        QString albumRow = QString::fromStdString(track_album.Title());
-        QString artistRow = QString::fromStdString(track_artist.Name());
-        
-        // We can add more information to the trackView if we want
-        // For example, we can add the artist, album, etc.
-        trackView->setEditable(false);
-
-        // Append the album and artist below the title
-        trackView->setText(trackView->text() + albumRow + "\n" + artistRow);
-
-        // Resize the trackView to 175 pixels
-        trackView->setSizeHint(size);
-
-        // Have the image fit the trackView
-        listView->setIconSize(icon_size);
-        model->appendRow(trackView);
-    }
-
-    // Commit the transaction
-    t.commit();
 }
 
 void MainWindow::on_play_pause_pa_clicked()
@@ -346,8 +264,19 @@ void MainWindow::on_back_pa_clicked()
     // Get the current track's position in the track_playlist table
     odb::sqlite::database database_context = db.getDatabase();
     odb::transaction t(database_context.begin());
-    Track_Playlist track_map = *(database_context.query_one<Track_Playlist>(odb::query<Track_Playlist>::playlist_id == defaultPlaylist.Id() &&
-        odb::query<Track_Playlist>::track_id == (currentTrack.Id() - 1))); // Same thing but -1
+    Track_Playlist* track_map_ = database_context.query_one<Track_Playlist>(odb::query<Track_Playlist>::playlist_id == defaultPlaylist.Id() &&
+        odb::query<Track_Playlist>::track_id == (currentTrack.Id() - 1)); // Same thing but -1
+
+    if (track_map_ == NULL) {
+        //QMessageBox msgBox;
+        //msgBox.setWindowTitle("Media error");
+        //msgBox.setIcon(QMessageBox::Critical);
+        //msgBox.setText("<FONT COLOR='BLACK'>The back button is unavailable at this time.</ FONT>");
+        //msgBox.exec();
+        return;
+    }
+
+	Track_Playlist track_map = *track_map_;
 
     // Map this track_map to a track
     currentTrack = *(track_map.TrackId());
@@ -361,17 +290,8 @@ void MainWindow::on_back_pa_clicked()
     Albums track_album = *(currentTrack.AlbumId());
     Artists track_artist = *(currentTrack.ArtistId());
 
-    // Set the QLabel, "track_image_pa" to the album art of the track
-    ui->track_image_pa->setPixmap(QPixmap::fromImage(QImage::fromData(QByteArray::fromRawData(track_image.Data(), track_image.Size()), "JPG")));
-
-    // Set the QLabel, "track_name_pa" to the title of the track
-    ui->track_name_pa->setText(QString::fromStdString(currentTrack.Title()));
-
-    // Set the QLabel, "mia_pa_album" to the album of the track
-    ui->mia_pa_album->setText(QString::fromStdString(track_album.Title()));
-
-    // Set the QLabel, "mia_pa" to the artist of the track
-    ui->mia_pa->setText(QString::fromStdString(track_artist.Name()));
+	// Set the play area data
+    SetPlayAreaData(track_image, currentTrack.Title(), track_album.Title(), track_artist.Name(), database_context);
 
 
     player->stop();
@@ -427,18 +347,8 @@ void MainWindow::on_forward_pa_clicked()
     Albums track_album = *(currentTrack.AlbumId());
     Artists track_artist = *(currentTrack.ArtistId());
 
-    // Set the QLabel, "track_image_pa" to the album art of the track
-    ui->track_image_pa->setPixmap(QPixmap::fromImage(QImage::fromData(QByteArray::fromRawData(track_image.Data(), track_image.Size()), "JPG")));
-
-    // Set the QLabel, "track_name_pa" to the title of the track
-    ui->track_name_pa->setText(QString::fromStdString(currentTrack.Title()));
-
-    // Set the QLabel, "mia_pa_album" to the album of the track
-    ui->mia_pa_album->setText(QString::fromStdString(track_album.Title()));
-
-    // Set the QLabel, "mia_pa" to the artist of the track
-    ui->mia_pa->setText(QString::fromStdString(track_artist.Name()));
-
+    // Set the play area data
+    SetPlayAreaData(track_image, currentTrack.Title(), track_album.Title(), track_artist.Name(), database_context);
 
     player->stop();
     player->setSource(*track_url);
@@ -457,3 +367,15 @@ void MainWindow::on_forward_pa_clicked()
 
     t.commit();
 }
+
+void MainWindow::on_state_Button_ld_clicked()
+{
+	this->on_play_pause_pa_clicked();
+	if (player->playbackState() == QMediaPlayer::PlayingState) {
+		ui->state_Button_ld->setText("Pause");
+	}
+    else {
+		ui->state_Button_ld->setText("Play");
+	}
+}
+

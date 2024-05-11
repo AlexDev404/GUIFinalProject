@@ -18,6 +18,7 @@
 
 #include <QFile>
 #include <QFileDialog>
+#include <QMessageBox>
 
 int TrackManagement::AddTrack(std::string& fileLocation, Playlist& defaultPlaylist, odb::sqlite::database& database_context) {
 
@@ -211,9 +212,21 @@ void MainWindow::UIAddTrack() {
     // Last time, the memory was spiking up to nearly ~800MB
     // This time, it's ~243MB
 
+    // Delete the model
+    ui->allAlbumsListView->model()->deleteLater();
+
+    // Remove the model
+    ui->allAlbumsListView->setModel(nullptr);
+
+    // Delete the model from allTracksPage
+    ui->allTracksListView->model()->deleteLater();
+
+    // Remove the model from the allTracksPage
+    ui->allTracksListView->setModel(nullptr);
+
     // Update the UI
-    StateHasChanged(ui->allTracksListView, QSize(125, 175), QSize(100, 100));
-    StateHasChanged(ui->libraryListView, QSize(125, 30), QSize(16, 16));
+    LoadAllTracksPage(ui->allTracksListView, QSize(125, 175), QSize(100, 100));
+    LoadAllTracksPage(ui->libraryListView, QSize(125, 30), QSize(16, 16));
 }
 
 
@@ -229,13 +242,23 @@ void MainWindow::PlayTrack(const QModelIndex& index) {
     QStringList trackInfo = index.data().toString().split("\n");
     QString trackFileName = trackInfo[0]; // Typically the file path
     // FileName, TrackTitle, AlbumName, ArtistName 
+	string track_album_string = trackInfo[1].toStdString();
+	string track_artist_string = trackInfo.size() >= 3? trackInfo[2].toStdString(): "";
 
+    // Retrieve the track from the database using the track title, album name and artist name
+    odb::sqlite::database database_context = db.getDatabase();
+    odb::transaction t(database_context.begin());
 
     // Play the track
     // Display the track information
 
-    if (trackInfo.size() < 3 || (trackInfo[1].toStdString() == ""))
+    if (trackInfo.size() < 3 && (trackInfo[1].toStdString() != ""))
     {
+        track_album_string = "";
+        track_artist_string = trackInfo[1].toStdString();
+        // return;
+    }
+    else {
         qDebug() << "Invalid track information";
 
         QImage placeholder;
@@ -254,59 +277,81 @@ void MainWindow::PlayTrack(const QModelIndex& index) {
         ui->mia_pa->setText("No artist or missing information");
         // return;
     }
-    else {
 
-        // Retrieve the track from the database using the track title, album name and artist name
-        odb::sqlite::database database_context = db.getDatabase();
-        odb::transaction t(database_context.begin());
-
+    if (trackInfo.size() >= 3 || (trackInfo.size() < 3 && (trackInfo[1].toStdString() != ""))) {
         // Query for the album
-        Albums* track_album = database_context.query_one<Albums>(odb::query<Albums>::title == trackInfo[1].toStdString());
+        Albums* track_album = database_context.query_one<Albums>(odb::query<Albums>::title == track_album_string);
         // Query for the artist
-        Artists* track_artist = database_context.query_one<Artists>(odb::query<Artists>::name == trackInfo[2].toStdString());
+        Artists* track_artist = database_context.query_one<Artists>(odb::query<Artists>::name == track_artist_string);
 
         // Query for the track
-        currentTrack = *(database_context.query_one<Track>(
+        Track* currentTrack_ = database_context.query_one<Track>(
             odb::query<Track>::title == trackInfo[0].toStdString()
-            && odb::query<Track>::album_id == track_album->Id()
-            && odb::query<Track>::artist_id == track_artist->Id()));
+            && (trackInfo.size() < 3? odb::query<Track>::title == trackInfo[0].toStdString() : 
+                                      odb::query<Track>::album_id == track_album->Id())
+            && odb::query<Track>::artist_id == track_artist->Id());
+
+        if (currentTrack_ == NULL) {
+            QMessageBox msgBox;
+            msgBox.setWindowTitle("Media error");
+            msgBox.setIcon(QMessageBox::Critical);
+            msgBox.setText("<FONT COLOR='BLACK'>On lookup, the requested track data was not found.</ FONT>");
+            msgBox.exec();
+            return;
+        }
+        currentTrack = *(currentTrack_);
 
 
         qDebug() << "Now Playing: " << QString::fromStdString(currentTrack.Title());
 
         TrackImage track_image = currentTrack.Image();
 
-        // Set the QLabel, "track_image_pa" to the album art of the track
-        ui->track_image_pa->setPixmap(QPixmap::fromImage(QImage::fromData(QByteArray::fromRawData(track_image.Data(), track_image.Size()), "JPG")));
+        // Set the play area data
+        SetPlayAreaData(track_image, currentTrack.Title(), track_album->Title(), track_artist->Name(), database_context);
 
-        // Set the QLabel, "track_name_pa" to the title of the track
-        ui->track_name_pa->setText(QString::fromStdString(currentTrack.Title()));
-
-        // Set the QLabel, "mia_pa_album" to the album of the track
-        ui->mia_pa_album->setText(QString::fromStdString(track_album->Title()));
-
-        // Set the QLabel, "mia_pa" to the artist of the track
-        ui->mia_pa->setText(QString::fromStdString(track_artist->Name()));
 
         trackFileName = QString::fromStdString(currentTrack.FileName());
-
-        t.commit();
     }
 
     track_url = new QUrl(trackFileName);
 
     player->stop();
     player->setSource(*track_url);
+    
+    // Moved error checking to: qMain()
 
-    // Check if there was an error setting the media content
-    if (player->error() != QMediaPlayer::NoError) {
-        qDebug() << "----Error setting media content----";
-        qDebug() << "Error:" << player->errorString();
-        qDebug() << "File path:" << track_url;
-        return;
-    }
-
-    // Set the audio device and play the media
     player->setAudioOutput(device);
     player->play();
+    t.commit();
+}
+
+void MainWindow::SetPlayAreaData(TrackImage& track_image, std::string track_title, std::string album_name, std::string artist_name, odb::sqlite::database& database_context) {
+    // Set the QLabel, "track_image_pa" to the album art of the track
+    ui->track_image_pa->setPixmap(QPixmap::fromImage(QImage::fromData(QByteArray::fromRawData(track_image.Data(), (track_image.Data() == NULL || track_image.Size() == 16 || track_image.Size() < 0) ? 0 : track_image.Size()), "JPG")));
+
+    // Set the QLabel, "track_name_pa" to the title of the track
+    ui->track_name_pa->setText(QString::fromStdString(track_title));
+
+    // Set the QLabel, "mia_pa_album" to the album of the track
+    ui->mia_pa_album->setText(QString::fromStdString(album_name));
+
+    // Set the QLabel, "mia_pa" to the artist of the track
+    ui->mia_pa->setText(QString::fromStdString(artist_name));
+
+    // Run a quick query against the databaseand add the track to the recently played table (Track_Playcount)
+    // OK, so knowing that we have the current track stored in `currentTrack`, we can now add it to the Track_Playcount table
+    odb::result<Track_Playcount> track_playcount = database_context.query<Track_Playcount>(odb::query<Track_Playcount>::track_id == currentTrack.Id());
+	// If the track is not in the Track_Playcount table, add it
+    if (track_playcount.begin() == track_playcount.end()) {
+		// Add the track to the Track_Playcount table with a playcount of 1
+        Track_Playcount track_playcount_entry(&currentUser, &currentTrack, 1);
+        database_context.persist(track_playcount_entry);
+    }
+	else { // If the track is in the Track_Playcount table, update the playcount
+        Track_Playcount track_playcount_entry = *track_playcount.begin();
+        track_playcount_entry.SetCount(track_playcount_entry.Count() + 1);
+        database_context.update(track_playcount_entry);
+    }
+
+	// With this, we are now tracking the playcount of the track
 }

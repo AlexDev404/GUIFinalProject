@@ -1,3 +1,7 @@
+*{
+   outline: none;
+}
+
 QFrame, QListView {
    border: 0;
    padding: 0;
@@ -70,3 +74,42 @@ QPushButton:hover,QPushButton#forward_pa:hover, QPushButton#back_pa:hover, QPush
 QListView {
    background: #18314f;
 }
+
+QTableWidget::horizontalHeader {
+    background-color: #303030; /* Set background color of horizontal header */
+    border: 1px solid #d0d0d0; /* Set border color and width */
+    border-bottom: none; /* Remove bottom border */
+    color: white;
+}
+
+QHeaderView::section {
+   background-color: #303030; /* Set background color of horizontal header */
+   border: 1px solid #d0d0d0; /* Set border color and width */
+   border-bottom: none; /* Remove bottom border */
+   color: white;
+}
+
+QTableWidget::verticalHeader {
+    background-color: #303030; /* Set background color of vertical header */
+    border: 1px solid #d0d0d0; /* Set border color and width */
+    border-right: none; /* Remove right border */
+    color: white;
+}
+
+QMessageBox QLabel {
+    color: BLACK;
+}
+
+QMessageBox QPushButton {
+   font-family: "Work Sans", "Segoe UI", sans-serif;
+   background: transparent;
+   border: 1px solid BLACK;
+   border-radius: 2px;
+   padding: 6px 8px 6px 8px;
+   color: BLACK;
+}
+
+@QListView {
+   outline: none;
+}@
+
