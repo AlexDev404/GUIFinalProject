@@ -8,15 +8,17 @@
 #include "Track.hpp"
 #include "Track-odb.hxx"
 
+#include <QMessageBox>
+
 
 void MainWindow::LoadAllAlbumsPage() {
 
     // TODO: Clear the tracks view
-
+	bool portionsFailed = false; // If any portion of the code fails, set this to true
 
     // Load all albums
     // Set the current index to the all albums page
-    ui->mainStackedWidget->setCurrentIndex(3);
+    ui->mainStackedWidget->setCurrentWidget(ui->allAlbumsPage);
 
     // Query the database for the albums
     // Update the UI
@@ -25,13 +27,15 @@ void MainWindow::LoadAllAlbumsPage() {
         return;
     }
 
-    db = *new database();
-    db.setDatabase("userdata");
     odb::sqlite::database database_context = db.getDatabase();
     odb::transaction t(database_context.begin());
 
     auto model = new QStandardItemModel(this);
     ui->allAlbumsListView->setModel(model);
+	// Set the context menu to appear when the user right-clicks an item
+	ui->allAlbumsListView->setContextMenuPolicy(Qt::CustomContextMenu);
+	// Open a context menu when the user right-clicks an item
+	connect(ui->allAlbumsListView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(ShowAlbumContextMenu(QPoint)));
 
     // Call the PlayTrack function when the QStandardItem is double clicked
     connect(ui->allAlbumsListView, &QListView::doubleClicked, [=](const QModelIndex& index) {
@@ -56,8 +60,16 @@ void MainWindow::LoadAllAlbumsPage() {
 
         // Get the first track of the album
         odb::result<Track> tracks = database_context.query<Track>(odb::query<Track>::album_id == album.Id());
-        Track track = *(tracks.begin()); // Should return a pointer to the first track in the sequence
+        void* track_ = &(*(tracks.begin())); 
 
+        if (track_ == NULL) {
+			portionsFailed = true;
+            continue;
+        }
+
+
+		// Get the image of the track
+        Track track = *(Track*)(track_);
         TrackImage track_image = track.Image();
 
         if (!track_image.Data() || track_image.Size() == 16) {
@@ -91,7 +103,95 @@ void MainWindow::LoadAllAlbumsPage() {
         model->appendRow(trackView);
     }
 
+    if (portionsFailed) {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Database error");
+        msgBox.setIcon(QMessageBox::Critical);
+        msgBox.setText("<FONT COLOR='BLACK'>Portions of the page could not be loaded.</ FONT>");
+        msgBox.exec();
+    }
+
+
     // Commit the transaction
     t.commit();
 }
 
+// Show the context menu for the user list
+void MainWindow::ShowAlbumContextMenu(QPoint pos) {
+    QPoint item = ui->allAlbumsListView->mapToGlobal(pos);
+    QMenu* albumContextMenu = new QMenu(ui->allAlbumsListView);
+    QAction* deleteAlbum = albumContextMenu->addAction("Delete this album");
+
+    albumContextMenu->addAction(deleteAlbum);
+
+    QAction* rightClickItem = albumContextMenu->exec(item);
+
+    // Delete the user when the user clicks the delete button
+    if (rightClickItem == deleteAlbum) {
+        QModelIndex index = ui->allAlbumsListView->currentIndex();
+        QStandardItemModel* model = (QStandardItemModel*)ui->allAlbumsListView->model();
+        QStandardItem* item = model->itemFromIndex(index);
+        std::string album_name = item->text().toStdString();
+        std::string album_name_only = album_name.substr(0, album_name.find("\n"));
+        std::string album_year_only = album_name.substr(album_name.find("\n") + 1);
+
+        // Delete the user from the database
+        odb::sqlite::database database_context = db.getDatabase();
+        odb::transaction t(database_context.begin());
+
+        // Query for the user
+        Albums* album_to_delete = database_context.query_one<Albums>(odb::query<Albums>::title == album_name_only && odb::query<Albums>::release_date == album_year_only);
+
+        try {
+
+            QMessageBox msgBox;
+            msgBox.setWindowTitle("Action confirmation");
+            msgBox.setIcon(QMessageBox::Critical);
+            msgBox.setText("<FONT COLOR='BLACK'>This will also delete any associated tracks.<BR/>Are you sure?</ FONT>");
+			msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+
+			// If we selected no, then return
+            if (msgBox.exec() == QMessageBox::No) {
+                return;
+            }
+
+			if (album_to_delete == NULL) {
+                QMessageBox msgBox;
+                msgBox.setWindowTitle("Error while deleting album");
+                msgBox.setIcon(QMessageBox::Critical);
+                msgBox.setText("<FONT COLOR='BLACK'>Album not found</ FONT>");
+                msgBox.exec();
+                return;
+			}
+
+            // Delete cascade
+            database_context.erase(album_to_delete);
+        }
+        catch (odb::exception& e) {
+            qDebug() << e.what();
+            std::string what_isthe_error = e.what();
+            QMessageBox msgBox;
+            msgBox.setWindowTitle("Error while deleting album");
+            msgBox.setIcon(QMessageBox::Critical);
+            msgBox.setText(QString::fromStdString(std::string("<FONT COLOR='RED'>" + what_isthe_error + "< / FONT>")));
+            msgBox.exec();
+        }
+
+        t.commit(); // Save the changes
+        // Close the context menu
+        albumContextMenu->close();
+        // Delete the model
+		ui->allAlbumsListView->model()->deleteLater();
+
+        // Remove the model
+		ui->allAlbumsListView->setModel(nullptr);
+
+		// Delete the model from allTracksPage
+		ui->allTracksListView->model()->deleteLater();
+
+        // Remove the model from the allTracksPage
+		ui->allTracksListView->setModel(nullptr);
+
+        LoadAllAlbumsPage(); // Reload the page
+    }
+}

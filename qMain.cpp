@@ -24,6 +24,8 @@
 #include "WindowsAccount-odb.hxx"
 #include "Roles-odb.hxx"
 
+#include <QMessageBox>
+
 // Include command-line output
 #include <QDebug>
 
@@ -56,22 +58,22 @@ void createTables(odb::sqlite::database &database_context) {
     
     // Create the Windows_Account table (independent)
     database_context.execute(std::string("CREATE TABLE IF NOT EXISTS Windows_Account (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username TEXT, role_id INTEGER, ") +
-                             std::string("FOREIGN KEY(role_id) REFERENCES Roles(id))"));
+                             std::string("FOREIGN KEY(role_id) REFERENCES Roles(id) ON DELETE CASCADE)"));
 
     // Dependent tables
 
     // Create the Track table
     database_context.execute(std::string("CREATE TABLE IF NOT EXISTS Track (id INTEGER PRIMARY KEY, title TEXT, artist_id INTEGER, album_id INTEGER, year TEXT, genre_id INTEGER,") +
         std::string("lyrics TEXT, duration REAL, file_location TEXT, cover_art BLOB, cover_art_size INTEGER, ") + 
-        std::string("FOREIGN KEY(artist_id) REFERENCES Artists(id), FOREIGN KEY(album_id) REFERENCES Albums(id), FOREIGN KEY(genre_id) REFERENCES Genres(id))"));
+        std::string("FOREIGN KEY(artist_id) REFERENCES Artists(id) ON DELETE CASCADE, FOREIGN KEY(album_id) REFERENCES Albums(id) ON DELETE CASCADE, FOREIGN KEY(genre_id) REFERENCES Genres(id) ON DELETE CASCADE)"));
 
     // Create the Track_Playlist table
     database_context.execute(std::string("CREATE TABLE IF NOT EXISTS Track_Playlist (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, track_id INTEGER, playlist_id INTEGER, ") +
-                             std::string("FOREIGN KEY(track_id) REFERENCES Track(id), FOREIGN KEY(playlist_id) REFERENCES Playlist(id))"));
+                             std::string("FOREIGN KEY(track_id) REFERENCES Track(id) ON DELETE CASCADE, FOREIGN KEY(playlist_id) REFERENCES Playlist(id) ON DELETE CASCADE)"));
 
     // Create the Track_Playcount table
     database_context.execute(std::string("CREATE TABLE IF NOT EXISTS Track_Playcount (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, user_id INTEGER, ") +
-                             std::string("track_id INTEGER, count INTEGER, FOREIGN KEY(track_id) REFERENCES Track(id), FOREIGN KEY(user_id) REFERENCES Windows_Account(id))"));
+                             std::string("track_id INTEGER, count INTEGER, FOREIGN KEY(track_id) REFERENCES Track(id) ON DELETE CASCADE, FOREIGN KEY(user_id) REFERENCES Windows_Account(id) ON DELETE CASCADE)"));
     }
     catch (const odb::exception& e) {
         qDebug() << e.what();
@@ -112,13 +114,22 @@ void MainWindow::qMain() {
     Roles* query_roles = database_context.query_one<Roles>(odb::query<Roles>::name == "User");
     if (query_roles == nullptr) {
 		Roles user_role("User");
+        query_roles = &user_role;
 		database_context.persist(user_role);
 	}
 
     Roles* query_admin_roles = database_context.query_one<Roles>(odb::query<Roles>::name == "Administrator");
     if (query_admin_roles == nullptr) {
         Roles admin_role("Administrator");
+        query_admin_roles = &admin_role;
         database_context.persist(admin_role);
+    }
+
+    Roles* query_banned_roles = database_context.query_one<Roles>(odb::query<Roles>::name == "Banned");
+    if (query_banned_roles == nullptr) {
+        Roles banned_role("Banned");
+        query_banned_roles = &banned_role;
+        database_context.persist(banned_role);
     }
 
     if (result)
@@ -130,10 +141,13 @@ void MainWindow::qMain() {
     // Check if the user exists
     Windows_Account* query_user = database_context.query_one<Windows_Account>(odb::query<Windows_Account>::username == username);
     if (query_user != nullptr) {
-		// The user exists
-		// Update the user's role
-        query_user->SetAccessLevel(is_admin? query_admin_roles: query_roles);
+        // The user exists
+        // Update the user's role
+        query_user->SetAccessLevel(is_admin ? query_admin_roles : query_roles);
         database_context.update(*query_user);
+
+        // Set the current user
+        currentUser = *query_user;
     }
     else {
         // Create the Windows_Account object
@@ -143,9 +157,6 @@ void MainWindow::qMain() {
         // This will be used to track the user's listening habits
         database_context.persist(currentUser);
     }
-
-    // Set the current user
-	currentUser = *query_user;
 
     // Update the UI username field
     ui->user_loggedin->setText(username);
@@ -159,6 +170,11 @@ void MainWindow::qMain() {
     LoadAllTracksPage(ui->libraryListView, QSize(125, 30), QSize(16, 16));
 
     // Connect our signals and slots
+    // Connect the combobox to run LoadReportPage when the combobox is changed
+    connect(ui->reportTypeComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), [=](int index) {
+        LoadReportPage();
+    });
+
     // Connect the audio output to stop itself once the media has finished playing
     QAudioOutput::connect(player, &QMediaPlayer::playbackStateChanged, [=](QMediaPlayer::PlaybackState state) {
         // Are we finished?
@@ -181,6 +197,54 @@ void MainWindow::qMain() {
         if (state == QMediaPlayer::PausedState) {
             // Do nothing (for now)
         }
+		// Are we in an error state
+
+    //// Check if there was an error setting the media content
+    //    if (state == QMediaPlayer::erro) {
+    //        qDebug() << "----Error setting media content----";
+    //        qDebug() << "Error:" << player->error() << ": " << player->errorString();
+    //        qDebug() << "File path:" << track_url;
+
+    //        // Check if the file was not found
+    //        if (state == QMediaPlayer::ResourceError) {
+    //            qDebug() << "----Media not found----";
+    //            qDebug() << "File path:" << track_url;
+    //            QMessageBox msgBox;
+    //            msgBox.setWindowTitle("Media error");
+    //            msgBox.setIcon(QMessageBox::Critical);
+    //            msgBox.setText("<FONT COLOR='BLACK'>The requested media was not found.</ FONT>");
+    //            msgBox.exec();
+    //            try {
+    //                // Erase the file from the database
+    //                database_context.erase_query<Track>(odb::query<Track>::id == currentTrack.Id());
+    //            }
+    //            catch (odb::exception& e) {
+    //                qDebug() << e.what();
+    //            }
+
+    //            // Refresh the UI data
+    //            ui->allTracksListView->model()->deleteLater();
+    //            ui->allTracksListView->setModel(nullptr);
+
+    //            ui->libraryListView->model()->deleteLater();
+    //            ui->allTracksListView->model()->deleteLater();
+    //            ui->allTracksListView->setModel(nullptr);
+
+    //            t.commit(); // Clean-up after ourselves
+
+
+
+    //            // Update the UI
+    //            LoadAllTracksPage(ui->allTracksListView, QSize(125, 175), QSize(100, 100));
+    //            LoadAllTracksPage(ui->libraryListView, QSize(125, 30), QSize(16, 16));
+
+    //            return;
+    //        }
+    //        t.commit();
+    //        return;
+    //    }
+
+
         });
 
     // -------------------------------- BEGIN_DEBUG --------------------------------------------------------------------------------------------

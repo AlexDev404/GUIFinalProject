@@ -44,6 +44,7 @@
     <QtModules>core;gui;network;widgets;multimedia;multimediawidgets</QtModules>
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <QtInstall>6.6.1_msvc2019_64</QtInstall>
     <QtModules>core;gui;network;widgets;multimedia;multimediawidgets</QtModules>
     <QtInstall>6.6.2_msvc2019_64</QtInstall>
   </PropertyGroup>
@@ -253,6 +254,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Track_Playlist.cpp" />
+    <ClCompile Include="UserManagementPage.cpp" />
     <ClCompile Include="WindowsAccount-odb.cxx" />
     <ClCompile Include="WindowsAccount-odb.ixx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>

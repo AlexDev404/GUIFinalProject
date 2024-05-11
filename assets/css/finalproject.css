@@ -1,3 +1,7 @@
+*{
+   outline: none;
+}
+
 QFrame, QListView {
    border: 0;
    padding: 0;
@@ -91,3 +95,21 @@ QTableWidget::verticalHeader {
     border-right: none; /* Remove right border */
     color: white;
 }
+
+QMessageBox QLabel {
+    color: BLACK;
+}
+
+QMessageBox QPushButton {
+   font-family: "Work Sans", "Segoe UI", sans-serif;
+   background: transparent;
+   border: 1px solid BLACK;
+   border-radius: 2px;
+   padding: 6px 8px 6px 8px;
+   color: BLACK;
+}
+
+@QListView {
+   outline: none;
+}@
+
