@@ -1253,7 +1253,7 @@ border: 0;</string>
        <rect>
         <x>20</x>
         <y>90</y>
-        <width>131</width>
+        <width>181</width>
         <height>26</height>
        </rect>
       </property>
@@ -1262,6 +1262,11 @@ border: 0;</string>
         <pointsize>12</pointsize>
        </font>
       </property>
+      <item>
+       <property name="text">
+        <string>Choose a report</string>
+       </property>
+      </item>
       <item>
        <property name="text">
         <string>Tracks</string>

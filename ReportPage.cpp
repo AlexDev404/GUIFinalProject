@@ -39,11 +39,77 @@ void MainWindow::LoadReportPage() {
         PlayTrack(index);
         });
 
-    // --------------------------------- Up to here should be right ---------------------------------------
-
-
     // Populate the reportlistView with the calculated statistics
     if (ui->reportTypeComboBox->currentText() == "Tracks") {
+		string user_id = std::to_string(currentUser.Id());
+        odb::result<Track_Playcount> playCounts;
+
+        try {
+           // Query the track_Playcount table
+           playCounts = database_context.query<Track_Playcount>(
+               ("WHERE user_id = " + user_id + " ORDER BY " + odb::query<Track_Playcount>::count + " DESC LIMIT 5")
+        ); // The top 5 tracks
+
+        } catch (odb::exception& error) {
+            qDebug() << error.what();
+            // Handle the error
+            // Display the error message
+			QMessageBox::critical(this, "Error", QString::fromStdString(error.what()));
+        }
+
+        // Top 5 count
+        int rank = 1;
+
+        // Append the top 5 tracks to the listView
+        // Loop through the `playCounts` five times
+        for(odb::result<Track_Playcount>::iterator trackNow = playCounts.begin(); trackNow != playCounts.end(); trackNow++) {
+            
+            // The track
+            Track track = *(trackNow->TrackId());
+            // The user
+            Windows_Account user = *(trackNow->UserId());
+
+            if (user.Id() == currentUser.Id()) {
+                Albums track_album = *(track.AlbumId());
+                Artists track_artist = *(track.ArtistId());
+
+                TrackImage track_image = track.Image();
+                // Check to see if it's 16 bytes long. 
+                if (!track_image.Data() || track_image.Size() == 16) {
+                    image.load(":/otherfiles/assets/images/album.png"); // Replace with default image
+                }
+                else {
+                    image.loadFromData(QByteArray::fromRawData(track_image.Data(), track_image.Size() == 16 ? 0 : track_image.Size()), "JPG"); // Pretty much all of the images are JPGs
+                }
+
+                // Information about the track
+                image = image.scaled(60, 60); // Downscale the image to 60x60
+                image = image.convertToFormat(QImage::Format_Indexed8); // Convert the image to an indexed 8-bit image
+                pixmap = QPixmap::fromImage(image).scaled(QSize(100,100)); // Standardize the icon size across all the tracks
+                image = *(new QImage);
+
+                // Create a QStandardItem for the track
+                QStandardItem* view = new QStandardItem(QIcon(pixmap), QString::fromLatin1((track.Title().empty() ? track.FileName() : track.Title())));
+
+                // We can add more information to the trackView if we want
+                // For example, we can add the artist, album, etc.
+                view->setEditable(false);
+
+                // Have the image fit the trackView
+                ui->reportListView->setIconSize(QSize(100, 100));
+
+                // Append the album and artist below the title
+                view->setText("#" + QString::number(rank) + " " + view->text());
+
+                // Append the item to the model
+                model->appendRow(view); 
+
+                rank++;
+
+            }
+        }
+    }
+    else if (ui->reportTypeComboBox->currentText() == "Albums") {
         string user_id = std::to_string(currentUser.Id());
         odb::result<Track_Playcount> playCounts;
 
@@ -52,6 +118,7 @@ void MainWindow::LoadReportPage() {
             playCounts = database_context.query<Track_Playcount>(
                 ("WHERE user_id = " + user_id + " ORDER BY " + odb::query<Track_Playcount>::count + " DESC LIMIT 5")
             ); // The top 5 tracks
+
         }
         catch (odb::exception& error) {
             qDebug() << error.what();
@@ -59,52 +126,64 @@ void MainWindow::LoadReportPage() {
             // Display the error message
             QMessageBox::critical(this, "Error", QString::fromStdString(error.what()));
         }
-        // Append the top 5 tracks to the `ui->reportListView`
+
+        // Top 5 count
+        int rank = 1;
+
+        // Append the top 5 tracks to the listView
         // Loop through the `playCounts` five times
-        // Loop until we're at the fifth track (tracks.begin() + 4)
         for (odb::result<Track_Playcount>::iterator trackNow = playCounts.begin(); trackNow != playCounts.end(); trackNow++) {
+
             // The track
             Track track = *(trackNow->TrackId());
             // The user
             Windows_Account user = *(trackNow->UserId());
-            // Reading and comphrending, I told you 11 I'm honestly half awake okay
-            // Well which questions do u have maybe i can answer them for u
-
-            // Me still processing sorry..k
-            // I'm confused as to how we getting the most listened to. becuase?? Since we doing in base on users
-            // I assume we limit the 5 in the if statement good point
-
-            // Me forgetting about the limit at the top
-            // loll its okays i changed it just now
-            // .. it's now querying the top 5 tracks to the current user now so we dont have to check that anymore:)
-            // u can take a look at it and if u have any questions ask me here 
-            // so we just display now...yes
-            // can u do it??? Probably yeah 
-            // ok then i believe in u :D Do i have to process this now:| yes pls
-            // just 2 lines of code (... i think?) xDDDDD it the append to the list view...?yes
-            // but we not making it facny with the image...?
-            // well we can if u rlly wanna?? or if u want we can try again later afterward:)...??
 
             if (user.Id() == currentUser.Id()) {
-                // do something...torture u silly lmao hmm
-				Artists artist = *(track.ArtistId());
+                Albums track_album = *(track.AlbumId());
+                Artists track_artist = *(track.ArtistId());
 
-				// Create a new QStandardItem
-                QStandardItem* view = new QStandardItem(QString::fromStdString(track.Title() + "\n" + artist.Name()));
-                view->setText(view->text()); // Add the hidden data to allow the track to play
-				view->setEditable(false);
+                TrackImage track_image = track.Image();
+                // Check to see if it's 16 bytes long. 
+                if (!track_image.Data() || track_image.Size() == 16) {
+                    image.load(":/otherfiles/assets/images/album.png"); // Replace with default image
+                }
+                else {
+                    image.loadFromData(QByteArray::fromRawData(track_image.Data(), track_image.Size() == 16 ? 0 : track_image.Size()), "JPG"); // Pretty much all of the images are JPGs
+                }
+
+                // Information about the track
+                image = image.scaled(60, 60); // Downscale the image to 60x60
+                image = image.convertToFormat(QImage::Format_Indexed8); // Convert the image to an indexed 8-bit image
+                pixmap = QPixmap::fromImage(image).scaled(QSize(100, 100)); // Standardize the icon size across all the tracks
+                image = *(new QImage);
+
+                // Create a QStandardItem for the track
+                QStandardItem* view = new QStandardItem(QIcon(pixmap), QString::fromLatin1((track.Title().empty() ? track.FileName() : track.Title())));
+
+                // We can add more information to the trackView if we want
+                // For example, we can add the artist, album, etc.
+                view->setEditable(false);
+
+                // Have the image fit the trackView
+                ui->reportListView->setIconSize(QSize(100, 100));
+
+                // Append the album and artist below the title
+                view->setText("#" + QString::number(rank) + " " + view->text());
 
                 // Append the item to the model
-                model->appendRow(view); // here against my will yes
-                // compile it finally lmao
+                model->appendRow(view);
+
+                rank++;
+
             }
         }
     }
-    else if (ui->reportTypeComboBox->currentText() == "Albums") {
-        // Display top 5 most played albums
-        // You need to implement this part to query and display top 5 albums
-    }
     else if (ui->reportTypeComboBox->currentText() == "Artists") {
+        // Display top 5 most played artists
+        // You need to implement this part to query and display top 5 artists
+    }
+    else if (ui->reportTypeComboBox->currentText() == "Choose a report") {
         // Display top 5 most played artists
         // You need to implement this part to query and display top 5 artists
     }
