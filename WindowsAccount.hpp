@@ -7,6 +7,7 @@ using std::string;
 #pragma db object
 class Windows_Account {
 public:
+	Windows_Account(string name) : username_(name) {}
 	Windows_Account(string name, Roles* access_level) : 
 		username_(name), role_id_(access_level) {}
 
