@@ -179,7 +179,7 @@ void MainWindow::on_your_playlists_clicked()
 
 void MainWindow::on_trackManagementButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentWidget(ui->formsPage);
+    LoadTrackManagementPage();
 }
 
 

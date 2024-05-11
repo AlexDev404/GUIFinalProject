@@ -244,6 +244,7 @@
     <ClCompile Include="Track.cpp" />
     <ClCompile Include="TrackImage.cpp" />
     <ClCompile Include="TrackManagement.cpp" />
+    <ClCompile Include="TrackManagementPage.cpp" />
     <ClCompile Include="Track_Playcount-odb.cxx" />
     <ClCompile Include="Track_Playcount-odb.ixx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
