@@ -170,6 +170,11 @@ void MainWindow::qMain() {
     LoadAllTracksPage(ui->libraryListView, QSize(125, 30), QSize(16, 16));
 
     // Connect our signals and slots
+    // Connect the combobox to run LoadReportPage when the combobox is changed
+    connect(ui->reportTypeComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), [=](int index) {
+        LoadReportPage();
+    });
+
     // Connect the audio output to stop itself once the media has finished playing
     QAudioOutput::connect(player, &QMediaPlayer::playbackStateChanged, [=](QMediaPlayer::PlaybackState state) {
         // Are we finished?
