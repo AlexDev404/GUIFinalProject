@@ -33,6 +33,7 @@ public:
     void qMain();
     void LoadAllTracksPage(QListView* listView, QSize size, QSize icon_size);
 	void LoadPlayListDisplayPage(const QModelIndex& index);
+    void LoadAllPlaylistPage();
     void LoadUserManagementPage();
     void PlayTrack(const QModelIndex& index);
     /// <summary>

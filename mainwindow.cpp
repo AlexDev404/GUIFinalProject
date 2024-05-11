@@ -180,7 +180,7 @@ void MainWindow::on_reportButton_clicked()
 
 void MainWindow::on_your_playlists_clicked()
 {
-    ui->mainStackedWidget->setCurrentWidget(ui->libraryDisplayPage2);
+    this->LoadAllPlaylistPage();
 }
 
 
@@ -223,7 +223,7 @@ void MainWindow::on_viewAlbumsButton_clicked()
 
 void MainWindow::on_viewPlaylistButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentWidget(ui->libraryDisplayPage2);
+    this->LoadAllPlaylistPage();
 }
 
 

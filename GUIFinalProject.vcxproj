@@ -210,6 +210,7 @@
     </ClCompile>
     <ClCompile Include="Albums.cpp" />
     <ClCompile Include="AllAlbumsPage.cpp" />
+    <ClCompile Include="AllPlaylistPage.cpp" />
     <ClCompile Include="AllTracksPage.cpp" />
     <ClCompile Include="Artists-odb.cxx" />
     <ClCompile Include="Artists-odb.ixx">
