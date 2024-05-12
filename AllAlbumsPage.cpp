@@ -29,7 +29,7 @@ void MainWindow::LoadAllAlbumsPage() {
 
     odb::sqlite::database database_context = db.getDatabase();
     odb::transaction t(database_context.begin());
-
+    
     auto model = new QStandardItemModel(this);
     ui->allAlbumsListView->setModel(model);
 	// Set the context menu to appear when the user right-clicks an item

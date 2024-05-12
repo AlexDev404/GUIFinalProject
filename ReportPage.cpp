@@ -1,4 +1,4 @@
-﻿#include "mainwindow.h"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 #include "database.hpp"
@@ -45,8 +45,8 @@ void MainWindow::LoadReportPage() {
     // ---------------------------------------------------------- Track Report ----------------------------------------------------------
     // Populate the reportlistView with the calculated statistics
     if (ui->reportTypeComboBox->currentText() == "Tracks") {
-
         // Disable the reportPageChooser
+        ui->reportsPageChooser->setVisible(false);
         ui->mainStackedWidget->setCurrentWidget(ui->reportPage);
         string user_id = std::to_string(currentUser.Id());
         odb::result<Track_Playcount> playCounts;
@@ -86,7 +86,7 @@ void MainWindow::LoadReportPage() {
 
                 // Create a QStandardItem for the track
                 QStandardItem* view = new QStandardItem(QString::fromLatin1((track.Title().empty() ? track.FileName() : track.Title() + "\nAlbum: " + album.Title() + "\nArtist: " +
-                    artist.Name() + "\nYou played this track " + std::to_string(track_play_count) + " time(s).")));
+                                                                             artist.Name() + "\nYou played this track " + std::to_string(track_play_count) + " time(s).")));
 
                 // Enable editing
                 view->setEditable(false);
@@ -135,7 +135,7 @@ void MainWindow::LoadReportPage() {
             // Loop through all the tracks and group them
             Track track = *(trackNow->TrackId());
             Windows_Account user = *(trackNow->UserId());
-            if (user.Id() == currentUser.Id()) {
+            if (user.Id() == currentUser.Id()) { // such a giant "if" lmaoo T-T
                 Albums track_album = *(track.AlbumId());
 
                 // Check if the album ID is already in the map
@@ -149,10 +149,10 @@ void MainWindow::LoadReportPage() {
                 }
             }
         }
-
-        // Sort the albums based on their play count
-        std::vector<std::pair<int, int>> sorted_album_count(album_count.begin(), album_count.end());
-        std::sort(sorted_album_count.begin(), sorted_album_count.end(), compareAlbum);
+    
+        std::vector<std::pair<int, int>> sorted_album_count; 
+        
+        std::sort(sorted_album_count.begin(), sorted_album_count.end(), &Utility::compareAlbum);
 
         // Resize the vector to 5 elements
         sorted_album_count.resize(5);
@@ -265,10 +265,9 @@ void MainWindow::LoadReportPage() {
 
         // Sort the artists based on their play count
         std::vector<std::pair<int, int>> sorted_artist_count(artist_count.begin(), artist_count.end());
-        std::sort(sorted_artist_count.begin(), sorted_artist_count.end(), [](const auto& a, const auto& b) {
-            return a.second > b.second; // Sort in descending order of play count
-            });
 
+        std::sort(sorted_artist_count.begin(), sorted_artist_count.end(), Utility::compareAlbum);
+        
         // Resize the vector to 5 elements
         sorted_artist_count.resize(5);
 

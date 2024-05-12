@@ -215,6 +215,12 @@
     <ClCompile Include="UserManagementPage.cpp">
       <Filter>Source Files\Pages</Filter>
     </ClCompile>
+    <ClCompile Include="TrackManagementPage.cpp">
+      <Filter>Source Files\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="AllPlaylistPage.cpp">
+      <Filter>Source Files\Pages</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mainwindow.h">
@@ -359,6 +365,9 @@
     </ClInclude>
     <ClInclude Include="TrackManagement.hpp">
       <Filter>Header Files\Util\Track</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomRules.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
