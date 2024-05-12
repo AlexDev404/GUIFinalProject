@@ -175,6 +175,12 @@ void MainWindow::qMain() {
         LoadReportPage();
     });
 
+	// Connect the tab widget to run LoadTrackManagementPage when the tab is changed
+	connect(ui->managementTab_fp, &QTabWidget::currentChanged, [=](int index) {
+		// Load the report page
+		LoadTrackManagementPage();
+	});
+
     // Connect the audio output to stop itself once the media has finished playing
     QAudioOutput::connect(player, &QMediaPlayer::playbackStateChanged, [=](QMediaPlayer::PlaybackState state) {
         // Are we finished?
