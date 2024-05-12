@@ -152,7 +152,7 @@ void MainWindow::LoadReportPage() {
     
         std::vector<std::pair<int, int>> sorted_album_count; 
         
-        std::sort(sorted_album_count.begin(), sorted_album_count.end(), compareAlbum);
+        std::sort(sorted_album_count.begin(), sorted_album_count.end(), Utility::compareAlbum);
 
         // Resize the vector to 5 elements
         sorted_album_count.resize(5);
@@ -266,7 +266,7 @@ void MainWindow::LoadReportPage() {
         // Sort the artists based on their play count
         std::vector<std::pair<int, int>> sorted_artist_count(artist_count.begin(), artist_count.end());
 
-        std::sort(sorted_artist_count.begin(), sorted_artist_count.end(), compareAlbum);
+        std::sort(sorted_artist_count.begin(), sorted_artist_count.end(), Utility::compareAlbum);
         
         // Resize the vector to 5 elements
         sorted_artist_count.resize(5);

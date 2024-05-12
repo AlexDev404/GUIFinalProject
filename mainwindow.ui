@@ -51,7 +51,7 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>7</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="libraryDisplayPage">
      <widget class="QLabel" name="album_Image_ld">
@@ -218,7 +218,7 @@ border: 0;</string>
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="genres">
        <attribute name="title">
@@ -345,6 +345,102 @@ border: 0;</string>
         </property>
         <property name="text">
          <string>Edit</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="playlist">
+       <attribute name="title">
+        <string>Playlist</string>
+       </attribute>
+       <widget class="QWidget" name="formLayoutWidget_5">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>70</y>
+          <width>183</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <layout class="QFormLayout" name="formLayout_9">
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="playlist_name"/>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_fp_24">
+           <property name="text">
+            <string>Title</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QLabel" name="label_fp_16">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>10</y>
+          <width>781</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Work Sans</family>
+          <pointsize>18</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Playlist </string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+       <widget class="QListView" name="userplaylistview">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>120</y>
+          <width>371</width>
+          <height>281</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="addplaylisttrack">
+        <property name="geometry">
+         <rect>
+          <x>690</x>
+          <y>410</y>
+          <width>83</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Add</string>
+        </property>
+       </widget>
+       <widget class="QListView" name="userlibraryview">
+        <property name="geometry">
+         <rect>
+          <x>410</x>
+          <y>120</y>
+          <width>371</width>
+          <height>281</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="deleteplaylisttrack">
+        <property name="geometry">
+         <rect>
+          <x>290</x>
+          <y>410</y>
+          <width>83</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Delete</string>
         </property>
        </widget>
       </widget>
@@ -1173,45 +1269,6 @@ border: 0;</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QWidget" name="layoutWidget_9">
-      <property name="geometry">
-       <rect>
-        <x>320</x>
-        <y>500</y>
-        <width>506</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_6">
-       <item>
-        <widget class="QPushButton" name="playButton_ldp">
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="text">
-          <string>Play</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="editButton_ldp">
-         <property name="text">
-          <string>Edit</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="deleteButton_ldp">
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="text">
-          <string>Delete</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
      <widget class="QListView" name="PlaylistDisplayListView">
       <property name="geometry">
        <rect>
@@ -1220,6 +1277,31 @@ border: 0;</string>
         <width>801</width>
         <height>411</height>
        </rect>
+      </property>
+      <property name="movement">
+       <enum>QListView::Static</enum>
+      </property>
+      <property name="viewMode">
+       <enum>QListView::IconMode</enum>
+      </property>
+      <property name="uniformItemSizes">
+       <bool>true</bool>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="editButton_ldp">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>500</y>
+        <width>81</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Edit</string>
       </property>
      </widget>
     </widget>
@@ -2037,7 +2119,7 @@ border-bottom-left-radius: 0;</string>
      <x>0</x>
      <y>0</y>
      <width>1230</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
