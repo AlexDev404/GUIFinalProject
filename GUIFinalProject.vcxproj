@@ -324,6 +324,7 @@
     <ClInclude Include="Albums.hpp" />
     <ClInclude Include="Artists-odb.hxx" />
     <ClInclude Include="Artists.hpp" />
+    <ClInclude Include="CustomRules.hpp" />
     <ClInclude Include="database.hpp" />
     <ClInclude Include="Genres-odb.hxx" />
     <ClInclude Include="Genres.hpp" />
