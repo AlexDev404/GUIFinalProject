@@ -350,7 +350,7 @@ border: 0;</string>
       </widget>
       <widget class="QWidget" name="playlist">
        <attribute name="title">
-        <string>Playlist</string>
+        <string>Playlists</string>
        </attribute>
        <widget class="QWidget" name="formLayoutWidget_5">
         <property name="geometry">

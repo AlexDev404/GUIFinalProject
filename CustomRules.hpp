@@ -48,7 +48,7 @@ static void rtrim(std::string &s) {
 };
 
 // Compares two pairs according to their value
-static bool compareAlbum(std::pair<int, int> i1, std::pair<int, int> i2) 
+const bool compareAlbum(std::pair<int, int> i1, std::pair<int, int> i2) 
 { 
     return (i1.second > i2.second); // Checks to see if the second element of the pair is larger (orders in descending)
 } 

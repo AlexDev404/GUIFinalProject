@@ -152,7 +152,7 @@ void MainWindow::LoadReportPage() {
     
         std::vector<std::pair<int, int>> sorted_album_count; 
         
-        std::sort(sorted_album_count.begin(), sorted_album_count.end(), Utility::compareAlbum);
+        std::sort(sorted_album_count.begin(), sorted_album_count.end(), &Utility::compareAlbum);
 
         // Resize the vector to 5 elements
         sorted_album_count.resize(5);

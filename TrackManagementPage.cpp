@@ -45,6 +45,23 @@ void MainWindow::LoadTrackManagementPage() {
     else if (currentTabText == "Tracks") {
 
     }
+    else if (currentTabText == "Playlists") {
+        odb::result<Track> trackList = database_context.query<Track>();
+        for(odb::result<Track>::iterator trackIt = trackList.begin(); trackIt != trackList.end(); trackIt++){
+            // Get the track
+            Track track = *(trackIt);
+            Albums track_album = *(track.AlbumId());
+            Artists track_artist = *(track.ArtistId());
+
+            // Next: Create a QStandardItem and append it to the list of tracks
+            QStandardItem* view = new QStandardItem(QString::fromLatin1((track.Title().empty() ? "No title" : track.Title()) + "\n" + track_album.Title() + "\n" + track_artist.Name()));
+        
+            view->setEditable(false);
+
+            model->appendRow(view);
+        }
+
+    }
     else {
         return;
     }
