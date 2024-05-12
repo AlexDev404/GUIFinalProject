@@ -51,7 +51,7 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>8</number>
+     <number>10</number>
     </property>
     <widget class="QWidget" name="libraryDisplayPage">
      <widget class="QLabel" name="album_Image_ld">
@@ -406,7 +406,7 @@ border: 0;</string>
             <x>160</x>
             <y>80</y>
             <width>183</width>
-            <height>131</height>
+            <height>135</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout_4">
@@ -458,7 +458,7 @@ border: 0;</string>
             <x>390</x>
             <y>80</y>
             <width>181</width>
-            <height>87</height>
+            <height>88</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout_3">
@@ -533,7 +533,7 @@ border: 0;</string>
             <x>0</x>
             <y>60</y>
             <width>183</width>
-            <height>131</height>
+            <height>135</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout_8">
@@ -668,7 +668,7 @@ border: 0;</string>
             <x>30</x>
             <y>260</y>
             <width>201</width>
-            <height>28</height>
+            <height>30</height>
            </rect>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_12">
@@ -1536,7 +1536,7 @@ border: 0;</string>
        </rect>
       </property>
       <property name="text">
-       <string>    Spansih</string>
+       <string>    Spanish</string>
       </property>
      </widget>
     </widget>
@@ -2037,7 +2037,7 @@ border-bottom-left-radius: 0;</string>
      <x>0</x>
      <y>0</y>
      <width>1230</width>
-     <height>16</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

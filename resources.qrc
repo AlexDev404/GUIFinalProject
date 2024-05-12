@@ -43,5 +43,9 @@
         <file>assets/images/englishflag.png</file>
         <file>assets/images/spanishflag.png</file>
         <file>assets/images/stop.png</file>
+        <file>assets/translations/EnglishTranslation_en.qm</file>
+        <file>assets/translations/EnglishTranslation_en.ts</file>
+        <file>assets/translations/Translation_es_MX.qm</file>
+        <file>assets/translations/Translation_es_MX.ts</file>
     </qresource>
 </RCC>
