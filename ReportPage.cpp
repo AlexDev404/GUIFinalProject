@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 #include "database.hpp"
@@ -86,7 +86,7 @@ void MainWindow::LoadReportPage() {
 
                 // Create a QStandardItem for the track
                 QStandardItem* view = new QStandardItem(QString::fromLatin1((track.Title().empty() ? track.FileName() : track.Title() + "\nAlbum: " + album.Title() + "\nArtist: " +
-                                                                             artist.Name() + "\nYou played this track " + std::to_string(track_play_count) + " time(s).")));
+                    artist.Name() + "\nYou played this track " + std::to_string(track_play_count) + " time(s).")));
 
                 // Enable editing
                 view->setEditable(false);
@@ -128,15 +128,15 @@ void MainWindow::LoadReportPage() {
         std::vector<std::pair<int, int>> album_count; // album_id, album_count
 
         // Append the top 5 tracks to the listView
-        // Loop through the playCounts five times
+        // Loop through the `playCounts` five times
         for (odb::result<Track_Playcount>::iterator trackNow = playCounts.begin(); trackNow != playCounts.end(); trackNow++) {
 
-            // Loop through all the tracks and group them
-            Track track = *(trackNow->TrackId());
-
+            // The track
+            Track track = *(trackNow->TrackId()); // we gotta loop through all the tracks and then group them 
+            // but we have track each one individually
             Windows_Account user = *(trackNow->UserId());
             if (user.Id() == currentUser.Id()) {
-                Albums track_album = *(track.AlbumId());
+                Albums track_album = *(track.AlbumId()); // rtn lemme see whats up with micks..im back
 
                 bool found = false;
                 for (std::pair<int, int> album : album_count) {
@@ -144,7 +144,8 @@ void MainWindow::LoadReportPage() {
                         album.first += trackNow->Count();
                         found = true;
                         break;
-                    }
+                    } // we're done sorting it so now we just have to trim the vector to 5 elements 
+                    // since those are the 5 most listened albums
                 }
                 if (!found) {
                     album_count.push_back(std::make_pair(track_album.Id(), trackNow->Count()));
@@ -154,58 +155,53 @@ void MainWindow::LoadReportPage() {
 
         sort(album_count.begin(), album_count.end(), Utility::compareAlbum);
 
-        // Resize the vector to 5 elements
-        album_count.resize(5);
+        album_count.resize(5); // Resize the vector to 5 elements
 
+		int rank = 1;
         bool albumFailed = false;
-        // Get the albums from the DB
+        // u gotta get the album from the database tho
         for (auto x : album_count) {
-            // Retrieve the album ID from the vector
-            int album_id = x.first;
-
-            // Get the album ID from the DB
+            // u gotta retrieve the data from the database using the vector and assign it to the variables
+            int album_id = x.first; // 
+            // 
             Albums* albums_ = database_context.query_one<Albums>(odb::query<Albums>::id == album_id);
 
             if (albums_ == NULL) {
                 albumFailed = true;
-                continue;
+                continue; // Weren't able to load this album since it returned a nullptr
+                // assume we are in some sort of loop
             }
 
             // Prepare the data
             Albums albums = *(albums_);
-
-            // Get artist name
+            // Do a shitty ring-around to get the artist name
             odb::result<Track> track = database_context.query<Track>(odb::query<Track>::artist_id == albums.Id());
-
-            // Void Checks
+            // Let's do some void checks
+            // Cast to void
             void* track_is_void = &(*(track.begin()));
-
             if (track_is_void == NULL) {
                 continue; // Quietly fail
             }
 
-            // Valid artist
-            Artists artist = (Artists)(track_is_void);
+            Artists artist = *(Artists*)(track_is_void); // Should be a valid artist now
             string album_artist = artist.Name();
-
             // Create a QStandardItem for the album
-            // QStandardItem* album = new QStandardItem(QString::fromStdString(std::string(albums.Title() + "\n" + album_artist + "\nYou played this album " + std::to_string(x.second) + " time(s)")));
-            QStandardItem* album = new QStandardItem(QString::fromStdString(std::string(albums.Title() + "\nYou played this album " + std::to_string(x.second) + " time(s)")));
+            QStandardItem* album = new QStandardItem(QString::fromStdString(std::string(std::string("#" + std::to_string(rank) + " ") + albums.Title() + "\n" + album_artist + "\nYou played this album " + std::to_string(x.second) + " time(s)")));
             // Set the hidden data
             album->setText(album->text());
 
             // Append the item to the model
             model->appendRow(album);
-
-        }// Loop ends here
+            rank++;
+            /// Loop ends here
+        }
         if (albumFailed) {
             QMessageBox msgBox;
             msgBox.setWindowTitle("Load error");
-            msgBox.setIcon(QMessageBox::Critical);
+            msgBox.setIcon(QMessageBox::Critical); // are the errors gone now T-T
             msgBox.setText("The database request failed and we weren't able to load some of the albums.");
             msgBox.exec();
         }
-
     }
     // ---------------------------------------------------------- Artists Report ----------------------------------------------------------
     else if (ui->reportTypeComboBox->currentText() == "Artists") {
@@ -256,7 +252,7 @@ void MainWindow::LoadReportPage() {
         std::vector<std::pair<int, int>> sorted_artist_count(artist_count.begin(), artist_count.end());
 
         std::sort(sorted_artist_count.begin(), sorted_artist_count.end(), Utility::compareAlbum);
-        
+
         // Resize the vector to 5 elements
         sorted_artist_count.resize(5);
 
@@ -269,8 +265,8 @@ void MainWindow::LoadReportPage() {
             Artists* artist = database_context.query_one<Artists>(odb::query<Artists>::id == artist_id);
 
             if (artist != nullptr) {
-                QStandardItem* artist_item = new QStandardItem(QString::fromStdString(std::string(artist->Name() + "\nYou played tracks by this artist " 
-                                                                                                    + std::to_string(play_count) + " time(s)")));
+                QStandardItem* artist_item = new QStandardItem(QString::fromStdString(std::string(artist->Name() + "\nYou played tracks by this artist "
+                    + std::to_string(play_count) + " time(s)")));
 
                 artist_item->setText("#" + QString::number(rank) + " " + artist_item->text());
 
@@ -292,5 +288,4 @@ void MainWindow::LoadReportPage() {
     t.commit(); // Don't need the database anymore beyond this point
 
 }
- 
 	

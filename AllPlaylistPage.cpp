@@ -108,6 +108,7 @@ void MainWindow::LoadAllPlaylistPage() { // it's called that
                             + "Length: " + std::to_string(playlist_duration/60) // does that still have an error? hb now?good lmao alr...? wait
                             )
                 )
+            // k miss we are ready (again T-T) lets hope it works this time...RASS T-T
         );
 
         // The user should not be able to edit this
