@@ -160,7 +160,7 @@ void MainWindow::LoadReportPage() {
 		int rank = 1;
         bool albumFailed = false;
         // u gotta get the album from the database tho
-        for (auto x : album_count) {
+        for (std::pair x: album_count) {
             // u gotta retrieve the data from the database using the vector and assign it to the variables
             int album_id = x.first; // 
             // 
