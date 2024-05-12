@@ -114,7 +114,7 @@ void MainWindow::LoadReportPage() {
             // Query the track_Playcount table
             playCounts = database_context.query<Track_Playcount>(
                 ("WHERE user_id = " + user_id + " ORDER BY " + odb::query<Track_Playcount>::count)
-            ); // Find all the tracks listened to by the user and sort by their `count`
+            ); // Find all the tracks listened to by the user and sort by their count
 
         }
         catch (odb::exception& error) {
@@ -124,51 +124,49 @@ void MainWindow::LoadReportPage() {
             QMessageBox::critical(this, "Error", QString::fromStdString(error.what()));
         }
 
-        // Display for rank listing
-        int rank = 1;
+        // We are storing the album_id and the count (how many times the album was played)
+        std::vector<std::pair<int, int>> album_count; // album_id, album_count
 
-        std::map<int, int> album_count; // album_id, album_count
-
-        // Append the top 5 album to the listView
-        // Loop through the `playCounts` five times
+        // Append the top 5 tracks to the listView
+        // Loop through the playCounts five times
         for (odb::result<Track_Playcount>::iterator trackNow = playCounts.begin(); trackNow != playCounts.end(); trackNow++) {
+
             // Loop through all the tracks and group them
             Track track = *(trackNow->TrackId());
+
             Windows_Account user = *(trackNow->UserId());
-            if (user.Id() == currentUser.Id()) { // such a giant "if" lmaoo T-T
+            if (user.Id() == currentUser.Id()) {
                 Albums track_album = *(track.AlbumId());
 
-                // Check if the album ID is already in the map
-                if (album_count.find(track_album.Id()) != album_count.end()) {
-                    // Increment the play count for the existing album ID
-                    album_count[track_album.Id()] += trackNow->Count();
+                bool found = false;
+                for (std::pair<int, int> album : album_count) {
+                    if (album.second == track_album.Id()) {
+                        album.first += trackNow->Count();
+                        found = true;
+                        break;
+                    }
                 }
-                else {
-                    // Add the album ID with its play count to the map
-                    album_count[track_album.Id()] = trackNow->Count();
+                if (!found) {
+                    album_count.push_back(std::make_pair(track_album.Id(), trackNow->Count()));
                 }
             }
         }
-    
-        std::vector<std::pair<int, int>> sorted_album_count; 
-        
-        std::sort(sorted_album_count.begin(), sorted_album_count.end(), &Utility::compareAlbum);
+
+        sort(album_count.begin(), album_count.end(), Utility::compareAlbum);
 
         // Resize the vector to 5 elements
-        sorted_album_count.resize(5);
+        album_count.resize(5);
 
         bool albumFailed = false;
-
         // Get the albums from the DB
-        for (const auto& album_pair : sorted_album_count) {
-            // Retrieve the album ID and play count
-            int album_id = album_pair.first;
-            int play_count = album_pair.second;
+        for (auto x : album_count) {
+            // Retrieve the album ID from the vector
+            int album_id = x.first;
 
-            // Get the album from the DB
+            // Get the album ID from the DB
             Albums* albums_ = database_context.query_one<Albums>(odb::query<Albums>::id == album_id);
 
-            if (albums_ == nullptr) {
+            if (albums_ == NULL) {
                 albumFailed = true;
                 continue;
             }
@@ -176,39 +174,30 @@ void MainWindow::LoadReportPage() {
             // Prepare the data
             Albums albums = *(albums_);
 
-            // Query tracks associated with the album to get artist information
-            odb::result<Track> tracks = database_context.query<Track>(odb::query<Track>::album_id == album_id);
+            // Get artist name
+            odb::result<Track> track = database_context.query<Track>(odb::query<Track>::artist_id == albums.Id());
 
-            // Check if any tracks are associated with the album
-            if (!tracks.empty()) {
-                // Get the artist information from the first track (assuming all tracks belong to the same artist)
-                Artists artist = *(tracks.begin()->ArtistId());
-                string album_artist = artist.Name();
+            // Void Checks
+            void* track_is_void = &(*(track.begin()));
 
-                // Create a QStandardItem for the album with artist information
-                QStandardItem* album_item = new QStandardItem(QString::fromStdString(std::string(albums.Title() + "\nArtist: " + album_artist + "\nYou played this album " + std::to_string(play_count) + " time(s)")));
-                // Set the hidden data
-                album_item->setText("#" + QString::number(rank) + " " + album_item->text());
-
-                // Enable editing
-                album_item->setEditable(false);
-
-                // Append the item to the model
-                model->appendRow(album_item);
-
-                rank++;
+            if (track_is_void == NULL) {
+                continue; // Quietly fail
             }
-            else {
-                // Create a QStandardItem for the album without artist information
-                QStandardItem* album_item = new QStandardItem(QString::fromStdString(std::string(albums.Title() + "\nYou played this album " + std::to_string(play_count) + " time(s)")));
-                // Set the hidden data
-                album_item->setText(album_item->text());
 
-                // Append the item to the model
-                model->appendRow(album_item);
-            }
+            // Valid artist
+            Artists artist = (Artists)(track_is_void);
+            string album_artist = artist.Name();
+
+            // Create a QStandardItem for the album
+            // QStandardItem* album = new QStandardItem(QString::fromStdString(std::string(albums.Title() + "\n" + album_artist + "\nYou played this album " + std::to_string(x.second) + " time(s)")));
+            QStandardItem* album = new QStandardItem(QString::fromStdString(std::string(albums.Title() + "\nYou played this album " + std::to_string(x.second) + " time(s)")));
+            // Set the hidden data
+            album->setText(album->text());
+
+            // Append the item to the model
+            model->appendRow(album);
+
         }// Loop ends here
-
         if (albumFailed) {
             QMessageBox msgBox;
             msgBox.setWindowTitle("Load error");
