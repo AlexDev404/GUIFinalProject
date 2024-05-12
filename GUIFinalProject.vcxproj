@@ -46,7 +46,7 @@
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <QtInstall>6.6.1_msvc2019_64</QtInstall>
     <QtModules>core;gui;network;widgets;multimedia;multimediawidgets</QtModules>
-    <QtInstall>6.6.1_msvc2019_64</QtInstall>
+    <QtInstall>6.6.2_msvc2019_64</QtInstall>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') OR !Exists('$(QtMsBuild)\Qt.props')">
     <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
@@ -245,6 +245,7 @@
     <ClCompile Include="Track.cpp" />
     <ClCompile Include="TrackImage.cpp" />
     <ClCompile Include="TrackManagement.cpp" />
+    <ClCompile Include="TrackManagementPage.cpp" />
     <ClCompile Include="Track_Playcount-odb.cxx" />
     <ClCompile Include="Track_Playcount-odb.ixx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -325,6 +326,7 @@
     <ClInclude Include="Albums.hpp" />
     <ClInclude Include="Artists-odb.hxx" />
     <ClInclude Include="Artists.hpp" />
+    <ClInclude Include="CustomRules.hpp" />
     <ClInclude Include="database.hpp" />
     <ClInclude Include="Genres-odb.hxx" />
     <ClInclude Include="Genres.hpp" />

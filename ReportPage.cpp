@@ -1,4 +1,4 @@
-﻿#include "mainwindow.h"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 #include "database.hpp"
@@ -45,8 +45,8 @@ void MainWindow::LoadReportPage() {
     // ---------------------------------------------------------- Track Report ----------------------------------------------------------
     // Populate the reportlistView with the calculated statistics
     if (ui->reportTypeComboBox->currentText() == "Tracks") {
-
         // Disable the reportPageChooser
+        ui->reportsPageChooser->setVisible(false);
         ui->mainStackedWidget->setCurrentWidget(ui->reportPage);
         string user_id = std::to_string(currentUser.Id());
         odb::result<Track_Playcount> playCounts;

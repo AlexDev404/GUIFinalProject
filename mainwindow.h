@@ -35,6 +35,7 @@ public:
 	void LoadPlayListDisplayPage(const QModelIndex& index);
     void LoadAllPlaylistPage();
     void LoadUserManagementPage();
+    void LoadTrackManagementPage();
     void PlayTrack(const QModelIndex& index);
     /// <summary>
     /// Expects database to be open. Sets the play area data. This is the data that is displayed when a track is played.
