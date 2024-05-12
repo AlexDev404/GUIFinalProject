@@ -3,6 +3,8 @@
 #include <QFontDatabase>
 #include <QFile>
 #include <QColorSpace>
+#include <QTranslator>
+
 
 // For populating the default playlist
 #include "database.hpp"
@@ -13,6 +15,8 @@
 #include "taglib/tag.h"
 #include "taglib/fileref.h"
 
+#include <QMessageBox>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -21,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     LoadResources();
     qMain();
+
+    // connect(ui->reportTypeComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(LoadReportPage()));
 }
 
 void MainWindow::LoadResources(){
@@ -89,9 +95,9 @@ void MainWindow::LoadResources(){
     setWindowIcon(QIcon(headphonesIcon));
 
     // Setting initial windows
-    ui->mainStackedWidget->setCurrentIndex(4);
-    ui->managementTab_fp->setCurrentIndex(0);
-    ui->trackManagementSub->setCurrentIndex(0);
+    ui->mainStackedWidget->setCurrentWidget(ui->allTracksPage);
+    ui->managementTab_fp->setCurrentWidget(ui->albums);
+    ui->trackManagementSub->setCurrentWidget(ui->addtrack);
 
     // Header
     ui->user_loggedin->setIcon(QIcon(userIcon));
@@ -99,7 +105,6 @@ void MainWindow::LoadResources(){
 
     // Search Buttons
     ui->search_submit->setIcon(QIcon(searchIcon));
-    ui->SearchEditTrackButton_fp->setIcon(QIcon(searchIcon));
 
     // Play Area Icons
     ui->back_pa->setIcon(QIcon(backIcon));
@@ -143,6 +148,11 @@ void MainWindow::LoadResources(){
     ui->spanishButton->setIcon(QIcon(spanishIcon));
     ui->spanishButton->setIconSize(QSize(125, 125));
 
+    // Connect the English and Spanish buttons to language switching slots
+    connect(ui->englishButton, &QPushButton::clicked, this, &MainWindow::switchToEnglish);
+    connect(ui->spanishButton, &QPushButton::clicked, this, &MainWindow::switchToSpanish);
+
+
 }
 
 MainWindow::~MainWindow()
@@ -152,13 +162,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_settings_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(2);
+    ui->mainStackedWidget->setCurrentWidget(ui->settingsPage);
 }
 
 
 void MainWindow::on_search_submit_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(8);
+    ui->mainStackedWidget->setCurrentWidget(ui->searchResultPage);
 }
 
 
@@ -170,25 +180,26 @@ void MainWindow::on_reportButton_clicked()
 
 void MainWindow::on_your_playlists_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(6);
+    this->LoadAllPlaylistPage();
 }
 
 
 void MainWindow::on_trackManagementButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(1);
+    LoadTrackManagementPage();
 }
 
 
 void MainWindow::on_userManagementButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(5);
+    this->LoadUserManagementPage();
 }
 
 
 void MainWindow::on_all_tracks_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(4);
+    LoadAllTracksPage(ui->allTracksListView, QSize(125, 175), QSize(100, 100));
+    ui->mainStackedWidget->setCurrentWidget(ui->allTracksPage);
 }
 
 
@@ -200,26 +211,54 @@ void MainWindow::on_all_albums_clicked()
 
 void MainWindow::on_viewSongsButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(4);
+    ui->mainStackedWidget->setCurrentWidget(ui->allTracksPage);
 }
 
 
 void MainWindow::on_viewAlbumsButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(3);
+    ui->mainStackedWidget->setCurrentWidget(ui->allAlbumsPage);
 }
 
 
 void MainWindow::on_viewPlaylistButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(6);
+    this->LoadAllPlaylistPage();
 }
 
 
 void MainWindow::on_languageButton_clicked()
 {
-    ui->mainStackedWidget->setCurrentIndex(9);
+    ui->mainStackedWidget->setCurrentWidget(ui->languagePage);
 }
+
+void MainWindow::switchToEnglish() {
+	// Change application language to English
+	QTranslator translator;
+	if (translator.load(":/otherfiles/assets/translations/EnglishTranslation_en.qm")) {
+		qDebug() << "English translation loaded successfully";
+		qApp->installTranslator(&translator);
+		ui->retranslateUi(this);
+	}
+	else {
+		qDebug() << "Failed to load English translation file";
+	}
+}
+
+void MainWindow::switchToSpanish() {
+	// Change application language to Spanish
+	QTranslator translator;
+	if (translator.load(":/otherfiles/assets/translations/Translation_es_MX.qm")) {
+		qDebug() << "Spanish translation loaded successfully";
+		qApp->installTranslator(&translator);
+		ui->retranslateUi(this);
+	}
+	else {
+		qDebug() << "Failed to load Spanish translation file";
+	}
+}
+
+
 
 void MainWindow::on_actionOpen_Folder_triggered()
 {
@@ -231,19 +270,19 @@ void MainWindow::on_play_pause_pa_clicked()
     // Check if we have any media loaded
     // If we don't, we can't play anything
     if (player->mediaStatus() == QMediaPlayer::NoMedia) {
-		return;
-	}
+        return;
+    }
     // Check if we are paused already
     if (player->playbackState() == QMediaPlayer::PausedState) {
-		player->play();
+        player->play();
         // Change the icon to a pause icon
         ui->play_pause_pa->setIcon(pauseIcon);
-	}
+    }
     else {
-		player->pause();
+        player->pause();
         // Change the icon to a play icon
-		ui->play_pause_pa->setIcon(playIcon);
-	}
+        ui->play_pause_pa->setIcon(playIcon);
+    }
 }
 
 
@@ -256,14 +295,25 @@ void MainWindow::on_back_pa_clicked()
     }
     // Are we at the start of the playlist?
     if (currentTrack.Id() == 1) {
-		return;
-	}
+        return;
+    }
     // Play the next track in the DEFAULT playlist
     // Get the current track's position in the track_playlist table
     odb::sqlite::database database_context = db.getDatabase();
     odb::transaction t(database_context.begin());
-    Track_Playlist track_map = *(database_context.query_one<Track_Playlist>(odb::query<Track_Playlist>::playlist_id == defaultPlaylist.Id() &&
-        odb::query<Track_Playlist>::track_id == (currentTrack.Id() - 1))); // Same thing but -1
+    Track_Playlist* track_map_ = database_context.query_one<Track_Playlist>(odb::query<Track_Playlist>::playlist_id == defaultPlaylist.Id() &&
+        odb::query<Track_Playlist>::track_id == (currentTrack.Id() - 1)); // Same thing but -1
+
+    if (track_map_ == NULL) {
+        //QMessageBox msgBox;
+        //msgBox.setWindowTitle("Media error");
+        //msgBox.setIcon(QMessageBox::Critical);
+        //msgBox.setText("<FONT COLOR='BLACK'>The back button is unavailable at this time.</ FONT>");
+        //msgBox.exec();
+        return;
+    }
+
+    Track_Playlist track_map = *track_map_;
 
     // Map this track_map to a track
     currentTrack = *(track_map.TrackId());
@@ -277,7 +327,7 @@ void MainWindow::on_back_pa_clicked()
     Albums track_album = *(currentTrack.AlbumId());
     Artists track_artist = *(currentTrack.ArtistId());
 
-	// Set the play area data
+    // Set the play area data
     SetPlayAreaData(track_image, currentTrack.Title(), track_album.Title(), track_artist.Name(), database_context);
 
 
@@ -317,7 +367,7 @@ void MainWindow::on_forward_pa_clicked()
 
     // Are we at the end of the playlist?
     if (track_map_ == nullptr) {
-        		return;
+                return;
     }
 
     Track_Playlist track_map = *track_map_;
@@ -354,3 +404,27 @@ void MainWindow::on_forward_pa_clicked()
 
     t.commit();
 }
+
+void MainWindow::on_state_Button_ld_clicked()
+{
+    this->on_play_pause_pa_clicked();
+    if (player->playbackState() == QMediaPlayer::PlayingState) {
+        ui->state_Button_ld->setText("Pause");
+    }
+    else {
+        ui->state_Button_ld->setText("Play");
+    }
+}
+
+
+void MainWindow::on_englishButton_clicked()
+{
+    switchToEnglish();
+}
+
+
+void MainWindow::on_spanishButton_clicked()
+{
+    switchToSpanish();
+}
+
