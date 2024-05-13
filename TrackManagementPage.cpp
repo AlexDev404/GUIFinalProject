@@ -32,7 +32,7 @@ void MainWindow::LoadTrackManagementPage() {
     odb::transaction t(database_context.begin());
 
     auto model = new QStandardItemModel(this);
-    ui->reportListView->setModel(model);
+    ui->userlibraryview->setModel(model);
 
     std::string currentTabText = ui->managementTab_fp->tabText(ui->managementTab_fp->currentIndex()).toStdString();
 
@@ -57,10 +57,9 @@ void MainWindow::LoadTrackManagementPage() {
             QStandardItem* view = new QStandardItem(QString::fromLatin1((track.Title().empty() ? "No title" : track.Title()) + "\n" + track_album.Title() + "\n" + track_artist.Name()));
         
             view->setEditable(false);
-
+            view->setText(view->text());
             model->appendRow(view);
         }
-
     }
     else {
         return;

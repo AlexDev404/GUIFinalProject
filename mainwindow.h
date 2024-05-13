@@ -32,7 +32,8 @@ public:
     void LoadResources();
     void qMain();
     void LoadAllTracksPage(QListView* listView, QSize size, QSize icon_size);
-	void LoadPlayListDisplayPage(const QModelIndex& index);
+	void LoadPlayListDisplayPageAlbums(const QModelIndex& index);
+    void LoadPlayListDisplayPagePlaylists(const QModelIndex& index);
     void LoadAllPlaylistPage();
     void LoadUserManagementPage();
     void LoadTrackManagementPage();
@@ -103,6 +104,7 @@ private slots:
     void on_englishButton_clicked();
 
     void on_spanishButton_clicked();
+
 
 private:
     Ui::MainWindow* ui;
