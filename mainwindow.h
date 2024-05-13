@@ -50,10 +50,11 @@ public:
     void UIAddTrack();
     void deleteGenreFromTrackManagement();
     void addGenreFromTrackManagement();
-    //void addTrackFromTrackManagement();
-    //void deleteTrackFromTrackManagement();
+    void addTrackFromTrackManagement();
+    void deleteTrackFromTrackManagement();
     void addAlbumFromTrackManagement();
     void deleteAlbumFromTrackManagement();
+    void addTrackFromFolder();
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
@@ -120,6 +121,10 @@ private slots:
 
     void on_AddAlbum_clicked();
 
+    void on_AddTrack_clicked();
+
+    void on_editTrackSourceFile_clicked();
+
 private:
     Ui::MainWindow* ui;
     // The database
@@ -134,6 +139,7 @@ private:
     Playlist defaultPlaylist = *(new Playlist("DEFAULT", "2022"));
     QUrl* track_url;
     QString folderPath;
+    QString filePath;
     Track currentTrack = *(new Track("NO_NAME"));
     Windows_Account currentUser = *(new Windows_Account("NULL_USER"));
 

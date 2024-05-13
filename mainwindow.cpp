@@ -440,9 +440,14 @@ void MainWindow::on_DeleteGenre_clicked()
 
 void MainWindow::on_DeleteTrack_clicked()
 {
-    //this->deleteTrackFromTrackManagement();
+    this->deleteTrackFromTrackManagement();
 }
 
+
+void MainWindow::on_AddTrack_clicked()
+{
+    this->addTrackFromTrackManagement();
+}
 
 void MainWindow::on_DeleteAlbum_clicked()
 {
@@ -454,3 +459,7 @@ void MainWindow::on_AddAlbum_clicked()
     this->addAlbumFromTrackManagement();
 }
 
+void MainWindow::on_editTrackSourceFile_clicked()
+{
+    this->addTrackFromFolder();
+}

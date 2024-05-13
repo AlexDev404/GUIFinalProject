@@ -174,6 +174,9 @@ void MainWindow::ShowUserContextMenu(QPoint pos) {
 		else if (role.Name() == "Administrator") {
 			new_role = database_context.query_one<Roles>(odb::query<Roles>::name == "User");
 		}
+		else {
+			new_role = database_context.query_one<Roles>(odb::query<Roles>::name == "User");
+		}
 
 		// Assign the new role
 		user_to_promote.SetAccessLevel(new_role);

@@ -21,8 +21,11 @@
 #include "WindowsAccount.hpp"
 #include "WindowsAccount-odb.hxx"
 
+#include "TrackManagement.hpp"
+
 #include <qDebug>
 #include <QMessageBox>
+#include <QFileDialog>
 
 // So this is the report page. It is a simple page that displays the report of the
 // The recently played tracks, albums, and artists. It also displays the total number of
@@ -101,6 +104,93 @@ void MainWindow::LoadTrackManagementPage() {
 		// END ALBUMS
     }
     else if (currentTabText == "Tracks") {
+        // Populate the `editTrackArtist` with all the available artists
+        odb::result<Artists> artistList = database_context.query<Artists>();
+        for (odb::result<Artists>::iterator artistIt = artistList.begin(); artistIt != artistList.end(); artistIt++) {
+            // Get the artist
+            Artists artist = *(artistIt);
+
+            // Next: Create a QStandardItem and append it to the list of artists
+            QStandardItem* view = new QStandardItem(QString::fromStdString((artist.Name().empty() ? "No name" : artist.Name())));
+            view->setEditable(false);
+            ui->editTrackArtist->addItem(view->text());
+
+        }
+
+		// Populate the `editTrackAlbum` with all the available albums
+		odb::result<Albums> albumList = database_context.query<Albums>();
+        for (odb::result<Albums>::iterator albumIt = albumList.begin(); albumIt != albumList.end(); albumIt++) {
+			// Get the album
+			Albums album = *(albumIt);
+
+			// Next: Create a QStandardItem and append it to the list of album
+            QStandardItem* view = new QStandardItem(QString::fromStdString((album.Title().empty() ? "No title" : album.Title())));
+			view->setEditable(false);
+			ui->editTrackAlbum->addItem(view->text());
+        }
+
+		// Populate the `editTrackGenre` with all the available genres
+		odb::result<Genres> genreList = database_context.query<Genres>();
+        for (odb::result<Genres>::iterator genreIt = genreList.begin(); genreIt != genreList.end(); genreIt++) {
+			// Get the genre
+			Genres genre = *(genreIt);
+
+			// Next: Create a QStandardItem and append it to the list of genre
+			QStandardItem* view = new QStandardItem(QString::fromStdString((genre.Title().empty() ? "No title" : genre.Title())));
+			view->setEditable(false);
+			ui->editTrackGenre->addItem(view->text());
+        }
+
+        // Autofill `editGenreTitle` with the genre title when the genre is clicked
+        connect(ui->tracksListView_fp, &QListView::clicked, [=]() {
+            
+            odb::sqlite::database database_context = db.getDatabase();
+            odb::transaction t(database_context.begin());
+
+            std::string view_data = ui->tracksListView_fp->currentIndex().data().toString().toStdString();
+            /*
+            ID
+            TITLE
+            ALBUM
+            ARTIST
+            GENRE
+            */
+            // Split by "\n"
+            const QStringList view_data_split = QString::fromStdString(view_data).split("\n");
+			Track* track = database_context.query_one<Track>(odb::query<Track>::id == view_data_split[0].toInt());
+            if (track == NULL) {
+                return;
+            }
+            Artists* artist = (Artists*)(track->ArtistId());
+			Albums* album = (Albums*)(track->AlbumId());
+            Genres* genre = (Genres*)(track->GenreId());
+
+            ui->TrackDatabaseID->setText(view_data_split[0]);
+            ui->editTrackTitle->setText(view_data_split[1]);
+            
+			// Set the artist
+			if (artist != NULL) {
+				ui->editTrackArtist->setCurrentIndex(artist->Id() - 1);
+			}
+
+            // Set the album
+            if (album != NULL) {
+                //const int album_index = std::stoi(view_data_split[2].toStdString());
+                string album_name = view_data_split[2].toStdString(); // This is the album name
+
+				// Get the album name's place in the index of `editTrackAlbum`
+				int album_index = ui->editTrackAlbum->findText(QString::fromStdString(album_name));
+                ui->editTrackAlbum->setCurrentIndex(album_index);
+            }
+
+			// Set the genre
+            if (genre != NULL) {
+                ui->editTrackGenre->setCurrentIndex(genre->Id() - 1);
+            }
+        });
+
+
+
         // Set the data for the albums list view
         ui->tracksListView_fp->setModel(model);
         odb::result<Track> tracksList = database_context.query<Track>();
@@ -109,9 +199,11 @@ void MainWindow::LoadTrackManagementPage() {
             Track track = *(trackIt);
 			Albums track_album = *(track.AlbumId());
 			Artists track_artist = *(track.ArtistId());
+            Genres track_genre = *(track.GenreId());
 
             // Next: Create a QStandardItem and append it to the list of album
-            QStandardItem* view = new QStandardItem(QString::fromLatin1((track.Title().empty() ? "No title" : track.Title()) + "\n" + track_album.Title() + "\n" + track_artist.Name()));
+            QStandardItem* view = new QStandardItem(QString::fromStdString(std::to_string(track.Id()) + "\n" + (track.Title().empty() ? "No title" : track.Title()) + "\n" + track_album.Title() + "\n" + track_artist.Name() + "\n" + track_genre.Title()));
+            view->setText(view->text());
 
             // Resize to 327px (width)
 			view->setSizeHint(QSize(327, 80));
@@ -214,6 +306,7 @@ void MainWindow::addGenreFromTrackManagement() {
             t.commit();
             // Reload the page
             LoadTrackManagementPage();
+            return;
         }
         catch (const odb::exception& e) {
             QMessageBox::warning(this, "Error", "Failed to edit genre. Error: " + QString::fromStdString(e.what()));
@@ -317,6 +410,7 @@ void MainWindow::addAlbumFromTrackManagement() {
 
             // Reload the page
             LoadTrackManagementPage();
+            return;
         }
         catch (const odb::exception& e) {
             QMessageBox::warning(this, "Error", "Failed to edit album. Error: " + QString::fromStdString(e.what()));
@@ -342,3 +436,167 @@ void MainWindow::addAlbumFromTrackManagement() {
 }
 
 /************************* TRACKS ********************************/
+// Action: Add the track on-click
+void MainWindow::addTrackFromTrackManagement() {
+    int track_id = ui->TrackDatabaseID->text().toInt();
+    std::string track_title = ui->editTrackTitle->text().toStdString();
+	int track_artist = ui->editTrackArtist->currentIndex() + 1;
+    string track_album_name = ui->editTrackAlbum->currentText().toStdString();
+    int track_genre = ui->editTrackGenre->currentIndex() + 1;
+    
+    odb::sqlite::database database_context = db.getDatabase();
+    odb::transaction t(database_context.begin());
+
+    if (track_title.empty()) {
+        QMessageBox::warning(this, "Error", "Please enter a track title.");
+        return;
+    }
+
+    // Query for an already existing track
+    Track* track = database_context.query_one<Track>(odb::query<Track>::id == track_id);
+
+    if (track != NULL) {
+        /*if (genre->Title() == genre_title) {
+            QMessageBox msgBox;
+            msgBox.setText("Genre already exists.");
+            msgBox.setInformativeText("You cannot have two genres of the same name");
+            msgBox.exec();
+            return;
+        }*/
+
+        // Edit the genre
+        try {
+            // What's the genre?
+			Genres* genre = database_context.query_one<Genres>(odb::query<Genres>::id == track_genre);
+            // What's the artist?
+			Artists* artist = database_context.query_one<Artists>(odb::query<Artists>::id == track_artist);
+            // What's the album?
+			Albums* album = database_context.query_one<Albums>(odb::query<Albums>::title == track_album_name);
+
+			if (genre == NULL || artist == NULL || album == NULL) {
+				QMessageBox msgBox;
+				msgBox.setText("Track does not exist.");
+				msgBox.setInformativeText("You cannot add or edit a track that does not exist.");
+				msgBox.exec();
+				return;
+			}
+
+            // Edit the genre
+            track->SetTitle(track_title);
+			track->SetGenreId(genre);
+			track->SetArtistId(artist);
+            track->SetAlbumId(album);
+
+            database_context.update(track);
+            // Commit the transaction
+            t.commit();
+            // Reload the page
+            LoadTrackManagementPage();
+            return;
+        }
+        catch (const odb::exception& e) {
+            QMessageBox::warning(this, "Error", "Failed to edit genre. Error: " + QString::fromStdString(e.what()));
+            return;
+        }
+    }
+    else {
+        QMessageBox msgBox;
+        msgBox.setText("Track does not exist.");
+        msgBox.setInformativeText("You cannot edit a track that does not exist.");
+        msgBox.exec();
+        return;
+    }
+
+    //// What's the genre?
+    //Genres* genre = database_context.query_one<Genres>(odb::query<Genres>::id == track_genre);
+    //// What's the artist?
+    //Artists* artist = database_context.query_one<Artists>(odb::query<Artists>::id == track_artist);
+    //// What's the album?
+    //Albums* album = database_context.query_one<Albums>(odb::query<Albums>::id == track_album);
+
+    //if (genre == NULL || artist == NULL || album == NULL) {
+    //    QMessageBox msgBox;
+    //    msgBox.setText("Track does not exist.");
+    //    msgBox.setInformativeText("You cannot edit a track that does not exist.");
+    //    msgBox.exec();
+    //    return;
+    //}
+
+
+    //// Add the new track
+    //Track new_track(track_title, artist, album, genre, "", track_year, 2022.00, "C:\\ATE\\", TRACKIMAGE);
+    //database_context.persist(new_genre);
+
+    // Commit the transaction
+    t.commit();
+
+    // Reload the page
+    LoadTrackManagementPage();
+}
+// Action: Delete the track on-click
+void MainWindow::deleteTrackFromTrackManagement() {
+    int track_id = ui->TrackDatabaseID->text().toInt();
+    odb::sqlite::database database_context = db.getDatabase();
+    odb::transaction t(database_context.begin());
+
+    // Query for an already existing track
+    Track* track = database_context.query_one<Track>(odb::query<Track>::id == track_id);
+
+    if (track != NULL) {
+        int result = TrackManagement::RemoveTrack(*track, database_context);
+        if (result == 0) {
+            // Delete the model
+            ui->allAlbumsListView->model()->deleteLater();
+
+            // Remove the model
+            ui->allAlbumsListView->setModel(nullptr);
+
+            // Delete the model from allTracksPage
+            ui->allTracksListView->model()->deleteLater();
+
+            // Remove the model from the allTracksPage
+            ui->allTracksListView->setModel(nullptr);
+            t.commit();
+            LoadTrackManagementPage();
+		}
+		else {
+			QMessageBox msgBox;
+			msgBox.setText("Track removal failed.");
+			msgBox.setInformativeText("The track removal failed with an unknown error.\nSee console for details.");
+			msgBox.exec();
+			return;
+		}
+    }
+}
+// Action: Edit the track path on-click
+void MainWindow::addTrackFromFolder() {
+    filePath = QFileDialog::getOpenFileName(this, tr("Open File"), "C:\\");
+    if (filePath.isEmpty()) {
+        // Clean up (This actually does something)
+        filePath.clear();
+        filePath.~QString();
+        filePath = nullptr;
+        return;
+    }
+    int track_id = ui->TrackDatabaseID->text().toInt();
+    odb::sqlite::database database_context = db.getDatabase();
+    odb::transaction t(database_context.begin());
+
+    // Query for an already existing track
+    Track* track = database_context.query_one<Track>(odb::query<Track>::id == track_id);
+
+    if (track != NULL) {
+        track->SetFileName(filePath.toStdString());
+        database_context.update(*track);
+        t.commit();
+        LoadTrackManagementPage();
+    }
+    else {
+        QMessageBox msgBox;
+        msgBox.setText("Track does not exist.");
+        msgBox.setInformativeText("You cannot edit a track that does not exist.");
+        msgBox.exec();
+        return;
+    }
+}
+

@@ -51,7 +51,7 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="libraryDisplayPage">
      <widget class="QLabel" name="album_Image_ld">
@@ -218,7 +218,7 @@ border: 0;</string>
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="genres">
        <attribute name="title">
@@ -525,64 +525,78 @@ border: 0;</string>
           <x>440</x>
           <y>150</y>
           <width>321</width>
-          <height>151</height>
+          <height>176</height>
          </rect>
         </property>
         <layout class="QFormLayout" name="formLayout_8">
          <property name="sizeConstraint">
           <enum>QLayout::SetNoConstraint</enum>
          </property>
-         <item row="0" column="0">
+         <item row="2" column="0">
           <widget class="QLabel" name="label_fp_19">
            <property name="text">
             <string>Title</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
+         <item row="2" column="1">
           <widget class="QLineEdit" name="editTrackTitle"/>
          </item>
-         <item row="1" column="0">
+         <item row="3" column="0">
           <widget class="QLabel" name="label_fp_20">
            <property name="text">
             <string>Artist</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
+         <item row="3" column="1">
           <widget class="QComboBox" name="editTrackArtist"/>
          </item>
-         <item row="2" column="0">
+         <item row="4" column="0">
           <widget class="QLabel" name="label_fp_21">
            <property name="text">
             <string>Album</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
+         <item row="4" column="1">
           <widget class="QComboBox" name="editTrackAlbum"/>
          </item>
-         <item row="3" column="0">
+         <item row="5" column="0">
           <widget class="QLabel" name="label_fp_22">
            <property name="text">
             <string>Genre</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="1">
+         <item row="5" column="1">
           <widget class="QComboBox" name="editTrackGenre"/>
          </item>
-         <item row="4" column="0">
+         <item row="6" column="0">
           <widget class="QLabel" name="label_fp_23">
            <property name="text">
             <string>Source File</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="1">
+         <item row="6" column="1">
           <widget class="QPushButton" name="editTrackSourceFile">
            <property name="text">
             <string>Select File</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_fp_29">
+           <property name="text">
+            <string>Database ID</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="TrackDatabaseID">
+           <property name="text">
+            <string extracomment="Select a track to begin."/>
            </property>
           </widget>
          </item>
