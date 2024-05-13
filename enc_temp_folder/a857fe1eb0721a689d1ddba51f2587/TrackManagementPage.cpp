@@ -33,7 +33,6 @@
 void MainWindow::LoadTrackManagementPage() {
     ui->mainStackedWidget->setCurrentWidget(ui->formsPage);
 
-
     // Query the database for the total tracks played by the current WindowsAccount
     odb::sqlite::database database_context = db.getDatabase();
     odb::transaction t(database_context.begin());
@@ -50,6 +49,9 @@ void MainWindow::LoadTrackManagementPage() {
             ui->GenreDatabaseID->setText(QString::fromStdString(view_data.substr(view_data.find("\n") + 1)));
 			ui->editGenreTitle->setText(QString::fromStdString(view_data.substr(0, view_data.find("\n"))));
         });
+
+
+
 
 		// Set the data for the genres list view
         ui->genresListView_fp->setModel(model);
@@ -183,7 +185,7 @@ void MainWindow::addGenreFromTrackManagement() {
 	}
 
 	// Query for an already existing genre
-	Genres* genre = database_context.query_one<Genres>(odb::query<Genres>::id == genre_id);
+	Genres* genre = database_context.query_one<Genres>(odb::query<Genres>::id == genre_id && odb::query<Genres>::title == genre_title);
 
     if (genre != NULL) {
         if (genre->Title() == genre_title) {

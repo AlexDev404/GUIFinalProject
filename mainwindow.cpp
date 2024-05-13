@@ -97,7 +97,6 @@ void MainWindow::LoadResources(){
     // Setting initial windows
     ui->mainStackedWidget->setCurrentWidget(ui->allTracksPage);
     ui->managementTab_fp->setCurrentWidget(ui->albums);
-    ui->trackManagementSub->setCurrentWidget(ui->addtrack);
 
     // Header
     ui->user_loggedin->setIcon(QIcon(userIcon));
@@ -137,9 +136,6 @@ void MainWindow::LoadResources(){
 
     ui->reportButton->setIcon(QIcon(reportsIcon));
     ui->reportButton->setIconSize(QSize(35, 35));
-
-    // Connect the combo box to track settings window
-    connect(ui->trackManagementcomboBox, SIGNAL(currentIndexChanged(int)), ui->trackManagementSub, SLOT(setCurrentIndex(int)));
 
     // Translation buttons
     ui->englishButton->setIcon(QIcon(englishIcon));
@@ -186,7 +182,7 @@ void MainWindow::on_your_playlists_clicked()
 
 void MainWindow::on_trackManagementButton_clicked()
 {
-    LoadTrackManagementPage();
+    this->LoadTrackManagementPage();
 }
 
 
@@ -426,5 +422,17 @@ void MainWindow::on_englishButton_clicked()
 void MainWindow::on_spanishButton_clicked()
 {
     switchToSpanish();
+}
+
+
+void MainWindow::on_AddGenre_clicked()
+{
+    this->addGenreFromTrackManagement();
+}
+
+
+void MainWindow::on_DeleteGenre_clicked()
+{
+    this->deleteGenreFromTrackManagement();
 }
 

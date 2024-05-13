@@ -36,6 +36,8 @@ public:
     void LoadAllPlaylistPage();
     void LoadUserManagementPage();
     void LoadTrackManagementPage();
+	void LoadReportPage();
+    void LoadAllAlbumsPage();
     void PlayTrack(const QModelIndex& index);
     /// <summary>
     /// Expects database to be open. Sets the play area data. This is the data that is displayed when a track is played.
@@ -46,8 +48,8 @@ public:
     /// <param name="artist_name"></param>
     void SetPlayAreaData(TrackImage& track_image, std::string track_title, std::string album_name, std::string artist_name, odb::sqlite::database& database_context);
     void UIAddTrack();
-    void LoadAllAlbumsPage();
-	void LoadReportPage();
+    void deleteGenreFromTrackManagement();
+    void addGenreFromTrackManagement();
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
@@ -103,6 +105,10 @@ private slots:
     void on_englishButton_clicked();
 
     void on_spanishButton_clicked();
+
+    void on_AddGenre_clicked();
+
+    void on_DeleteGenre_clicked();
 
 private:
     Ui::MainWindow* ui;

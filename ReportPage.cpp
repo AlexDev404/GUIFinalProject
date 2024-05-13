@@ -162,8 +162,7 @@ void MainWindow::LoadReportPage() {
         // u gotta get the album from the database tho
         for (std::pair x: album_count) {
             // u gotta retrieve the data from the database using the vector and assign it to the variables
-            int album_id = x.first; // 
-            // 
+            int album_id = x.first;
             Albums* albums_ = database_context.query_one<Albums>(odb::query<Albums>::id == album_id);
 
             if (albums_ == NULL) {

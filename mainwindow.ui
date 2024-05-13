@@ -218,7 +218,7 @@ border: 0;</string>
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="genres">
        <attribute name="title">
@@ -228,8 +228,8 @@ border: 0;</string>
         <property name="geometry">
          <rect>
           <x>40</x>
-          <y>70</y>
-          <width>731</width>
+          <y>80</y>
+          <width>371</width>
           <height>301</height>
          </rect>
         </property>
@@ -239,7 +239,7 @@ border: 0;</string>
          <rect>
           <x>40</x>
           <y>20</y>
-          <width>91</width>
+          <width>291</width>
           <height>31</height>
          </rect>
         </property>
@@ -254,33 +254,95 @@ border: 0;</string>
          <string>Genres</string>
         </property>
         <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
-       <widget class="QPushButton" name="AddGenres_fp">
+       <widget class="QPushButton" name="AddGenre">
         <property name="geometry">
          <rect>
-          <x>40</x>
-          <y>380</y>
-          <width>71</width>
+          <x>440</x>
+          <y>350</y>
+          <width>81</width>
           <height>31</height>
          </rect>
         </property>
         <property name="text">
-         <string>Add</string>
+         <string>Submit</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="EditGenres_fp">
+       <widget class="QWidget" name="formLayoutWidget_6">
         <property name="geometry">
          <rect>
-          <x>120</x>
-          <y>380</y>
-          <width>71</width>
+          <x>440</x>
+          <y>150</y>
+          <width>321</width>
+          <height>181</height>
+         </rect>
+        </property>
+        <layout class="QFormLayout" name="formLayout_10">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetNoConstraint</enum>
+         </property>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_fp_25">
+           <property name="text">
+            <string>Title</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="editGenreTitle"/>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_fp_27">
+           <property name="text">
+            <string>Database ID</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="GenreDatabaseID">
+           <property name="text">
+            <string extracomment="Select a genre to begin."/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QLabel" name="label_fp_8">
+        <property name="geometry">
+         <rect>
+          <x>440</x>
+          <y>80</y>
+          <width>311</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Work Sans</family>
+          <pointsize>18</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Edit genre details</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="DeleteGenre">
+        <property name="geometry">
+         <rect>
+          <x>530</x>
+          <y>350</y>
+          <width>81</width>
           <height>31</height>
          </rect>
         </property>
         <property name="text">
-         <string>Edit</string>
+         <string>Delete</string>
         </property>
        </widget>
       </widget>
@@ -292,8 +354,8 @@ border: 0;</string>
         <property name="geometry">
          <rect>
           <x>40</x>
-          <y>70</y>
-          <width>731</width>
+          <y>80</y>
+          <width>391</width>
           <height>301</height>
          </rect>
         </property>
@@ -303,7 +365,7 @@ border: 0;</string>
          <rect>
           <x>40</x>
           <y>20</y>
-          <width>91</width>
+          <width>361</width>
           <height>31</height>
          </rect>
         </property>
@@ -318,33 +380,221 @@ border: 0;</string>
          <string>Albums</string>
         </property>
         <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
-       <widget class="QPushButton" name="addAlbum_fp">
+       <widget class="QWidget" name="formLayoutWidget_7">
+        <property name="geometry">
+         <rect>
+          <x>440</x>
+          <y>151</y>
+          <width>321</width>
+          <height>181</height>
+         </rect>
+        </property>
+        <layout class="QFormLayout" name="formLayout_11">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetNoConstraint</enum>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_fp_26">
+           <property name="text">
+            <string>Title</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="editTrackTitle_2"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_fp_31">
+           <property name="text">
+            <string>Release date</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="editTrackTitle_3"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QLabel" name="label_fp_9">
+        <property name="geometry">
+         <rect>
+          <x>440</x>
+          <y>80</y>
+          <width>311</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Work Sans</family>
+          <pointsize>18</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Edit album details</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="AddTrack_2">
+        <property name="geometry">
+         <rect>
+          <x>440</x>
+          <y>350</y>
+          <width>81</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Submit</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tracks">
+       <attribute name="title">
+        <string>Tracks</string>
+       </attribute>
+       <widget class="QLabel" name="label_fp_6">
         <property name="geometry">
          <rect>
           <x>40</x>
-          <y>380</y>
-          <width>71</width>
+          <y>20</y>
+          <width>331</width>
           <height>31</height>
          </rect>
         </property>
+        <property name="font">
+         <font>
+          <family>Work Sans</family>
+          <pointsize>18</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
-         <string>Add</string>
+         <string>Tracks</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
-       <widget class="QPushButton" name="editAlbum_fp">
+       <widget class="QListView" name="tracksListView_fp">
         <property name="geometry">
          <rect>
-          <x>120</x>
-          <y>380</y>
-          <width>71</width>
+          <x>40</x>
+          <y>80</y>
+          <width>371</width>
+          <height>301</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QWidget" name="formLayoutWidget_4">
+        <property name="geometry">
+         <rect>
+          <x>440</x>
+          <y>150</y>
+          <width>321</width>
+          <height>151</height>
+         </rect>
+        </property>
+        <layout class="QFormLayout" name="formLayout_8">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetNoConstraint</enum>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_fp_19">
+           <property name="text">
+            <string>Title</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="editTrackTitle"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_fp_20">
+           <property name="text">
+            <string>Artist</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QComboBox" name="editTrackArtist"/>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_fp_21">
+           <property name="text">
+            <string>Album</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QComboBox" name="editTrackAlbum"/>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_fp_22">
+           <property name="text">
+            <string>Genre</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QComboBox" name="editTrackGenre"/>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_fp_23">
+           <property name="text">
+            <string>Source File</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QPushButton" name="editTrackSourceFile">
+           <property name="text">
+            <string>Select File</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QPushButton" name="AddTrack">
+        <property name="geometry">
+         <rect>
+          <x>440</x>
+          <y>350</y>
+          <width>81</width>
           <height>31</height>
          </rect>
         </property>
         <property name="text">
-         <string>Edit</string>
+         <string>Submit</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_fp_7">
+        <property name="geometry">
+         <rect>
+          <x>440</x>
+          <y>80</y>
+          <width>311</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Work Sans</family>
+          <pointsize>18</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Edit track details</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
       </widget>
@@ -379,7 +629,7 @@ border: 0;</string>
          <rect>
           <x>20</x>
           <y>10</y>
-          <width>91</width>
+          <width>181</width>
           <height>51</height>
          </rect>
         </property>
@@ -444,408 +694,13 @@ border: 0;</string>
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="tracks">
-       <attribute name="title">
-        <string>Tracks</string>
-       </attribute>
-       <widget class="QStackedWidget" name="trackManagementSub">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>120</y>
-          <width>731</width>
-          <height>291</height>
-         </rect>
-        </property>
-        <property name="currentIndex">
-         <number>1</number>
-        </property>
-        <widget class="QWidget" name="addtrack">
-         <widget class="QLabel" name="label_fp_14">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>20</y>
-            <width>731</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>18</pointsize>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Add Track</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="addTrackButton_fp">
-          <property name="geometry">
-           <rect>
-            <x>160</x>
-            <y>230</y>
-            <width>81</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Submit</string>
-          </property>
-         </widget>
-         <widget class="QWidget" name="formLayoutWidget_2">
-          <property name="geometry">
-           <rect>
-            <x>160</x>
-            <y>80</y>
-            <width>183</width>
-            <height>135</height>
-           </rect>
-          </property>
-          <layout class="QFormLayout" name="formLayout_4">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_fp_10">
-             <property name="text">
-              <string>Title</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLineEdit" name="addTrackTitle"/>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_fp_11">
-             <property name="text">
-              <string>Artist</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QComboBox" name="addTrackArtist"/>
-           </item>
-           <item row="2" column="1">
-            <widget class="QComboBox" name="AddTrackAlbum"/>
-           </item>
-           <item row="3" column="1">
-            <widget class="QComboBox" name="AddTrackGenre"/>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_fp_12">
-             <property name="text">
-              <string>Album</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_fp_13">
-             <property name="text">
-              <string>Genre</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="formLayoutWidget">
-          <property name="geometry">
-           <rect>
-            <x>390</x>
-            <y>80</y>
-            <width>181</width>
-            <height>88</height>
-           </rect>
-          </property>
-          <layout class="QFormLayout" name="formLayout_3">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_fp_7">
-             <property name="text">
-              <string>Lyrics</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QPushButton" name="addTrackLyrics">
-             <property name="text">
-              <string>Search</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QDoubleSpinBox" name="addTrackDuration"/>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_fp_9">
-             <property name="text">
-              <string>File</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QPushButton" name="addTrackFile">
-             <property name="text">
-              <string>Search</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_fp_8">
-             <property name="text">
-              <string>Duration</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-        <widget class="QWidget" name="edittrack">
-         <widget class="QLabel" name="label_fp_23">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>20</y>
-            <width>121</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>Work Sans</family>
-            <pointsize>18</pointsize>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Edit Track</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-         <widget class="QWidget" name="formLayoutWidget_4">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>60</y>
-            <width>183</width>
-            <height>135</height>
-           </rect>
-          </property>
-          <layout class="QFormLayout" name="formLayout_8">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_fp_19">
-             <property name="text">
-              <string>Title</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLineEdit" name="editTrackTitle"/>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_fp_20">
-             <property name="text">
-              <string>Artist</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QComboBox" name="editTrackArtist"/>
-           </item>
-           <item row="2" column="1">
-            <widget class="QComboBox" name="editTrackAlbum"/>
-           </item>
-           <item row="3" column="1">
-            <widget class="QComboBox" name="editTrackGenre"/>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_fp_21">
-             <property name="text">
-              <string>Album</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_fp_22">
-             <property name="text">
-              <string>Genre</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QPushButton" name="editButton_fp">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>210</y>
-            <width>81</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Submit</string>
-          </property>
-         </widget>
-         <widget class="QWidget" name="formLayoutWidget_3">
-          <property name="geometry">
-           <rect>
-            <x>190</x>
-            <y>60</y>
-            <width>181</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <layout class="QFormLayout" name="formLayout_7">
-           <item row="0" column="1">
-            <widget class="QDoubleSpinBox" name="editTrackDuration"/>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_fp_18">
-             <property name="text">
-              <string>Duration</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-        <widget class="QWidget" name="deletetrack">
-         <widget class="QLabel" name="label_fp_15">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>20</y>
-            <width>731</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>Work Sans</family>
-            <pointsize>18</pointsize>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Delete Track</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="deleteTrack_fp">
-          <property name="geometry">
-           <rect>
-            <x>630</x>
-            <y>260</y>
-            <width>75</width>
-            <height>24</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Delete</string>
-          </property>
-         </widget>
-         <widget class="QListView" name="deleteTrackListView">
-          <property name="geometry">
-           <rect>
-            <x>30</x>
-            <y>70</y>
-            <width>671</width>
-            <height>181</height>
-           </rect>
-          </property>
-         </widget>
-         <widget class="QWidget" name="layoutWidget_13">
-          <property name="geometry">
-           <rect>
-            <x>30</x>
-            <y>260</y>
-            <width>201</width>
-            <height>30</height>
-           </rect>
-          </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_12">
-           <item>
-            <widget class="QLineEdit" name="SearchDeleteTrackInput_fp"/>
-           </item>
-           <item>
-            <widget class="QPushButton" name="SearchDeleteTrackButton_fp">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-       </widget>
-       <widget class="QLabel" name="label_fp_5">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>70</y>
-          <width>161</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Select a managment action </string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="trackManagementcomboBox">
-        <property name="geometry">
-         <rect>
-          <x>240</x>
-          <y>70</y>
-          <width>80</width>
-          <height>26</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>Add</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Edit</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QLabel" name="label_fp_6">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>20</y>
-          <width>81</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <family>Work Sans</family>
-          <pointsize>18</pointsize>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Tracks</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </widget>
      </widget>
      <widget class="QLabel" name="label_fp_1">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>20</x>
         <y>20</y>
-        <width>851</width>
+        <width>231</width>
         <height>31</height>
        </rect>
       </property>
