@@ -652,8 +652,6 @@ void MainWindow::addTrackFromFolder() {
     }
 }
 
-}
-
 // --------------------------- Playlist Management ----------------
 void MainWindow::deleteTrackfromPlaylist(){
 

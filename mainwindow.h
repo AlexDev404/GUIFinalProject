@@ -36,7 +36,6 @@ public:
     void LoadPlayListDisplayPagePlaylists(const QModelIndex& index);
     void LoadAllPlaylistPage();
     void LoadUserManagementPage();
-    void LoadTrackManagementPage();
 	void LoadReportPage();
     void LoadAllAlbumsPage();
     void LoadSearchResultPage();
@@ -59,8 +58,6 @@ public:
     void deleteAlbumFromTrackManagement();
     void addTrackFromFolder();
 
-    void LoadAllAlbumsPage();
-	void LoadReportPage();
     void deleteTrackfromPlaylist();
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
