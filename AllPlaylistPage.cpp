@@ -275,57 +275,11 @@ void MainWindow::ShowPlaylistContextMenu(QPoint pos) {
 
         QStandardItemModel* model = (QStandardItemModel*)ui->PlaylistDisplayListView->model();
         QStandardItem* item = model->itemFromIndex(index);
+        std::string itemData = item->data().toString().toStdString();
 
         // Set the widgets
-        ui->mainStackedWidget->setCurrentWidget(ui->formsPage);
+        LoadTrackManagementPage(itemData);
         ui->managementTab_fp->setCurrentWidget(ui->playlist);
-
-        odb::sqlite::database database_context = db.getDatabase();
-        odb::transaction t(database_context.begin());
-
-        ui->userplaylistview->setModel(model);
-        // Set the stylesheet
-        ui->userplaylistview->setStyleSheet("QStandardItem { background-color: #14273f; color: white; border: 1px solid #1c1c1c; }");
-
-        // Get the content from the index
-        string playlistInfo = index.data().toString().toStdString();
-
-        std::string playlist_name_only_ = playlistInfo.substr(0, playlistInfo.find("(")); // Start at the beginning of the string, end at the opening "("
-        Utility::trim(playlist_name_only_);
-
-        std::string playlist_name_only = playlist_name_only_ == "Your library" ? "DEFAULT" : playlist_name_only_; // Is this the default playlist? (the user's library)
-        // Start at the opening "(" end at the close ")"
-        std::string playlist_year_only = playlistInfo.substr(playlistInfo.find("(") + 1, playlistInfo.find(")") - playlistInfo.find("(") - 1);
-        Utility::trim(playlist_year_only);
-
-        // set title of the playlist
-        ui->playlist_name->setText(QString::fromStdString(playlist_name_only_));
-
-        Playlist* track_playlist = database_context.query_one<Playlist>(odb::query<Playlist>::name == playlist_name_only && odb::query<Playlist>::year == playlist_year_only);
-
-        // The default playlist
-        if (track_playlist == NULL) {
-            // Deal with the playlist
-            return;
-        }
-
-        // Receive tracks associated with the playlist
-        odb::result<Track_Playlist> tracks = database_context.query<Track_Playlist>(odb::query<Track_Playlist>::playlist_id == track_playlist->Id());
-
-        // Get all the tracks from the playlist
-        for (odb::result<Track_Playlist>::iterator trackIt = tracks.begin(); trackIt != tracks.end(); trackIt++) {
-            Track track = *(trackIt->TrackId());
-            Albums track_album = *(track.AlbumId());
-            Artists track_artist = *(track.ArtistId());
-
-            if (track.Title() != playlist_name_only) {
-                // Create a QStandardItem for the track
-                QStandardItem* view = new QStandardItem(QString::fromLatin1((track.Title().empty() ? track.FileName() : track.Title() + "\n" + track_album.Title() + "\n" + track_artist.Name())));
-                view->setEditable(false);
-                model->appendRow(view);
-            }
-        }
-        t.commit();
 
     }
 }

@@ -1,6 +1,10 @@
 #include "Track_Playcount.hpp"
 
 // Getters
+const int Track_Playcount::Id() {
+    return id_;
+}
+
 const Windows_Account* Track_Playcount::UserId() {
     return user_id_;
 }

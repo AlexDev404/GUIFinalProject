@@ -36,7 +36,7 @@ public:
     void LoadPlayListDisplayPagePlaylists(const QModelIndex& index);
     void LoadAllPlaylistPage();
     void LoadUserManagementPage();
-    void LoadTrackManagementPage();
+    void LoadTrackManagementPage(std::string playlistInfo = "");
     void PlayTrack(const QModelIndex& index);
     /// <summary>
     /// Expects database to be open. Sets the play area data. This is the data that is displayed when a track is played.
@@ -49,6 +49,7 @@ public:
     void UIAddTrack();
     void LoadAllAlbumsPage();
 	void LoadReportPage();
+    void deleteTrackfromPlaylist();
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
@@ -105,6 +106,9 @@ private slots:
 
     void on_spanishButton_clicked();
 
+    void on_addplaylisttrack_clicked();
+
+    void on_deleteplaylisttrack_clicked();
 
 private:
     Ui::MainWindow* ui;

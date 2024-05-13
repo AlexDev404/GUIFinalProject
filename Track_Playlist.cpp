@@ -1,6 +1,10 @@
 #include "Track_Playlist.hpp"
 
 // Getters
+const int Track_Playlist::Id() {
+	return id_;
+}
+
 const Track* Track_Playlist::TrackId() {
 	return track_id_;
 }

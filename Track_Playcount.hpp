@@ -14,6 +14,11 @@ public:
     // Getters
 
     /// <summary>
+    /// The unique identifier of the track_playlist.
+    /// </summary>
+    /// <returns></returns>
+    const int Id();
+    /// <summary>
     /// The user ID associated with this track playcount.
     /// </summary>
     /// <returns></returns>

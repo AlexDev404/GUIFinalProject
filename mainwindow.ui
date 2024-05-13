@@ -51,7 +51,7 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>7</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="libraryDisplayPage">
      <widget class="QLabel" name="album_Image_ld">
@@ -1275,7 +1275,7 @@ border: 0;</string>
         <x>20</x>
         <y>70</y>
         <width>801</width>
-        <height>411</height>
+        <height>471</height>
        </rect>
       </property>
       <property name="movement">
@@ -1289,19 +1289,6 @@ border: 0;</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="editButton_ldp">
-      <property name="geometry">
-       <rect>
-        <x>740</x>
-        <y>500</y>
-        <width>81</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Edit</string>
       </property>
      </widget>
     </widget>
