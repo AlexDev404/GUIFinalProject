@@ -50,6 +50,10 @@ public:
     void UIAddTrack();
     void deleteGenreFromTrackManagement();
     void addGenreFromTrackManagement();
+    //void addTrackFromTrackManagement();
+    //void deleteTrackFromTrackManagement();
+    void addAlbumFromTrackManagement();
+    void deleteAlbumFromTrackManagement();
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
@@ -109,6 +113,12 @@ private slots:
     void on_AddGenre_clicked();
 
     void on_DeleteGenre_clicked();
+
+    void on_DeleteTrack_clicked();
+
+    void on_DeleteAlbum_clicked();
+
+    void on_AddAlbum_clicked();
 
 private:
     Ui::MainWindow* ui;

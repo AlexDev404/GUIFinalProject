@@ -401,6 +401,7 @@ void MainWindow::on_forward_pa_clicked()
     t.commit();
 }
 
+
 void MainWindow::on_state_Button_ld_clicked()
 {
     this->on_play_pause_pa_clicked();
@@ -415,13 +416,13 @@ void MainWindow::on_state_Button_ld_clicked()
 
 void MainWindow::on_englishButton_clicked()
 {
-    switchToEnglish();
+    this->switchToEnglish();
 }
 
 
 void MainWindow::on_spanishButton_clicked()
 {
-    switchToSpanish();
+    this->switchToSpanish();
 }
 
 
@@ -434,5 +435,22 @@ void MainWindow::on_AddGenre_clicked()
 void MainWindow::on_DeleteGenre_clicked()
 {
     this->deleteGenreFromTrackManagement();
+}
+
+
+void MainWindow::on_DeleteTrack_clicked()
+{
+    //this->deleteTrackFromTrackManagement();
+}
+
+
+void MainWindow::on_DeleteAlbum_clicked()
+{
+    this->deleteAlbumFromTrackManagement();
+}
+
+void MainWindow::on_AddAlbum_clicked()
+{
+    this->addAlbumFromTrackManagement();
 }
 

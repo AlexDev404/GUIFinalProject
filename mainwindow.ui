@@ -51,7 +51,7 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="libraryDisplayPage">
      <widget class="QLabel" name="album_Image_ld">
@@ -157,7 +157,7 @@
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
       <property name="wordWrap">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
      </widget>
      <widget class="QPushButton" name="state_Button_ld">
@@ -218,7 +218,7 @@ border: 0;</string>
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="genres">
        <attribute name="title">
@@ -396,25 +396,39 @@ border: 0;</string>
          <property name="sizeConstraint">
           <enum>QLayout::SetNoConstraint</enum>
          </property>
-         <item row="0" column="0">
+         <item row="1" column="0">
           <widget class="QLabel" name="label_fp_26">
            <property name="text">
             <string>Title</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="editTrackTitle_2"/>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="editAlbumTitle"/>
          </item>
-         <item row="1" column="0">
+         <item row="2" column="0">
           <widget class="QLabel" name="label_fp_31">
            <property name="text">
             <string>Release date</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="editTrackTitle_3"/>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="editAlbumReleaseDate"/>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_fp_28">
+           <property name="text">
+            <string>Database ID</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="AlbumDatabaseID">
+           <property name="text">
+            <string extracomment="Select a genre to begin."/>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -441,7 +455,7 @@ border: 0;</string>
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
-       <widget class="QPushButton" name="AddTrack_2">
+       <widget class="QPushButton" name="AddAlbum">
         <property name="geometry">
          <rect>
           <x>440</x>
@@ -452,6 +466,19 @@ border: 0;</string>
         </property>
         <property name="text">
          <string>Submit</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="DeleteAlbum">
+        <property name="geometry">
+         <rect>
+          <x>530</x>
+          <y>350</y>
+          <width>81</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Delete</string>
         </property>
        </widget>
       </widget>
@@ -595,6 +622,19 @@ border: 0;</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="DeleteTrack">
+        <property name="geometry">
+         <rect>
+          <x>530</x>
+          <y>350</y>
+          <width>81</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Delete</string>
         </property>
        </widget>
       </widget>
