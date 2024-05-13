@@ -38,6 +38,7 @@ public:
     void LoadTrackManagementPage();
 	void LoadReportPage();
     void LoadAllAlbumsPage();
+    void LoadSearchResultPage();
     void PlayTrack(const QModelIndex& index);
     /// <summary>
     /// Expects database to be open. Sets the play area data. This is the data that is displayed when a track is played.
@@ -55,8 +56,10 @@ public:
     void addAlbumFromTrackManagement();
     void deleteAlbumFromTrackManagement();
     void addTrackFromFolder();
+
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
+
 
 private slots:
 
@@ -124,6 +127,8 @@ private slots:
     void on_AddTrack_clicked();
 
     void on_editTrackSourceFile_clicked();
+
+    void on_search_widget_returnPressed();
 
 private:
     Ui::MainWindow* ui;

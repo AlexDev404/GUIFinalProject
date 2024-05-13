@@ -238,6 +238,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Roles.cpp" />
+    <ClCompile Include="SearchResultPage.cpp" />
     <ClCompile Include="Track-odb.cxx" />
     <ClCompile Include="Track-odb.ixx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>

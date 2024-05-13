@@ -164,8 +164,15 @@ void MainWindow::on_settings_clicked()
 
 void MainWindow::on_search_submit_clicked()
 {
-    ui->mainStackedWidget->setCurrentWidget(ui->searchResultPage);
+    this->LoadSearchResultPage();
 }
+
+
+void MainWindow::on_search_widget_returnPressed()
+{
+    this->LoadSearchResultPage();
+}
+
 
 
 void MainWindow::on_reportButton_clicked()

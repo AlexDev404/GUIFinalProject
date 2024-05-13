@@ -51,7 +51,7 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>9</number>
     </property>
     <widget class="QWidget" name="libraryDisplayPage">
      <widget class="QLabel" name="album_Image_ld">
@@ -1989,7 +1989,7 @@ color: #DBEAFE;
 background: transparent;</string>
       </property>
       <property name="text">
-       <string extracomment="Search for albums, playlists, tracks, ..."/>
+       <string extracomment="Search for a track you know"/>
       </property>
       <property name="placeholderText">
        <string>Search for albums, playlists, tracks, ...</string>
