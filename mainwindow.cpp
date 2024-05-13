@@ -261,8 +261,6 @@ void MainWindow::switchToSpanish() {
 	}
 }
 
-
-
 void MainWindow::on_actionOpen_Folder_triggered()
 {
     this->UIAddTrack();
@@ -470,3 +468,16 @@ void MainWindow::on_editTrackSourceFile_clicked()
 {
     this->addTrackFromFolder();
 }
+
+void MainWindow::on_addplaylisttrack_clicked()
+{
+
+}
+
+
+void MainWindow::on_deleteplaylisttrack_clicked()
+{
+    // call the delete function
+    this->deleteTrackfromPlaylist();
+}
+

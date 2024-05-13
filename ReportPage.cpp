@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 #include "database.hpp"
@@ -114,7 +114,7 @@ void MainWindow::LoadReportPage() {
             // Query the track_Playcount table
             playCounts = database_context.query<Track_Playcount>(
                 ("WHERE user_id = " + user_id + " ORDER BY " + odb::query<Track_Playcount>::count)
-            ); // Find all the tracks listened to by the user and sort by their `count`
+            ); // Find all the tracks listened to by the user and sort by their count
 
         }
         catch (odb::exception& error) {

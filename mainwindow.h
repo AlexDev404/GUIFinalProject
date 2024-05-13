@@ -32,13 +32,15 @@ public:
     void LoadResources();
     void qMain();
     void LoadAllTracksPage(QListView* listView, QSize size, QSize icon_size);
-	void LoadPlayListDisplayPage(const QModelIndex& index);
+	void LoadPlayListDisplayPageAlbums(const QModelIndex& index);
+    void LoadPlayListDisplayPagePlaylists(const QModelIndex& index);
     void LoadAllPlaylistPage();
     void LoadUserManagementPage();
     void LoadTrackManagementPage();
 	void LoadReportPage();
     void LoadAllAlbumsPage();
     void LoadSearchResultPage();
+    void LoadTrackManagementPage(std::string playlistInfo = "");
     void PlayTrack(const QModelIndex& index);
     /// <summary>
     /// Expects database to be open. Sets the play area data. This is the data that is displayed when a track is played.
@@ -57,6 +59,9 @@ public:
     void deleteAlbumFromTrackManagement();
     void addTrackFromFolder();
 
+    void LoadAllAlbumsPage();
+	void LoadReportPage();
+    void deleteTrackfromPlaylist();
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
@@ -129,6 +134,10 @@ private slots:
     void on_editTrackSourceFile_clicked();
 
     void on_search_widget_returnPressed();
+
+    void on_addplaylisttrack_clicked();
+
+    void on_deleteplaylisttrack_clicked();
 
 private:
     Ui::MainWindow* ui;
