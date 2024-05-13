@@ -9,6 +9,11 @@
 void MainWindow::LoadSearchResultPage() {
 	std::string search = ui->search_widget->text().toStdString();
 
+	// Check if the search is valid and over 2 characters
+	if (search.size() <= 2 || search.empty()) {
+		return;
+	}
+
 	ui->label_srp_1->setText(QString::fromStdString("Search results for: " + search));
 
 	odb::sqlite::database database_context = db.getDatabase();
