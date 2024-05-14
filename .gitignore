@@ -529,3 +529,5 @@ FodyWeavers.xsd
 /userdata.sqlite
 /userdata__backup.sqlite
 *.sqlite
+/nil
+/nil

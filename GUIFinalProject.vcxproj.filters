@@ -380,6 +380,12 @@
     <CopyFileToFolders Include="include\bin\tag_c.dll">
       <Filter>Generated Files</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="_en_US.qm">
+      <Filter>Generated Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="_es_MX.qm">
+      <Filter>Generated Files</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\images\album.png">
@@ -457,5 +463,6 @@
   <ItemGroup>
     <QtTranslation Include="_en_US.ts" />
     <QtTranslation Include="_es_MX.ts" />
+    <QtTranslation Include="Translation_es_MX.ts" />
   </ItemGroup>
 </Project>

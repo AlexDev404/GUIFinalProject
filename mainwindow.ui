@@ -51,7 +51,7 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="libraryDisplayPage">
      <widget class="QLabel" name="album_Image_ld">
@@ -266,6 +266,28 @@ border: 0;</string>
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
+     <widget class="QLabel" name="welcomePhoto">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>841</width>
+        <height>571</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="resources.qrc">:/assets/images/cityscape.jpg</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <zorder>welcomePhoto</zorder>
+     <zorder>track_name_pa_4</zorder>
+     <zorder>title_text_4</zorder>
     </widget>
     <widget class="QWidget" name="formsPage">
      <widget class="QTabWidget" name="managementTab_fp">
@@ -293,17 +315,17 @@ border: 0;</string>
        <widget class="QListView" name="genresListView_fp">
         <property name="geometry">
          <rect>
-          <x>40</x>
-          <y>80</y>
-          <width>371</width>
-          <height>301</height>
+          <x>20</x>
+          <y>70</y>
+          <width>391</width>
+          <height>371</height>
          </rect>
         </property>
        </widget>
        <widget class="QLabel" name="label_fp_4">
         <property name="geometry">
          <rect>
-          <x>40</x>
+          <x>20</x>
           <y>20</y>
           <width>291</width>
           <height>31</height>
@@ -419,17 +441,17 @@ border: 0;</string>
        <widget class="QListView" name="albumsListView_fp">
         <property name="geometry">
          <rect>
-          <x>40</x>
-          <y>80</y>
+          <x>20</x>
+          <y>70</y>
           <width>391</width>
-          <height>301</height>
+          <height>371</height>
          </rect>
         </property>
        </widget>
        <widget class="QLabel" name="label_fp_2">
         <property name="geometry">
          <rect>
-          <x>40</x>
+          <x>20</x>
           <y>20</y>
           <width>361</width>
           <height>31</height>
@@ -555,7 +577,7 @@ border: 0;</string>
        <widget class="QLabel" name="label_fp_6">
         <property name="geometry">
          <rect>
-          <x>40</x>
+          <x>20</x>
           <y>20</y>
           <width>331</width>
           <height>31</height>
@@ -578,10 +600,10 @@ border: 0;</string>
        <widget class="QListView" name="tracksListView_fp">
         <property name="geometry">
          <rect>
-          <x>40</x>
-          <y>80</y>
-          <width>371</width>
-          <height>301</height>
+          <x>20</x>
+          <y>70</y>
+          <width>391</width>
+          <height>371</height>
          </rect>
         </property>
        </widget>
@@ -825,6 +847,29 @@ border: 0;</string>
         </property>
         <property name="text">
          <string>Playlist Name</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_fp_10">
+        <property name="geometry">
+         <rect>
+          <x>410</x>
+          <y>80</y>
+          <width>311</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Work Sans</family>
+          <pointsize>18</pointsize>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Your library</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
       </widget>

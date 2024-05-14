@@ -48,4 +48,7 @@
         <file>assets/translations/Translation_es_MX.qm</file>
         <file>assets/translations/Translation_es_MX.ts</file>
     </qresource>
+    <qresource prefix="/">
+        <file>assets/images/cityscape.jpg</file>
+    </qresource>
 </RCC>

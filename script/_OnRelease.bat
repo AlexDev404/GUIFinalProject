@@ -1,10 +1,15 @@
 @echo off
+cd ..\
 chcp 65001
 echo Project: GUIFinalProject.sln
 echo.
+echo Hi, there:)
 echo 🔃 Setting up environment...
 set PATH=%PATH%;C:\Qt\6.6.2\msvc2019_64\bin;
-cd release
+echo ☑️ Environment setup.
+echo.
+set /p PROMPT=📦 Release Type (release/debug): 
+cd %PROMPT%
 echo ✅ Loading application...
 call GUIFinalProject.exe
 echo 🏁 Performing exit.
