@@ -38,12 +38,13 @@ void MainWindow::LoadAllTracksPage(QListView* listView, QSize size, QSize icon_s
         listView->setContextMenuPolicy(Qt::CustomContextMenu);
         // Open a context menu when the user right-clicks an item
         connect(listView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(ShowTracksContextMenu(QPoint)));
+    }
 
         // Call the PlayTrack function when the QStandardItem is double clicked
         connect(listView, &QListView::doubleClicked, [=](const QModelIndex& index) {
             PlayTrack(index);
             });
-    }
+    
 
     // Query for the default playlist
     odb::result<Playlist> playlists = database_context.query<Playlist>(odb::query<Playlist>::name == "DEFAULT");

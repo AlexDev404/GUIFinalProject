@@ -6,7 +6,7 @@
     <message>
         <location filename="mainwindow.ui" line="22"/>
         <source>MainWindow</source>
-        <translation>Ventana Principal</translation>
+        <translation type="unfinished">Música en Acción</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="99"/>
@@ -157,7 +157,7 @@
     <message>
         <location filename="mainwindow.ui" line="817"/>
         <source>[Local User] Settings</source>
-        <translation>Configuración [Usuario Local]</translation>
+        <translation>Tu configuración</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="824"/>
@@ -175,9 +175,7 @@ Usuarios</translation>
         <source>View Playlist</source>
         <translation>Ver Mezclas</translation>
     </message>
-   
-
- <message>
+    <message>
         <location filename="mainwindow.ui" line="894"/>
         <source>View Tracks</source>
         <translation>Ver Pistas</translation>
@@ -303,11 +301,6 @@ Ahora nadie te quiere.</translation>
         <location filename="mainwindow.ui" line="1808"/>
         <source>  Settings</source>
         <translation>Ajustes</translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="1832"/>
-        <source>  [USUARIO LOCAL]</source>
-        <translation>[USUARIO LOCAL]</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1856"/>

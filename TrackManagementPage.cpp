@@ -766,6 +766,8 @@ void MainWindow::deleteTrackfromPlaylistFromTrackManagement() {
 	// Get the content from the index
 	QStringList trackInfo = index.data().toString().split("\n");
 
+	if (trackInfo.size() < 3) return;
+
 	// Get the info from the split
 	// title
 	// album

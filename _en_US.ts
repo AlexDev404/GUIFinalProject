@@ -6,7 +6,7 @@
     <message>
         <location filename="mainwindow.ui" line="22"/>
         <source>MainWindow</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Music In Action</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="99"/>
@@ -155,11 +155,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="817"/>
-        <source>[Local User] Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="mainwindow.ui" line="824"/>
         <source>View or Edit Settings</source>
         <translation type="unfinished"></translation>
@@ -301,9 +296,9 @@ Nobody likes you now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1832"/>
-        <source>  [LOCAL USER]</source>
-        <translation type="unfinished"></translation>
+        <location filename="mainwindow.ui" line="817"/>
+        <source>Your settings</source>
+        <translation>Tu configuración</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1856"/>

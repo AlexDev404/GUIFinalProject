@@ -51,7 +51,7 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>11</number>
     </property>
     <widget class="QWidget" name="libraryDisplayPage">
      <widget class="QLabel" name="album_Image_ld">
@@ -1704,7 +1704,7 @@ border: 0;</string>
       <string notr="true">border: 1px solid #DBEAFE;</string>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string notr="true">TextLabel</string>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -1891,7 +1891,7 @@ border: 0;</string>
       <string notr="true"/>
      </property>
      <property name="text">
-      <string>  [LOCAL USER]</string>
+      <string notr="true">  [LOCAL USER]</string>
      </property>
     </widget>
     <widget class="QPushButton" name="your_playlists">
@@ -2056,7 +2056,7 @@ border-bottom-left-radius: 0;</string>
     <widget class="QFrame" name="adminModeRoleFrame">
      <property name="geometry">
       <rect>
-       <x>270</x>
+       <x>300</x>
        <y>3</y>
        <width>81</width>
        <height>30</height>
@@ -2090,7 +2090,7 @@ border-bottom-left-radius: 0;</string>
        </font>
       </property>
       <property name="text">
-       <string>ADMIN</string>
+       <string notr="true">ADMIN</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -2109,7 +2109,7 @@ border-bottom-left-radius: 0;</string>
      <x>0</x>
      <y>0</y>
      <width>1230</width>
-     <height>19</height>
+     <height>16</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

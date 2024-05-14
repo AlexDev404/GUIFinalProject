@@ -38,12 +38,11 @@ void MainWindow::LoadAllAlbumsPage() {
 		ui->allAlbumsListView->setContextMenuPolicy(Qt::CustomContextMenu);
 		// Open a context menu when the user right-clicks an item
 		connect(ui->allAlbumsListView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(ShowAlbumContextMenu(QPoint)));
-
+	}
 		// Call the PlayTrack function when the QStandardItem is double clicked
 		connect(ui->allAlbumsListView, &QListView::doubleClicked, [=](const QModelIndex& index) {
 			LoadPlayListDisplayPageAlbums(index);
 			});
-	}
 
 	// Query for the default playlist
 	odb::result<Albums> albums = database_context.query<Albums>();
