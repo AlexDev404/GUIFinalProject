@@ -51,7 +51,7 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="libraryDisplayPage">
      <widget class="QLabel" name="album_Image_ld">
@@ -528,7 +528,7 @@ border: 0;</string>
           <x>440</x>
           <y>150</y>
           <width>321</width>
-          <height>176</height>
+          <height>198</height>
          </rect>
         </property>
         <layout class="QFormLayout" name="formLayout_8">
@@ -771,7 +771,7 @@ border: 0;</string>
        <rect>
         <x>20</x>
         <y>20</y>
-        <width>231</width>
+        <width>801</width>
         <height>31</height>
        </rect>
       </property>
@@ -786,7 +786,7 @@ border: 0;</string>
        <string>Track Management</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignCenter</set>
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
     </widget>
@@ -1008,7 +1008,7 @@ Nobody likes you now.</string>
        <rect>
         <x>20</x>
         <y>20</y>
-        <width>131</width>
+        <width>801</width>
         <height>31</height>
        </rect>
       </property>
@@ -1022,7 +1022,7 @@ Nobody likes you now.</string>
        <string>All Albums</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignCenter</set>
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
      <widget class="QListView" name="allAlbumsListView">
@@ -1057,7 +1057,7 @@ Nobody likes you now.</string>
        <rect>
         <x>20</x>
         <y>20</y>
-        <width>121</width>
+        <width>791</width>
         <height>31</height>
        </rect>
       </property>
@@ -1072,7 +1072,7 @@ Nobody likes you now.</string>
        <string>All Tracks</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignCenter</set>
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
      <widget class="QListView" name="allTracksListView">
@@ -1140,7 +1140,7 @@ border: 0;</string>
        <rect>
         <x>20</x>
         <y>20</y>
-        <width>161</width>
+        <width>801</width>
         <height>31</height>
        </rect>
       </property>
@@ -1154,7 +1154,7 @@ border: 0;</string>
        <string>Current Users</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignCenter</set>
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
      <widget class="QPushButton" name="addButton_eup">
@@ -1459,10 +1459,10 @@ border: 0;</string>
      <widget class="QLabel" name="label_lp_1">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>20</x>
         <y>20</y>
-        <width>851</width>
-        <height>31</height>
+        <width>801</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="font">
@@ -1530,7 +1530,7 @@ border: 0;</string>
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>63</width>
+       <width>261</width>
        <height>21</height>
       </rect>
      </property>
@@ -2003,7 +2003,7 @@ border-bottom-left-radius: 0;</string>
      <x>0</x>
      <y>0</y>
      <width>1230</width>
-     <height>16</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

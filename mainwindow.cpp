@@ -26,7 +26,6 @@ MainWindow::MainWindow(QWidget *parent)
     LoadResources();
     qMain();
 
-    // connect(ui->reportTypeComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(LoadReportPage()));
 }
 
 void MainWindow::LoadResources(){
@@ -238,7 +237,7 @@ void MainWindow::on_languageButton_clicked()
 void MainWindow::switchToEnglish() {
 	// Change application language to English
 	QTranslator translator;
-	if (translator.load(":/otherfiles/assets/translations/EnglishTranslation_en.qm")) {
+	if (translator.load("_en_US.qm")) {
 		qDebug() << "English translation loaded successfully";
 		qApp->installTranslator(&translator);
 		ui->retranslateUi(this);
@@ -251,7 +250,7 @@ void MainWindow::switchToEnglish() {
 void MainWindow::switchToSpanish() {
 	// Change application language to Spanish
 	QTranslator translator;
-	if (translator.load(":/otherfiles/assets/translations/Translation_es_MX.qm")) {
+	if (translator.load("_es_MX.qm")) {
 		qDebug() << "Spanish translation loaded successfully";
 		qApp->installTranslator(&translator);
 		ui->retranslateUi(this);
@@ -306,11 +305,6 @@ void MainWindow::on_back_pa_clicked()
         odb::query<Track_Playlist>::track_id == (currentTrack.Id() - 1)); // Same thing but -1
 
     if (track_map_ == NULL) {
-        //QMessageBox msgBox;
-        //msgBox.setWindowTitle("Media error");
-        //msgBox.setIcon(QMessageBox::Critical);
-        //msgBox.setText("<FONT COLOR='BLACK'>The back button is unavailable at this time.</ FONT>");
-        //msgBox.exec();
         return;
     }
 
@@ -364,7 +358,7 @@ void MainWindow::on_forward_pa_clicked()
     odb::sqlite::database database_context = db.getDatabase();
     odb::transaction t(database_context.begin());
     Track_Playlist* track_map_ = database_context.query_one<Track_Playlist>(odb::query<Track_Playlist>::playlist_id == defaultPlaylist.Id() &&
-        odb::query<Track_Playlist>::track_id == (currentTrack.Id() + 1)); // Same thing but +1
+        odb::query<Track_Playlist>::track_id == (currentTrack.Id() + 1)); 
 
     // Are we at the end of the playlist?
     if (track_map_ == nullptr) {

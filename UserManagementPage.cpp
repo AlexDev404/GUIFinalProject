@@ -24,6 +24,7 @@ void MainWindow::LoadUserManagementPage() {
 	ui->userListView->setModel(model);
 	// Set the context menu to appear when the user right-clicks an item
 	ui->userListView->setContextMenuPolicy(Qt::CustomContextMenu);
+
 	// Open a context menu when the user right-clicks an item
 	connect(ui->userListView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(ShowUserContextMenu(QPoint)));
 

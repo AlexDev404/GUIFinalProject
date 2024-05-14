@@ -65,7 +65,7 @@ void MainWindow::LoadTrackManagementPage() {
 			// Get the track
 			Genres genre = *(genreIt);
 			
-			// Next: Create a QStandardItem and append it to the list of genres
+			// Create a QStandardItem and append it to the list of genres
 			QStandardItem* view = new QStandardItem(QString::fromStdString(std::to_string(genre.Id()) + "\n" + (genre.Title().empty() ? "No title" : genre.Title())));
 			view->setEditable(false);
 			
@@ -433,13 +433,6 @@ void MainWindow::addAlbumFromTrackManagement() {
 	Albums* album = database_context.query_one<Albums>(odb::query<Albums>::id == album_id);
 
 	if (album != NULL) {
-		//if (album->Title() == album_title) {
-		//    QMessageBox msgBox;
-		//    msgBox.setText("Album already exists.");
-		//    msgBox.setInformativeText("You cannot have two albums of the same name");
-		//    msgBox.exec();
-		//    return;
-		//}
 
 		// Edit the album
 		try {

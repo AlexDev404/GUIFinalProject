@@ -132,11 +132,11 @@ void MainWindow::LoadReportPage() {
         for (odb::result<Track_Playcount>::iterator trackNow = playCounts.begin(); trackNow != playCounts.end(); trackNow++) {
 
             // The track
-            Track track = *(trackNow->TrackId()); // we gotta loop through all the tracks and then group them 
+            Track track = *(trackNow->TrackId()); // loop through all the tracks and then group them 
             // but we have track each one individually
             Windows_Account user = *(trackNow->UserId());
             if (user.Id() == currentUser.Id()) {
-                Albums track_album = *(track.AlbumId()); // rtn lemme see whats up with micks..im back
+                Albums track_album = *(track.AlbumId());
 
                 bool found = false;
                 for (std::pair<int, int> album : album_count) {
@@ -145,7 +145,6 @@ void MainWindow::LoadReportPage() {
                         found = true;
                         break;
                     } // we're done sorting it so now we just have to trim the vector to 5 elements 
-                    // since those are the 5 most listened albums
                 }
                 if (!found) {
                     album_count.push_back(std::make_pair(track_album.Id(), trackNow->Count()));
@@ -159,9 +158,9 @@ void MainWindow::LoadReportPage() {
 
 		int rank = 1;
         bool albumFailed = false;
-        // u gotta get the album from the database tho
+        // Get the album from the database
         for (std::pair x: album_count) {
-            // u gotta retrieve the data from the database using the vector and assign it to the variables
+            // Retrieve the data from the database using the vector and assign it to the variables
             int album_id = x.first;
             Albums* albums_ = database_context.query_one<Albums>(odb::query<Albums>::id == album_id);
 
@@ -173,7 +172,7 @@ void MainWindow::LoadReportPage() {
 
             // Prepare the data
             Albums albums = *(albums_);
-            // Do a shitty ring-around to get the artist name
+            // Get the artist name
             odb::result<Track> track = database_context.query<Track>(odb::query<Track>::artist_id == albums.Id());
             // Let's do some void checks
             // Cast to void
@@ -182,8 +181,9 @@ void MainWindow::LoadReportPage() {
                 continue; // Quietly fail
             }
 
-            Artists artist = *(Artists*)(track_is_void); // Should be a valid artist now
+            Artists artist = *(Artists*)(track_is_void); // Valid artist now
             string album_artist = artist.Name();
+
             // Create a QStandardItem for the album
             QStandardItem* album = new QStandardItem(QString::fromStdString(std::string(std::string("#" + std::to_string(rank) + " ") + albums.Title() + "\n" + album_artist + "\nYou played this album " + std::to_string(x.second) + " time(s)")));
             // Set the hidden data

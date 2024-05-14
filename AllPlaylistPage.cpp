@@ -33,8 +33,10 @@ void MainWindow::LoadAllPlaylistPage() { // it's called that
     // Attach the model to the `PlaylistDisplayListView`
     auto model = new QStandardItemModel(this);
     ui->PlaylistDisplayListView->setModel(model);
+
 	// Set the context menu to appear when the user right-clicks an item
 	ui->PlaylistDisplayListView->setContextMenuPolicy(Qt::CustomContextMenu);
+
 	// Open a context menu when the user right-clicks an item
 	connect(ui->PlaylistDisplayListView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(ShowPlaylistContextMenu(QPoint)));
 
@@ -48,25 +50,16 @@ void MainWindow::LoadAllPlaylistPage() { // it's called that
         if(&it == NULL) continue; // Quietly fail
         Playlist playlist = *(it); // Get the playlist
 
-        /*
-          # What's left
-          1. Get the playlist name Aiyesha
-          2. Get the playlist year Mickali? **queue illuminati music**
-          3. Get the playlist duration
-
-          4. Display this information as a card on the UI
-          5. On double-click, redirect to libraryDisplayPage
-        */
-
         // Get the track_mapping of the first track of the playlist
         odb::result<Track_Playlist> track_mapping = database_context.query<Track_Playlist>(odb::query<Track_Playlist>::playlist_id == playlist.Id());
         void* track_playlist_ = &(*(track_mapping.begin())); // The first track
+
         if (track_playlist_ != NULL) {
             // Do a cast to get a valid object
-            Track_Playlist track_playlist = *(Track_Playlist*)(track_playlist_); // should work now (99% sure)
+            Track_Playlist track_playlist = *(Track_Playlist*)(track_playlist_);
             // Retrieve the track from the playlist
-            const Track* track_ = track_playlist.TrackId(); // Cuz this already returns a track.. ready :)to run? yess :) XDD
-            // hate this lmao
+            const Track* track_ = track_playlist.TrackId();
+            
             if (track_ == NULL) {
                 portionsFailed = true;
                 continue;
@@ -93,7 +86,7 @@ void MainWindow::LoadAllPlaylistPage() { // it's called that
             portionsFailed = true;
             //  continue;
         }
-        // i'll just observe then k **sad
+        
         // Get the playlist name
         string playlist_name = playlist.Name() == "DEFAULT"? "Your library": playlist.Name(); // Default playlist is the user's scanned library
         // Get the playlist year
@@ -128,14 +121,6 @@ void MainWindow::LoadAllPlaylistPage() { // it's called that
         ui->PlaylistDisplayListView->setIconSize(QSize(100, 100));
         model->appendRow(playlist_card);
     }
-
-    //if (portionsFailed) {
-    //    QMessageBox msgBox;
-    //    msgBox.setWindowTitle("Database error");
-    //    msgBox.setIcon(QMessageBox::Critical);
-    //    msgBox.setText("<FONT COLOR='BLACK'>Portions of the page could not be loaded.</ FONT>");
-    //    msgBox.exec();
-    //}
 
     t.commit(); // Dispose of the database context
 } 
@@ -177,7 +162,7 @@ void MainWindow::ShowPlaylistContextMenu(QPoint pos) {
         // Format of playlist as text: See above.
         std::string playlist_name_only_ = playlist_name.substr(0, playlist_name.find("(")); // Start at the beginning of the string, end at the opening "("
         Utility::trim(playlist_name_only_);
-        std::string playlist_name_only = playlist_name_only_ == "Your library" ? "DEFAULT" : playlist_name_only_; // Is this the default playlist? (the user's library)
+        std::string playlist_name_only = playlist_name_only_ == "Your library" ? "DEFAULT" : playlist_name_only_; // Check if it is this the default playlist (the user's library)
         // Start at the opening "(" end at the close ")"
         std::string playlist_year_only = playlist_name.substr(playlist_name.find("(") + 1, playlist_name.find(")") - playlist_name.find("(") - 1);
         Utility::trim(playlist_year_only);
@@ -216,7 +201,7 @@ void MainWindow::ShowPlaylistContextMenu(QPoint pos) {
             }
 
             if (playlist_to_delete->Name() == "DEFAULT") {
-                throw "Cannot delete your own library.";
+                throw QString("Cannot delete your own library.");
             }
 
             // Delete the album (cascade)
@@ -245,7 +230,7 @@ void MainWindow::ShowPlaylistContextMenu(QPoint pos) {
             QMessageBox msgBox;
             msgBox.setWindowTitle("Unknown error while deleting playlist");
             msgBox.setIcon(QMessageBox::Critical);
-            msgBox.setText(QString::fromStdString(std::string("Unknown exception while deleting the playlist.")));
+            msgBox.setText("Unknown exception while deleting the playlist.");
             msgBox.exec();
         }
         t.commit(); // Save the changes which part u wanna do :D 

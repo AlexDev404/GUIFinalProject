@@ -454,4 +454,8 @@
       <Filter>Resource Files\css</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <QtTranslation Include="_en_US.ts" />
+    <QtTranslation Include="_es_MX.ts" />
+  </ItemGroup>
 </Project>
