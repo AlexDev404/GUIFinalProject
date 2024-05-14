@@ -23,3 +23,11 @@ And include the generated files (excluding any `*.ixx` files) in the VS solution
 # Schema compile command (current)
 > odb -d sqlite -q -s Albums.hpp Artists.hpp Genres.hpp Playlist.hpp Roles.hpp Track.hpp Track_Playcount.hpp Track_Playlist.hpp WindowsAccount.hpp
 ```
+
+## The startup script
+After building you can run this command in order to run the compiled file
+```shell
+# From the root directory
+cd script
+_OnRelease.bat
+```
