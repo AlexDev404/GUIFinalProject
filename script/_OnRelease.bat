@@ -11,7 +11,9 @@ echo.
 set /p PROMPT=📦 Release Type (release/debug): 
 cd %PROMPT%
 echo ✅ Loading application...
+echo.
 call GUIFinalProject.exe
+echo.
 echo 🏁 Performing exit.
 timeout 2 > nil
 exit
