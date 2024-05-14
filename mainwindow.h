@@ -168,6 +168,7 @@ private:
     QString filePath;
     Track currentTrack = *(new Track("NO_NAME"));
     Windows_Account currentUser = *(new Windows_Account("NULL_USER"));
+	Roles* current_role = new Roles("NULL_ROLE");
 
     // Icons
     QIcon searchIcon;

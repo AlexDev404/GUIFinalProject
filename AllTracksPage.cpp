@@ -32,15 +32,18 @@ void MainWindow::LoadAllTracksPage(QListView* listView, QSize size, QSize icon_s
 
     auto model = new QStandardItemModel(this);
     listView->setModel(model);
-    // Set the context menu to appear when the user right-clicks an item
-    listView->setContextMenuPolicy(Qt::CustomContextMenu);
-    // Open a context menu when the user right-clicks an item
-    connect(listView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(ShowTracksContextMenu(QPoint)));
 
-    // Call the PlayTrack function when the QStandardItem is double clicked
-    connect(listView, &QListView::doubleClicked, [=](const QModelIndex& index) {
-        PlayTrack(index);
-        });
+    if (current_role->Name() == "Administrator") {
+        // Set the context menu to appear when the user right-clicks an item
+        listView->setContextMenuPolicy(Qt::CustomContextMenu);
+        // Open a context menu when the user right-clicks an item
+        connect(listView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(ShowTracksContextMenu(QPoint)));
+
+        // Call the PlayTrack function when the QStandardItem is double clicked
+        connect(listView, &QListView::doubleClicked, [=](const QModelIndex& index) {
+            PlayTrack(index);
+            });
+    }
 
     // Query for the default playlist
     odb::result<Playlist> playlists = database_context.query<Playlist>(odb::query<Playlist>::name == "DEFAULT");
