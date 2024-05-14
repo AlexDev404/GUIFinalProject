@@ -202,7 +202,6 @@ void MainWindow::LoadPlayListDisplayPagePlaylists(const QModelIndex& index) {
             setTopImage = true;
         }
         // Create a QStandardItem for the track
-        //trackView = new QStandardItem(QIcon(pixmap), QString::fromLatin1((track.Title().empty() ? track.FileName() : track.Title()) + "\n"));
         trackView = new QStandardItem(QString::fromLatin1((track.Title().empty() ? track.FileName() : track.Title()) + "\n"));
         QString albumRow = QString::fromStdString(track_album.Title());
         QString artistRow = QString::fromStdString(track_artist.Name());
