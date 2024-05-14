@@ -140,6 +140,20 @@ void MainWindow::qMain() {
 
     // Check if the user exists
     Windows_Account* query_user = database_context.query_one<Windows_Account>(odb::query<Windows_Account>::username == username);
+
+    // If the `currentUser` has the role of "Banned", then we should not allow them to use the application
+    Roles* current_role = (Roles*)(query_user->AccessLevel());
+    if (current_role->Name() == "Banned") {
+        // Disable all the navigation panes
+        ui->header->setVisible(false);
+		ui->play_area->setVisible(false);
+
+        ui->mainStackedWidget->setCurrentWidget(ui->userIsBannedPage);
+        t.commit();
+        return; // Abort the application
+    }
+
+
     if (query_user != nullptr) {
         // The user exists
         // Update the user's role
