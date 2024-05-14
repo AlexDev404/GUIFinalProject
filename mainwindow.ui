@@ -51,7 +51,7 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>9</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="libraryDisplayPage">
      <widget class="QLabel" name="album_Image_ld">
@@ -67,7 +67,10 @@
        <string notr="true">border: 1px solid #DBEAFE;</string>
       </property>
       <property name="text">
-       <string>TextLabel</string>
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="resources.qrc">:/otherfiles/assets/images/disk.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -218,7 +221,7 @@ border: 0;</string>
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="genres">
        <attribute name="title">
@@ -656,28 +659,6 @@ border: 0;</string>
        <attribute name="title">
         <string>Playlists</string>
        </attribute>
-       <widget class="QWidget" name="formLayoutWidget_5">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>70</y>
-          <width>183</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <layout class="QFormLayout" name="formLayout_9">
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="playlist_name"/>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_fp_24">
-           <property name="text">
-            <string>Name</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
        <widget class="QLabel" name="label_fp_16">
         <property name="geometry">
          <rect>
@@ -714,7 +695,7 @@ border: 0;</string>
        <widget class="QPushButton" name="addplaylisttrack">
         <property name="geometry">
          <rect>
-          <x>410</x>
+          <x>20</x>
           <y>410</y>
           <width>83</width>
           <height>29</height>
@@ -737,7 +718,7 @@ border: 0;</string>
        <widget class="QPushButton" name="deleteplaylisttrack">
         <property name="geometry">
          <rect>
-          <x>20</x>
+          <x>410</x>
           <y>410</y>
           <width>83</width>
           <height>29</height>
@@ -745,6 +726,42 @@ border: 0;</string>
         </property>
         <property name="text">
          <string>Delete</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="CreateNewPlaylist">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>80</y>
+          <width>81</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Create New</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="playlist_name">
+        <property name="geometry">
+         <rect>
+          <x>22</x>
+          <y>81</y>
+          <width>191</width>
+          <height>31</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_fp_24">
+        <property name="geometry">
+         <rect>
+          <x>23</x>
+          <y>59</y>
+          <width>151</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Playlist Name</string>
         </property>
        </widget>
       </widget>
@@ -1160,7 +1177,7 @@ border: 0;</string>
        <rect>
         <x>20</x>
         <y>20</y>
-        <width>801</width>
+        <width>351</width>
         <height>31</height>
        </rect>
       </property>
@@ -1175,7 +1192,7 @@ border: 0;</string>
        <string>Playlist</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignCenter</set>
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
      <widget class="QListView" name="PlaylistDisplayListView">
@@ -1340,7 +1357,7 @@ border: 0;</string>
          <x>20</x>
          <y>73</y>
          <width>279</width>
-         <height>41</height>
+         <height>61</height>
         </rect>
        </property>
        <property name="font">
@@ -1436,35 +1453,6 @@ border: 0;</string>
         <height>401</height>
        </rect>
       </property>
-     </widget>
-     <widget class="QWidget" name="layoutWidget_8">
-      <property name="geometry">
-       <rect>
-        <x>545</x>
-        <y>490</y>
-        <width>281</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="buttonFrame_srp">
-       <item>
-        <widget class="QPushButton" name="playButton_srp">
-         <property name="text">
-          <string>Play</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="addToLibraryButton_srp">
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="text">
-          <string>Add to Library</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
      </widget>
     </widget>
     <widget class="QWidget" name="languagePage">
@@ -2015,7 +2003,7 @@ border-bottom-left-radius: 0;</string>
      <x>0</x>
      <y>0</y>
      <width>1230</width>
-     <height>19</height>
+     <height>16</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -2033,6 +2021,8 @@ border-bottom-left-radius: 0;</string>
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

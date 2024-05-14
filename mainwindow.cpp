@@ -471,13 +471,20 @@ void MainWindow::on_editTrackSourceFile_clicked()
 
 void MainWindow::on_addplaylisttrack_clicked()
 {
-
+    this->addTrackfromPlaylistFromTrackManagement();
 }
 
 
 void MainWindow::on_deleteplaylisttrack_clicked()
 {
     // call the delete function
-    this->deleteTrackfromPlaylist();
+    this->deleteTrackfromPlaylistFromTrackManagement();
+}
+
+
+void MainWindow::on_CreateNewPlaylist_clicked()
+{
+    // Create a new playlist
+    this->createPlaylistFromTrackManagement();
 }
 

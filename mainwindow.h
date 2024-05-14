@@ -18,6 +18,9 @@
 #include <QAudioDevice>
 #include <QMediaDevices>
 
+#include <chrono>
+#include <ctime>
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -39,7 +42,7 @@ public:
 	void LoadReportPage();
     void LoadAllAlbumsPage();
     void LoadSearchResultPage();
-    void LoadTrackManagementPage(std::string playlistInfo = "");
+    void LoadTrackManagementPage();
     void PlayTrack(const QModelIndex& index);
     /// <summary>
     /// Expects database to be open. Sets the play area data. This is the data that is displayed when a track is played.
@@ -56,9 +59,11 @@ public:
     void deleteTrackFromTrackManagement();
     void addAlbumFromTrackManagement();
     void deleteAlbumFromTrackManagement();
+    void createPlaylistFromTrackManagement();
     void addTrackFromFolder();
 
-    void deleteTrackfromPlaylist();
+    void deleteTrackfromPlaylistFromTrackManagement();
+    void addTrackfromPlaylistFromTrackManagement();
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
@@ -136,10 +141,20 @@ private slots:
 
     void on_deleteplaylisttrack_clicked();
 
+    void on_CreateNewPlaylist_clicked();
+
 private:
     Ui::MainWindow* ui;
     // The database
     database db; // Format: SQLite
+    std::string playlistInfo = "";
+
+    // The current time as a time_point
+    std::chrono::system_clock::time_point Now = std::chrono::system_clock::now();
+	std::time_t current_time = std::chrono::system_clock::to_time_t(Now);
+	std::tm* time_info = std::localtime(&current_time);
+    // The year
+	int current_year = time_info->tm_year + 1900;
 
     // The only media player we need
     QMediaPlayer* player = new QMediaPlayer();
@@ -147,7 +162,7 @@ private:
     QImage image;
     QPixmap pixmap;
     QStandardItem* trackView;
-    Playlist defaultPlaylist = *(new Playlist("DEFAULT", "2022"));
+    Playlist defaultPlaylist = *(new Playlist("DEFAULT", std::to_string(current_year)));
     QUrl* track_url;
     QString folderPath;
     QString filePath;

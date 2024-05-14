@@ -57,9 +57,9 @@ public:
 // (Secret) To do list:
 // In order of difficulty 1/3
 /*
-    1. Playlist: Add  (3)
-                 Edit (3)
-                 ~Delete (4)~
+    1. Playlist: ~~Add  (3)~~
+                 ~~Edit (3)~~
+                 ~~Delete (4)~~
     2. Translation (1)
     3. Adding different user restrictions (2)
     
