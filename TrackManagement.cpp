@@ -24,6 +24,7 @@ int TrackManagement::AddTrack(std::string& fileLocation, Playlist& defaultPlayli
 
     TagLib::MPEG::File mpegFile(fileLocation.c_str());
     TagLib::ID3v2::Tag* id3v2tag = mpegFile.ID3v2Tag();
+    TagLib::ID3v2::FrameListMap frame_map;
     TagLib::ID3v2::FrameList frame;
     TagLib::ID3v2::AttachedPictureFrame* coverArt = NULL;
 
@@ -75,8 +76,17 @@ int TrackManagement::AddTrack(std::string& fileLocation, Playlist& defaultPlayli
 
 
     // Extract the album art
-    // Picture frame                              // 0x03 is the ID for the front cover image (APIC = "Attached PICture Frame")
-    frame = id3v2tag->frameListMap()["APIC"]; // "APIC" is the frame ID for attached picture frames in ID3v2 tags
+    // Picture frame                          // 0x03 is the ID for the front cover image (APIC = "Attached PICture Frame")
+    frame_map = id3v2tag->frameListMap(); // "APIC" is the frame ID for attached picture frames in ID3v2 tags
+	if (frame_map.isEmpty()) {
+		return 1;
+	}
+	// Does the frame map contain the "APIC" frame?
+	if (frame_map.find("APIC") == frame_map.end()) {
+		return 1;
+	}
+
+	frame = frame_map["APIC"];
     // There can be multiple "APIC" frames in a tag (e.g. one for the front cover, one for the back cover, etc.)
     if (!frame.isEmpty()) {
         for (TagLib::ID3v2::FrameList::ConstIterator it = frame.begin(); it != frame.end(); ++it) {
