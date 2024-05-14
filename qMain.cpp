@@ -141,8 +141,33 @@ void MainWindow::qMain() {
     // Check if the user exists
     Windows_Account* query_user = database_context.query_one<Windows_Account>(odb::query<Windows_Account>::username == username);
 
+    if (query_user != nullptr && query_user->AccessLevel() == NULL) {
+        // The user exists
+        // Update the user's role
+        query_user->SetAccessLevel(is_admin ? query_admin_roles : query_roles);
+        database_context.update(*query_user);
+
+        // Set the current user
+        currentUser = *query_user;
+    }
+    else if (query_user == nullptr) {
+        // Create the Windows_Account object
+        currentUser = Windows_Account(username, is_admin ? query_admin_roles : query_roles);
+
+        // Persist this new user
+        // This will be used to track the user's listening habits
+        database_context.persist(currentUser);
+    }
+    else if (query_user != nullptr) {
+        // Set the current user
+        currentUser = *query_user;
+    }
+
+    current_role = (Roles*)(currentUser.AccessLevel());
+	if (current_role == nullptr) {
+		current_role = query_roles;
+	}
     // If the `currentUser` has the role of "Banned", then we should not allow them to use the application
-    current_role = (Roles*)(query_user->AccessLevel());
     if (current_role->Name() == "Banned") {
         // Disable all the navigation panes
         ui->header->setVisible(false);
@@ -159,24 +184,7 @@ void MainWindow::qMain() {
         ui->managementTab_fp->setTabVisible(0, false);
         ui->managementTab_fp->setTabVisible(1, false);
         ui->managementTab_fp->setTabVisible(2, false);
-    }
-
-    if (query_user != nullptr) {
-        // The user exists
-        // Update the user's role
-        query_user->SetAccessLevel(is_admin ? query_admin_roles : query_roles);
-        database_context.update(*query_user);
-
-        // Set the current user
-        currentUser = *query_user;
-    }
-    else {
-        // Create the Windows_Account object
-        currentUser = Windows_Account(username, is_admin ? query_admin_roles : query_roles);
-
-        // Persist this new user
-        // This will be used to track the user's listening habits
-        database_context.persist(currentUser);
+		ui->adminModeRoleFrame->setVisible(false);
     }
 
     // Update the UI username field
@@ -187,7 +195,7 @@ void MainWindow::qMain() {
     t.commit();
 
     // Update the UI
-    LoadAllTracksPage(ui->allTracksListView, QSize(125, 175), QSize(100, 100));
+    ui->mainStackedWidget->setCurrentWidget(ui->welcomePage);
     LoadAllTracksPage(ui->libraryListView, QSize(125, 30), QSize(16, 16));
 
     // Connect our signals and slots
