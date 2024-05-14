@@ -70,7 +70,6 @@ void MainWindow::LoadAllAlbumsPage() {
 			continue;
 		}
 
-
 		// Get the image of the track
 		Track track = *(Track*)(track_);
 		TrackImage track_image = track.Image();
@@ -87,6 +86,7 @@ void MainWindow::LoadAllAlbumsPage() {
 		image = image.convertToFormat(QImage::Format_Indexed8); // Convert the image to an indexed 8-bit image
 		pixmap = QPixmap::fromImage(image).scaled(100, 100); // Standardize the icon size across all the tracks
 		image = *(new QImage);
+
 		// Create a QStandardItem for the track
 		trackView = new QStandardItem(QIcon(pixmap), QString::fromLatin1((album.Title().empty() ? "No title" : album.Title()) + "\n"));
 		QString albumYear = QString::fromStdString(album.ReleaseDate() == "0" ? "" : album.ReleaseDate());

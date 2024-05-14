@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="es_MX">
+<TS version="2.1" language="en_US">
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="mainwindow.ui" line="22"/>
         <source>MainWindow</source>
-        <translation>VentanaPrincipal</translation>
+        <translation>Ventana Principal</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="99"/>
-        <source>NOMBRE DEL ÁLBUM</source>
-        <translation>Nombre del Álbum</translation>
+        <source>ALBUM NAME</source>
+        <translation>NOMBRE DEL ÁLBUM</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="128"/>
-        <source>ARTISTA DEL ÁLBUM</source>
-        <translation>Artista del Álbum</translation>
+        <source>ALBUM ARTIST</source>
+        <translation>ARTISTA DEL ÁLBUM</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="157"/>
-        <source>AÑO DEL ÁLBUM</source>
-        <translation>Año del Álbum</translation>
+        <source>ALBUM YEAR</source>
+        <translation>AÑO DEL ÁLBUM</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="179"/>
-        <source>Reproducir</source>
+        <source>Play</source>
         <translation>Reproducir</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="228"/>
         <location filename="mainwindow.ui" line="257"/>
-        <source>Géneros</source>
+        <source>Genres</source>
         <translation>Géneros</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="273"/>
         <location filename="mainwindow.ui" line="471"/>
         <location filename="mainwindow.ui" line="618"/>
-        <source>Enviar</source>
+        <source>Submit</source>
         <translation>Enviar</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="292"/>
         <location filename="mainwindow.ui" line="405"/>
         <location filename="mainwindow.ui" line="541"/>
-        <source>Título</source>
+        <source>Title</source>
         <translation>Título</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="302"/>
         <location filename="mainwindow.ui" line="425"/>
         <location filename="mainwindow.ui" line="595"/>
-        <source>ID de la base de datos</source>
-        <translation>ID de la base de datos</translation>
+        <source>Database ID</source>
+        <translation>ID de Base de Datos</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="332"/>
-        <source>Editar detalles del género</source>
+        <source>Edit genre details</source>
         <translation>Editar detalles del género</translation>
     </message>
     <message>
@@ -65,243 +65,244 @@
         <location filename="mainwindow.ui" line="484"/>
         <location filename="mainwindow.ui" line="654"/>
         <location filename="mainwindow.ui" line="728"/>
-        <source>Borrar</source>
+        <source>Delete</source>
         <translation>Borrar</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="354"/>
         <location filename="mainwindow.ui" line="383"/>
         <location filename="mainwindow.ui" line="1277"/>
-        <source>Álbumes</source>
+        <source>Albums</source>
         <translation>Álbumes</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="415"/>
-        <source>Fecha de lanzamiento</source>
-        <translation>Fecha de lanzamiento</translation>
+        <source>Release date</source>
+        <translation>Fecha de Lanzamiento</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="455"/>
-        <source>Editar detalles del álbum</source>
+        <source>Edit album details</source>
         <translation>Editar detalles del álbum</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="490"/>
         <location filename="mainwindow.ui" line="509"/>
         <location filename="mainwindow.ui" line="1267"/>
-        <source>Pistas</source>
+        <source>Tracks</source>
         <translation>Pistas</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="551"/>
-        <source>Artista</source>
+        <source>Artist</source>
         <translation>Artista</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="561"/>
-        <source>Álbum</source>
+        <source>Album</source>
         <translation>Álbum</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="571"/>
-        <source>Género</source>
+        <source>Genre</source>
         <translation>Género</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="581"/>
-        <source>Archivo de origen</source>
-        <translation>Archivo de origen</translation>
+        <source>Source File</source>
+        <translation>Archivo Fuente</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="588"/>
-        <source>Seleccionar archivo</source>
-        <translation>Seleccionar archivo</translation>
+        <source>Select File</source>
+        <translation>Seleccionar Archivo</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="638"/>
-        <source>Editar detalles de la pista</source>
+        <source>Edit track details</source>
         <translation>Editar detalles de la pista</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="660"/>
-        <source>Listas de reproducción</source>
-        <translation>Listas de reproducción</translation>
+        <source>Playlists</source>
+        <translation>Mezclas</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="679"/>
-        <source>Lista de reproducción</source>
-        <translation>Lista de reproducción</translation>
+        <source>Playlist </source>
+        <translation>Mezclas</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="705"/>
         <location filename="mainwindow.ui" line="1170"/>
-        <source>Añadir</source>
+        <source>Add</source>
         <translation>Añadir</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="741"/>
-        <source>Crear nueva</source>
-        <translation>Crear nueva</translation>
+        <source>Create New</source>
+        <translation>Crear Nuevo</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="764"/>
-        <source>Nombre de la lista de reproducción</source>
-        <translation>Nombre de la lista de reproducción</translation>
+        <source>Playlist Name</source>
+        <translation>Nombre de Mezclas</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="786"/>
         <location filename="mainwindow.ui" line="868"/>
-        <source>Gestión de pistas</source>
-        <translation>Gestión de pistas</translation>
+        <source>Track Management</source>
+        <translation type="unfinished">Administración</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="817"/>
-        <source>Configuración de [Usuario Local]</source>
-        <translation>Configuración de [Usuario Local]</translation>
+        <source>[Local User] Settings</source>
+        <translation>Configuración [Usuario Local]</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="824"/>
-        <source>Ver o editar configuración</source>
-        <translation>Ver o editar configuración</translation>
+        <source>View or Edit Settings</source>
+        <translation>Ver o Editar Configuración</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="855"/>
-        <source>Gestión de usuarios</source>
-        <translation>Gestión de usuarios</translation>
+        <source>User Management</source>
+        <translation>Administración de
+Usuarios</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="881"/>
-        <source>Ver lista de reproducción</source>
-        <translation>Ver lista de reproducción</translation>
+        <source>View Playlist</source>
+        <translation>Ver Mezclas</translation>
     </message>
    
 
  <message>
         <location filename="mainwindow.ui" line="894"/>
-        <source>Ver pistas</source>
-        <translation>Ver pistas</translation>
+        <source>View Tracks</source>
+        <translation>Ver Pistas</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="907"/>
-        <source>Ver álbumes</source>
-        <translation>Ver álbumes</translation>
+        <source>View Albums</source>
+        <translation>Ver Álbumes</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="920"/>
         <location filename="mainwindow.ui" line="1476"/>
-        <source>Idioma</source>
+        <source>Language</source>
         <translation>Idioma</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="936"/>
         <location filename="mainwindow.ui" line="1298"/>
         <location filename="mainwindow.ui" line="1409"/>
-        <source>Reportes</source>
-        <translation>Reportes</translation>
+        <source>Reports</source>
+        <translation>Informes</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="964"/>
-        <source>Prohibido</source>
+        <source>Banned</source>
         <translation>Prohibido</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="991"/>
-        <source>¡Gran trabajo!
-Ahora nadie te quiere.</source>
-        <translation>¡Gran trabajo!
+        <source>Great work!
+Nobody likes you now.</source>
+        <translation>¡Gran trabajo! 
 Ahora nadie te quiere.</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1022"/>
-        <source>Todos los álbumes</source>
-        <translation>Todos los álbumes</translation>
+        <source>All Albums</source>
+        <translation>Todos los Álbumes</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1072"/>
-        <source>Todas las pistas</source>
-        <translation>Todas las pistas</translation>
+        <source>All Tracks</source>
+        <translation>Todas las Pistas</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1123"/>
-        <source>Añadir más</source>
-        <translation>Añadir más</translation>
+        <source>Add more</source>
+        <translation>Añadir Más</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1154"/>
-        <source>Usuarios actuales</source>
-        <translation>Usuarios actuales</translation>
+        <source>Current Users</source>
+        <translation>Usuarios Actuales</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1192"/>
-        <source>Lista de reproducción</source>
-        <translation>Lista de reproducción</translation>
+        <source>Playlist</source>
+        <translation>Mezclas</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1243"/>
-        <source>Más escuchadas</source>
-        <translation>Más escuchadas</translation>
+        <source>Top Listened to</source>
+        <translation>Más Escuchadas</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1262"/>
-        <source>Seleccionar un reporte</source>
-        <translation>Seleccionar un reporte</translation>
+        <source>Choose a report</source>
+        <translation>Elija un informe</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1272"/>
-        <source>Artistas</source>
+        <source>Artists</source>
         <translation>Artistas</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1333"/>
-        <source>Limpiar</source>
-        <translation>Limpiar</translation>
+        <source>Clear</source>
+        <translation>Borrar</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1375"/>
-        <source>Elige una funcionalidad para empezar.</source>
+        <source>Choose a functionality to begin.</source>
         <translation>Elige una funcionalidad para empezar.</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1441"/>
-        <source>Resultado de la búsqueda...</source>
-        <translation>Resultado de la búsqueda...</translation>
+        <source>Search Result...</source>
+        <translation>Resultado de la Búsqueda...</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1492"/>
-        <source>    Inglés</source>
-        <translation>Inglés</translation>
+        <source>    English</source>
+        <translation>    Inglés</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1505"/>
-        <source>    Español</source>
-        <translation>Español</translation>
+        <source>    Spanish</source>
+        <translation>    Español</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1549"/>
-        <source>Biblioteca</source>
+        <source>Library</source>
         <translation>Biblioteca</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1620"/>
-        <source>Escucha una canción primero.</source>
+        <source>Listen to a song first.</source>
         <translation>Escucha una canción primero.</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1645"/>
-        <source>Etiqueta de texto</source>
-        <translation>Etiqueta de texto</translation>
+        <source>TextLabel</source>
+        <translation>EtiquetaTexto</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1678"/>
         <location filename="mainwindow.ui" line="1759"/>
         <location filename="mainwindow.ui" line="1881"/>
-        <source>Música en acción</source>
-        <translation>Música en acción</translation>
+        <source>Music In Action</source>
+        <translation>Música en Acción</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1808"/>
-        <source>  Configuración</source>
-        <translation>Configuración</translation>
+        <source>  Settings</source>
+        <translation>Ajustes</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1832"/>
@@ -310,39 +311,39 @@ Ahora nadie te quiere.</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1856"/>
-        <source>Tus listas de reproducción</source>
-        <translation>Tus listas de reproducción</translation>
+        <source>Your playlists</source>
+        <translation>Mezclas</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1905"/>
-        <source>Todas las pistas</source>
-        <translation>Todas las pistas</translation>
+        <source>All tracks</source>
+        <translation>Pistas</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1929"/>
-        <source>Todos los álbumes</source>
-        <translation>Todos los álbumes</translation>
+        <source>All albums</source>
+        <translation>Álbumes</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="1970"/>
-        <source>Buscar álbumes, listas de reproducción, pistas, ...</source>
+        <source>Search for albums, playlists, tracks, ...</source>
         <translation>Buscar álbumes, listas de reproducción, pistas, ...</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="2011"/>
-        <source>Archivo</source>
+        <source>File</source>
         <translation>Archivo</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="2020"/>
         <location filename="TrackManagement.cpp" line="149"/>
-        <source>Abrir carpeta</source>
-        <translation>Abrir carpeta</translation>
+        <source>Open Folder</source>
+        <translation>Abrir Carpeta</translation>
     </message>
     <message>
         <location filename="TrackManagementPage.cpp" line="627"/>
-        <source>Abrir archivo</source>
-        <translation>Abrir archivo</translation>
+        <source>Open File</source>
+        <translation>Abrir Archivo</translation>
     </message>
 </context>
 </TS>

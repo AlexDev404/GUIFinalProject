@@ -54,12 +54,13 @@ void MainWindow::LoadAllPlaylistPage() { // it's called that
         // Get the track_mapping of the first track of the playlist
         odb::result<Track_Playlist> track_mapping = database_context.query<Track_Playlist>(odb::query<Track_Playlist>::playlist_id == playlist.Id());
         void* track_playlist_ = &(*(track_mapping.begin())); // The first track
+
         if (track_playlist_ != NULL) {
             // Do a cast to get a valid object
-            Track_Playlist track_playlist = *(Track_Playlist*)(track_playlist_); // should work now (99% sure)
+            Track_Playlist track_playlist = *(Track_Playlist*)(track_playlist_);
             // Retrieve the track from the playlist
-            const Track* track_ = track_playlist.TrackId(); // Cuz this already returns a track.. ready :)to run? yess :) XDD
-            // hate this lmao
+            const Track* track_ = track_playlist.TrackId();
+            
             if (track_ == NULL) {
                 portionsFailed = true;
                 continue;
@@ -121,14 +122,6 @@ void MainWindow::LoadAllPlaylistPage() { // it's called that
         model->appendRow(playlist_card);
     }
 
-    //if (portionsFailed) {
-    //    QMessageBox msgBox;
-    //    msgBox.setWindowTitle("Database error");
-    //    msgBox.setIcon(QMessageBox::Critical);
-    //    msgBox.setText("<FONT COLOR='BLACK'>Portions of the page could not be loaded.</ FONT>");
-    //    msgBox.exec();
-    //}
-
     t.commit(); // Dispose of the database context
 }
 
@@ -178,7 +171,7 @@ void MainWindow::ShowPlaylistContextMenu(QPoint pos) {
         // Format of playlist as text: See above.
         std::string playlist_name_only_ = playlist_name.substr(0, playlist_name.find("(")); // Start at the beginning of the string, end at the opening "("
         Utility::trim(playlist_name_only_);
-        std::string playlist_name_only = playlist_name_only_ == "Your library" ? "DEFAULT" : playlist_name_only_; // Is this the default playlist? (the user's library)
+        std::string playlist_name_only = playlist_name_only_ == "Your library" ? "DEFAULT" : playlist_name_only_; // Check if it is this the default playlist (the user's library)
         // Start at the opening "(" end at the close ")"
         std::string playlist_year_only = playlist_name.substr(playlist_name.find("(") + 1, playlist_name.find(")") - playlist_name.find("(") - 1);
         Utility::trim(playlist_year_only);
@@ -217,7 +210,7 @@ void MainWindow::ShowPlaylistContextMenu(QPoint pos) {
             }
 
             if (playlist_to_delete->Name() == "DEFAULT") {
-                throw "Cannot delete your own library.";
+                throw QString("Cannot delete your own library.");
             }
 
             // Delete the album (cascade)
@@ -246,7 +239,7 @@ void MainWindow::ShowPlaylistContextMenu(QPoint pos) {
             QMessageBox msgBox;
             msgBox.setWindowTitle("Unknown error while deleting playlist");
             msgBox.setIcon(QMessageBox::Critical);
-            msgBox.setText(QString::fromStdString(std::string("Unknown exception while deleting the playlist.")));
+            msgBox.setText("Unknown exception while deleting the playlist.");
             msgBox.exec();
         }
         t.commit(); // Save the changes which part u wanna do :D 
