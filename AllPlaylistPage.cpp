@@ -33,30 +33,23 @@ void MainWindow::LoadAllPlaylistPage() { // it's called that
     // Attach the model to the `PlaylistDisplayListView`
     auto model = new QStandardItemModel(this);
     ui->PlaylistDisplayListView->setModel(model);
-	// Set the context menu to appear when the user right-clicks an item
-	ui->PlaylistDisplayListView->setContextMenuPolicy(Qt::CustomContextMenu);
-	// Open a context menu when the user right-clicks an item
-	connect(ui->PlaylistDisplayListView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(ShowPlaylistContextMenu(QPoint)));
+
+
+    // Set the context menu to appear when the user right-clicks an item
+    ui->PlaylistDisplayListView->setContextMenuPolicy(Qt::CustomContextMenu);
+    // Open a context menu when the user right-clicks an item
+    connect(ui->PlaylistDisplayListView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(ShowPlaylistContextMenu(QPoint)));
 
     connect(ui->PlaylistDisplayListView, &QListView::doubleClicked, [=](const QModelIndex& index) {
         LoadPlayListDisplayPagePlaylists(index);
         });
+
     bool portionsFailed = false;
 
     // Populate the `libraryDisplayListView`
-    for(odb::result<Playlist>::iterator it = playlist_ptr.begin(); it != playlist_ptr.end(); it++){
-        if(&it == NULL) continue; // Quietly fail
+    for (odb::result<Playlist>::iterator it = playlist_ptr.begin(); it != playlist_ptr.end(); it++) {
+        if (&it == NULL) continue; // Quietly fail
         Playlist playlist = *(it); // Get the playlist
-
-        /*
-          # What's left
-          1. Get the playlist name Aiyesha
-          2. Get the playlist year Mickali? **queue illuminati music**
-          3. Get the playlist duration
-
-          4. Display this information as a card on the UI
-          5. On double-click, redirect to libraryDisplayPage
-        */
 
         // Get the track_mapping of the first track of the playlist
         odb::result<Track_Playlist> track_mapping = database_context.query<Track_Playlist>(odb::query<Track_Playlist>::playlist_id == playlist.Id());
@@ -93,26 +86,25 @@ void MainWindow::LoadAllPlaylistPage() { // it's called that
             portionsFailed = true;
             //  continue;
         }
-        // i'll just observe then k **sad
         // Get the playlist name
-        string playlist_name = playlist.Name() == "DEFAULT"? "Your library": playlist.Name(); // Default playlist is the user's scanned library
+        string playlist_name = playlist.Name() == "DEFAULT" ? "Your library" : playlist.Name(); // Default playlist is the user's scanned library
         // Get the playlist year
-        string playlist_year = playlist.Year(); 
+        string playlist_year = playlist.Year();
 
         // Get the playlist duration
         double playlist_duration = playlist.Duration();
         QImage placeholder_;
         placeholder_.load(":/otherfiles/assets/images/album.png");
-		QPixmap placeholder = QPixmap::fromImage(placeholder_).scaled(100, 100);
+        QPixmap placeholder = QPixmap::fromImage(placeholder_).scaled(100, 100);
 
         // Display this information as a card on the UI
         QStandardItem* playlist_card = new QStandardItem(
-            (portionsFailed == false? QIcon(pixmap): QIcon(placeholder)), // The icon
+            (portionsFailed == false ? QIcon(pixmap) : QIcon(placeholder)), // The icon
             QString::fromStdString( // The text
-                std::string(playlist_name + " (" + playlist_year + ")" + "\n" 
-                            + "Length: " + std::to_string(playlist_duration/60)
-                            )
+                std::string(playlist_name + " (" + playlist_year + ")" + "\n"
+                    + "Length: " + std::to_string(playlist_duration / 60)
                 )
+            )
         );
 
         // The user should not be able to edit this
@@ -138,7 +130,7 @@ void MainWindow::LoadAllPlaylistPage() { // it's called that
     //}
 
     t.commit(); // Dispose of the database context
-} 
+}
 
 
 
@@ -166,6 +158,15 @@ void MainWindow::ShowPlaylistContextMenu(QPoint pos) {
         # As a one-liner
         PLAYLIST_NAME (PLAYLIST_YEAR)\nDuration: PLAYLIST_DURATION/60 minutes
         */
+
+		if (current_role->Name() != "Administrator") {
+			QMessageBox msgBox;
+			msgBox.setWindowTitle("Error while deleting playlist");
+			msgBox.setIcon(QMessageBox::Critical);
+			msgBox.setText("<FONT COLOR='BLACK'>You do not have the permission to delete playlists.</ FONT>");
+			msgBox.exec();
+			return;
+		}
 
         // Get the currently selected playlist on the playlist page and extract information from it
         QStandardItemModel* model = (QStandardItemModel*)ui->PlaylistDisplayListView->model(); // Convert it into an item model

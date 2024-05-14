@@ -113,10 +113,10 @@ void MainWindow::qMain() {
 
     Roles* query_roles = database_context.query_one<Roles>(odb::query<Roles>::name == "User");
     if (query_roles == nullptr) {
-		Roles user_role("User");
+        Roles user_role("User");
         query_roles = &user_role;
-		database_context.persist(user_role);
-	}
+        database_context.persist(user_role);
+    }
 
     Roles* query_admin_roles = database_context.query_one<Roles>(odb::query<Roles>::name == "Administrator");
     if (query_admin_roles == nullptr) {
@@ -142,17 +142,24 @@ void MainWindow::qMain() {
     Windows_Account* query_user = database_context.query_one<Windows_Account>(odb::query<Windows_Account>::username == username);
 
     // If the `currentUser` has the role of "Banned", then we should not allow them to use the application
-    Roles* current_role = (Roles*)(query_user->AccessLevel());
+    current_role = (Roles*)(query_user->AccessLevel());
     if (current_role->Name() == "Banned") {
         // Disable all the navigation panes
         ui->header->setVisible(false);
-		ui->play_area->setVisible(false);
+        ui->play_area->setVisible(false);
 
         ui->mainStackedWidget->setCurrentWidget(ui->userIsBannedPage);
         t.commit();
         return; // Abort the application
     }
 
+    if (current_role->Name() == "User") {
+        // Hide some options
+		ui->userManagementButton->setVisible(false);
+        ui->managementTab_fp->setTabVisible(0, false);
+        ui->managementTab_fp->setTabVisible(1, false);
+        ui->managementTab_fp->setTabVisible(2, false);
+    }
 
     if (query_user != nullptr) {
         // The user exists
