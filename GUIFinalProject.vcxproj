@@ -369,6 +369,10 @@
     <Image Include="assets\images\user.png" />
     <Image Include="assets\images\user_big.png" />
   </ItemGroup>
+  <ItemGroup>
+    <QtTranslation Include="_en_US.ts" />
+    <QtTranslation Include="_es_MX.ts" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <Import Project="$(QtMsBuild)\qt.targets" Condition="Exists('$(QtMsBuild)\qt.targets')" />
   <ImportGroup Label="ExtensionTargets" />
