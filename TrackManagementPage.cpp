@@ -697,6 +697,14 @@ void MainWindow::addTrackfromPlaylistFromTrackManagement() {
 
 		// Initiate the query
 		Playlist* playlist = database_context.query_one<Playlist>(odb::query<Playlist>::name == playlist_name);
+		if (playlist == NULL) {
+			QMessageBox msgbox;
+			msgbox.setIcon(QMessageBox::Critical);
+			msgbox.setText("Playlist does not exist.");
+			msgbox.setInformativeText("You cannot add a track to a playlist that does not exist. Please click on the \"Create\" button and try again.");
+			msgbox.exec();
+			return;
+		}
 
 		// Is this a track in the playlist
 		Track_Playlist* track_mapping = database_context.query_one<Track_Playlist>(odb::query<Track_Playlist>::playlist_id == playlist->Id() 
@@ -799,7 +807,7 @@ void MainWindow::deleteTrackfromPlaylistFromTrackManagement() {
 		Playlist* playlist = database_context.query_one<Playlist>(odb::query<Playlist>::name == playlist_name);
 		if (playlist == NULL) return;
 		// Get the track_mapping
-		Track_Playlist* track_mapping = database_context.query_one<Track_Playlist>(odb::query<Track_Playlist>::id == playlist->Id()
+		Track_Playlist* track_mapping = database_context.query_one<Track_Playlist>(odb::query<Track_Playlist>::playlist_id == playlist->Id()
 																				&& odb::query<Track_Playlist>::track_id == track->Id());
 		if (track_mapping == NULL) return;
 		// Delete the albums
