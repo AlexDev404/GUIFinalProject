@@ -36,10 +36,6 @@ void MainWindow::LoadPlayListDisplayPageAlbums(const QModelIndex& index) {
     // Creator of playlist / Year of album
 	ui->artist_ld->setText(playlistInfo[1]);
 
-    // Blank this out. It's unused
-	ui->published_ld->setText("");
-
-
 	// Is this an album?
     Albums* track_album = database_context.query_one<Albums>(odb::query<Albums>::title == playlistInfo[0].toStdString() && odb::query<Albums>::release_date == playlistInfo[1].toStdString());
 
@@ -85,6 +81,13 @@ void MainWindow::LoadPlayListDisplayPageAlbums(const QModelIndex& index) {
             if (ui->album_Image_ld->pixmap().isNull() || (ui->album_Image_ld->pixmap().data_ptr() != pixmap.data_ptr())) {
                 ui->album_Image_ld->setPixmap(pixmap);
             }
+
+            // Let's also set the album genre to the first track's genre
+            Genres* track_genre = (Genres*)(track.GenreId());
+            if (track_genre != NULL) {
+                ui->published_ld->setText(QString::fromStdString(track_genre->Title()));
+            }
+
             setTopImage = true;
         }
 
