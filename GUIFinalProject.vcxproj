@@ -207,6 +207,7 @@
     <ClCompile Include="Albums-odb.cxx" />
     <ClCompile Include="Albums-odb.ixx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Albums.cpp" />
     <ClCompile Include="AllAlbumsPage.cpp" />
@@ -215,12 +216,14 @@
     <ClCompile Include="Artists-odb.cxx" />
     <ClCompile Include="Artists-odb.ixx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Artists.cpp" />
     <ClCompile Include="database.cpp" />
     <ClCompile Include="Genres-odb.cxx" />
     <ClCompile Include="Genres-odb.ixx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Genres.cpp" />
     <ClCompile Include="main.cpp" />
@@ -228,6 +231,7 @@
     <ClCompile Include="Playlist-odb.cxx" />
     <ClCompile Include="Playlist-odb.ixx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Playlist.cpp" />
     <ClCompile Include="PlayListDisplayPage.cpp" />
@@ -236,12 +240,14 @@
     <ClCompile Include="Roles-odb.cxx" />
     <ClCompile Include="Roles-odb.ixx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Roles.cpp" />
     <ClCompile Include="SearchResultPage.cpp" />
     <ClCompile Include="Track-odb.cxx" />
     <ClCompile Include="Track-odb.ixx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Track.cpp" />
     <ClCompile Include="TrackImage.cpp" />
@@ -250,17 +256,20 @@
     <ClCompile Include="Track_Playcount-odb.cxx" />
     <ClCompile Include="Track_Playcount-odb.ixx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Track_Playcount.cpp" />
     <ClCompile Include="Track_Playlist-odb.cxx" />
     <ClCompile Include="Track_Playlist-odb.ixx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Track_Playlist.cpp" />
     <ClCompile Include="UserManagementPage.cpp" />
     <ClCompile Include="WindowsAccount-odb.cxx" />
     <ClCompile Include="WindowsAccount-odb.ixx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="WindowsAccount.cpp" />
   </ItemGroup>
