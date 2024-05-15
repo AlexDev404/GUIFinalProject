@@ -463,6 +463,5 @@
   <ItemGroup>
     <QtTranslation Include="_en_US.ts" />
     <QtTranslation Include="_es_MX.ts" />
-    <QtTranslation Include="Translation_es_MX.ts" />
   </ItemGroup>
 </Project>
