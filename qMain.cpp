@@ -140,11 +140,14 @@ void MainWindow::qMain() {
 
     // Check if the user exists
     Windows_Account* query_user = database_context.query_one<Windows_Account>(odb::query<Windows_Account>::username == username);
+	// Check if the database is empty
+	odb::result<Windows_Account> all_users = database_context.query<Windows_Account>();
+	bool is_empty = all_users.begin() == all_users.end();
 
     if (query_user != nullptr && query_user->AccessLevel() == NULL) {
         // The user exists
         // Update the user's role
-        query_user->SetAccessLevel(is_admin ? query_admin_roles : query_roles);
+        query_user->SetAccessLevel(is_admin ? query_admin_roles : (is_empty? query_admin_roles: query_roles));
         database_context.update(*query_user);
 
         // Set the current user
@@ -152,7 +155,7 @@ void MainWindow::qMain() {
     }
     else if (query_user == nullptr) {
         // Create the Windows_Account object
-        currentUser = Windows_Account(username, is_admin ? query_admin_roles : query_roles);
+        currentUser = Windows_Account(username, is_admin ? query_admin_roles : (is_empty ? query_admin_roles : query_roles));
 
         // Persist this new user
         // This will be used to track the user's listening habits
